@@ -1,1 +1,1 @@
-# testAngularJS-Laravel-Go
+# testAngular-Laravel-Go
