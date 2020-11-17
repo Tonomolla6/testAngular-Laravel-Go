@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { ArticleListComponent, ArticleMetaComponent, ArticlePreviewComponent } from './article-helpers';
+import { DiscotecaListComponent, DiscotecaMetaComponent, DiscotecaPreviewComponent } from './discoteca-helpers';
 import { FavoriteButtonComponent, FollowButtonComponent } from './buttons';
 import { ListErrorsComponent } from './list-errors.component';
 import { ShowAuthedDirective } from './show-authed.directive';
@@ -21,6 +22,9 @@ import { ShowAuthedDirective } from './show-authed.directive';
     ArticleListComponent,
     ArticleMetaComponent,
     ArticlePreviewComponent,
+    DiscotecaListComponent,
+    DiscotecaMetaComponent,
+    DiscotecaPreviewComponent,
     FavoriteButtonComponent,
     FollowButtonComponent,
     ListErrorsComponent,
@@ -30,6 +34,9 @@ import { ShowAuthedDirective } from './show-authed.directive';
     ArticleListComponent,
     ArticleMetaComponent,
     ArticlePreviewComponent,
+    DiscotecaListComponent,
+    DiscotecaMetaComponent,
+    DiscotecaPreviewComponent,
     CommonModule,
     FavoriteButtonComponent,
     FollowButtonComponent,

@@ -1,0 +1,29 @@
+<app-discoteca-preview
+  *ngFor="let discoteca of results"
+  [discoteca]="discoteca">
+</app-discoteca-preview>
+
+<div class="app-discoteca-preview"
+  [hidden]="!loading">
+  Loading discotecas...
+</div>
+
+<div class="app-discoteca-preview"
+  [hidden]="loading || results.length">
+  No discotecas are here... yet.
+</div>
+
+<nav [hidden]="loading || totalPages.length <= 1">
+  <ul class="pagination">
+
+    <li class="page-item"
+      [ngClass]="{'active': pageNumber === currentPage}"
+      *ngFor="let pageNumber of totalPages"
+      (click)="setPageTo(pageNumber)">
+
+      <a class="page-link" >{{ pageNumber }}</a>
+
+    </li>
+
+  </ul>
+</nav>
