@@ -14,6 +14,7 @@ export class DiscotecaListComponent {
   @Input() limit: number;
   @Input()
   set config(config: DiscotecaListConfig) {
+    console.log("Dentro del set config discotecaListConfig");
     if (config) {
       this.query = config;
       this.currentPage = 1;
@@ -33,6 +34,7 @@ export class DiscotecaListComponent {
   }
 
   runQuery() {
+    console.log("Dentro del run query del discoteca list config");
     this.loading = true;
     this.results = [];
 
