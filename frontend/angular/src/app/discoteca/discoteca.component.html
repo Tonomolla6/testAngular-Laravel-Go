@@ -71,11 +71,11 @@
           </button>
         </span>
 
-        <span [hidden]="canModify">
+        <!-- <span [hidden]="canModify">
           <app-follow-button
             [profile]="discoteca.author"
             (toggle)="onToggleFollowing($event)">
-          </app-follow-button>
+          </app-follow-button> -->
 
           <!-- <app-favorite-button
             [discoteca]="discoteca"
@@ -115,11 +115,11 @@
           <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">sign up</a> to add comments on this discoteca.
         </div>
 
-        <app-discoteca-comment
+        <!-- <app-discoteca-comment
           *ngFor="let comment of comments"
           [comment]="comment"
           (deleteComment)="onDeleteComment(comment)">
-        </app-discoteca-comment>
+        </app-discoteca-comment> -->
 
       </div>
     </div>

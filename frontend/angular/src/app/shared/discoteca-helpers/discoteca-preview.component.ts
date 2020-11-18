@@ -7,15 +7,15 @@ import { Discoteca } from '../../core';
   templateUrl: './discoteca-preview.component.html'
 })
 export class DiscotecaPreviewComponent {
-  @Input() discoteca: Discoteca;
+  // @Input() discoteca: Discoteca;
 
-  onToggleFavorite(favorited: boolean) {
-    this.discoteca['favorited'] = favorited;
+  // onToggleFavorite(favorited: boolean) {
+  //   this.discoteca['favorited'] = favorited;
 
-    if (favorited) {
-      this.discoteca['favoritesCount']++;
-    } else {
-      this.discoteca['favoritesCount']--;
-    }
-  }
+  //   if (favorited) {
+  //     this.discoteca['favoritesCount']++;
+  //   } else {
+  //     this.discoteca['favoritesCount']--;
+  //   }
+  // }
 }

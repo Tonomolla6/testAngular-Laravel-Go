@@ -1,22 +1,25 @@
 <div class="discoteca-preview">
-  <app-discoteca-meta [discoteca]="discoteca">
+  <!-- <app-discoteca-meta [discoteca]="discoteca">
     <app-favorite-button
       [discoteca]="discoteca"
       (toggle)="onToggleFavorite($event)"
       class="pull-xs-right">
       {{discoteca.favoritesCount}}
     </app-favorite-button>
-  </app-discoteca-meta>
+  </app-discoteca-meta> -->
 
   <a [routerLink]="['/discoteca', discoteca.slug]" class="preview-link">
-    <h1>{{ discoteca.title }}</h1>
-    <p>{{ discoteca.description }}</p>
+    <h1>{{ discoteca.name }}</h1>
+    <p>{{ discoteca.company }}</p>
     <span>Read more...</span>
-    <ul class="tag-list">
+
+
+    <!-- En vez de tags, estarán los eventos, asi el usuario podrá filtrar las discotecas por los eventos -->
+    <!-- <ul class="tag-list">
       <li class="tag-default tag-pill tag-outline"
         *ngFor="let tag of discoteca.tagList">
         {{ tag }}
       </li>
-    </ul>
+    </ul> -->
   </a>
 </div>
