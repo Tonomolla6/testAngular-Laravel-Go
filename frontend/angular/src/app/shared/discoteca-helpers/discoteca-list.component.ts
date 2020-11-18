@@ -44,8 +44,11 @@ export class DiscotecaListComponent {
       this.query.filters.offset =  (this.limit * (this.currentPage - 1));
     }
 
+    console.log("Antes del query");
     this.discotecasService.query(this.query)
     .subscribe(data => {
+      console.log("DATA");
+      console.log(data);
       this.loading = false;
       this.results = data.discotecas;
 
