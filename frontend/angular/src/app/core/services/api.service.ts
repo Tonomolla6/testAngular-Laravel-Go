@@ -17,9 +17,28 @@ export class ApiService {
     return  throwError(error.error);
   }
 
-  get(path: string, params: HttpParams = new HttpParams(), headers: HttpHeaders = new HttpHeaders()): Observable<any> {
-    console.log("HEADERS");
+  //Hacer aqui lo del cors ***
+  get(path: string, params: HttpParams = new HttpParams(), headers: HttpHeaders = new HttpHeaders({
+    'content-type': 'application/json',
+    'Access-Control-Allow-Origin':'*'
+  })): Observable<any> {
+
+    headers= new HttpHeaders({
+      'content-type': 'application/json',
+      'Access-Control-Allow-Origin':'*',  //http://localhost:4200
+      'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+    
+    })
+
+
+    console.log("HEADERS del get api service");
     console.log(headers);
+    // let prueba=this.http.get(`${environment.api_url}${path}`, { params: params, headers: headers })
+    // .pipe(catchError(this.formatErrors));
+    // console.log("PRUEBA api service");
+    // console.log(prueba);
+    // return prueba;
     return this.http.get(`${environment.api_url}${path}`, { params: params, headers: headers })
       .pipe(catchError(this.formatErrors));
   }

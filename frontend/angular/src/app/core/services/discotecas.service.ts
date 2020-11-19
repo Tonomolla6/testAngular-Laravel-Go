@@ -35,13 +35,16 @@ export class DiscotecasService {
     .get(
       '/discoteca/',
       new HttpParams({ fromObject: params }),
-      new HttpHeaders({
-        'content-type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      })
+      // new HttpHeaders({
+      //   'content-type': 'application/json',
+      //   'Access-Control-Allow-Origin':'*',  //http://localhost:4200
+      //   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+      //   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE'
+      
+      // })
     );
     console.log("PRUEBA");
-    console.log(  );
+    console.log(prueba);
     return prueba;
   }
 
