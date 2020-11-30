@@ -6,18 +6,24 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/jinzhu/gorm"
-	"github.com/xema/testAngular-Laravel-Go/backend/go2/articles"
+	"github.com/xema/testAngular-Laravel-Go/backend/go2/discotecas"
 	"github.com/xema/testAngular-Laravel-Go/backend/go2/common"
 	"github.com/xema/testAngular-Laravel-Go/backend/go2/users"
 )
 
 func Migrate(db *gorm.DB) {
 	users.AutoMigrate()
-	db.AutoMigrate(&articles.ArticleModel{})
-	db.AutoMigrate(&articles.TagModel{})
-	db.AutoMigrate(&articles.FavoriteModel{})
-	db.AutoMigrate(&articles.ArticleUserModel{})
-	db.AutoMigrate(&articles.CommentModel{})
+	// db.AutoMigrate(&articles.ArticleModel{})
+	// db.AutoMigrate(&articles.TagModel{})
+	// db.AutoMigrate(&articles.FavoriteModel{})
+	// db.AutoMigrate(&articles.ArticleUserModel{})
+	// db.AutoMigrate(&articles.CommentModel{})
+
+	db.AutoMigrate(&discotecas.Discotecas{})
+	// db.AutoMigrate(&discotecas.TagModel{})
+	// db.AutoMigrate(&discotecas.FavoriteModel{})
+	// db.AutoMigrate(&discotecas.DiscotecaUserModel{})
+	// db.AutoMigrate(&discotecas.CommentModel{})
 }
 
 func main() {
@@ -26,52 +32,53 @@ func main() {
 	defer db.Close()
 
 	r := gin.Default()
-
+	MakeRoutes(r)
 	v1 := r.Group("/api")
+	
+	
+	discotecas.DiscotecasAnonymousRegister(v1.Group("/discotecas"))
+	discotecas.DiscotecasRegister(v1.Group("/discotecas"))
 	users.UsersRegister(v1.Group("/users"))
+
+
 	v1.Use(users.AuthMiddleware(false))
-	articles.ArticlesAnonymousRegister(v1.Group("/articles"))
-	articles.TagsAnonymousRegister(v1.Group("/tags"))
+	// articles.ArticlesAnonymousRegister(v1.Group("/articles"))
+	// articles.TagsAnonymousRegister(v1.Group("/tags"))
+	
+
 
 	v1.Use(users.AuthMiddleware(true))
 	users.UserRegister(v1.Group("/user"))
 	users.ProfileRegister(v1.Group("/profiles"))
 
-	articles.ArticlesRegister(v1.Group("/articles"))
-
-	testAuth := r.Group("/api/ping")
-
-	testAuth.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	// articles.ArticlesRegister(v1.Group("/articles"))
 
 	fmt.Printf("0.0.0.0:8080")
+	r.Run() // listen and serve on 0.0.0.0:8080 by default
+}
 
+func MakeRoutes(r *gin.Engine) {
+	cors := func(c *gin.Context) {
+		fmt.Printf("c.Request.Method \n")
 
-	
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "*")
+		c.Writer.Header().Set("Content-Type", "application/json")
 
-	// test 1 to 1
-	// tx1 := db.Begin()
-	// userA := users.UserModel{
-	// 	Username: "AAAAAAAAAAAAAAAA",
-	// 	Email:    "aaaa@g.cn",
-	// 	Bio:      "hehddeda",
-	// 	Image:    nil,
-	// }
-	// tx1.Save(&userA)
-	// tx1.Commit()
-	// fmt.Println(userA)
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(200)
+		}
+		c.Next()
 
-	//db.Save(&ArticleUserModel{
-	//    UserModelID:userA.ID,
-	//})
-	//var userAA ArticleUserModel
-	//db.Where(&ArticleUserModel{
-	//    UserModelID:userA.ID,
-	//}).First(&userAA)
-	//fmt.Println(userAA)
-
-	r.Run() // listen and serve on 0.0.0.0:8080
+		/*
+			fmt.Printf("c.Request.Method \n")
+			fmt.Printf(c.Request.Method)
+			fmt.Printf("c.Request.RequestURI \n")
+			fmt.Printf(c.Request.RequestURI)
+		*/
+	}
+	r.Use(cors)
+	// r.Use(cors.Default())
 }

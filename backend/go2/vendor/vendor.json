@@ -81,6 +81,12 @@
 			"revisionTime": "2017-03-27T19:17:03Z"
 		},
 		{
+			"checksumSHA1": "eTBXTLWOHsgpcf99+rUMDk9Fhvc=",
+			"path": "github.com/go-sql-driver/mysql",
+			"revision": "cf72fd249522a0cc5e1ce727dfa15189dcb6411f",
+			"revisionTime": "2020-11-14T01:11:01Z"
+		},
+		{
 			"checksumSHA1": "yqF125xVSkmfLpIVGrLlfE05IUk=",
 			"path": "github.com/golang/protobuf/proto",
 			"revision": "0a4f71a498b7c4812f64969510bcb4eca251e33a",
@@ -219,5 +225,5 @@
 			"revisionTime": "2017-07-12T05:45:46Z"
 		}
 	],
-	"rootPath": "github.com/xema/6_gin_gonic_thinkster"
+	"rootPath": "github.com/xema/testAngular-Laravel-Go/backend/go2"
 }
