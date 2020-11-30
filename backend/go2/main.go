@@ -53,8 +53,8 @@ func main() {
 
 	// articles.ArticlesRegister(v1.Group("/articles"))
 
-	fmt.Printf("0.0.0.0:8080")
-	r.Run() // listen and serve on 0.0.0.0:8080 by default
+	fmt.Printf("0.0.0.0:3000")
+	r.Run(":3000") // listen and serve on 0.0.0.0:8080 by default
 }
 
 func MakeRoutes(r *gin.Engine) {
@@ -71,14 +71,6 @@ func MakeRoutes(r *gin.Engine) {
 			c.AbortWithStatus(200)
 		}
 		c.Next()
-
-		/*
-			fmt.Printf("c.Request.Method \n")
-			fmt.Printf(c.Request.Method)
-			fmt.Printf("c.Request.RequestURI \n")
-			fmt.Printf(c.Request.RequestURI)
-		*/
 	}
 	r.Use(cors)
-	// r.Use(cors.Default())
 }
