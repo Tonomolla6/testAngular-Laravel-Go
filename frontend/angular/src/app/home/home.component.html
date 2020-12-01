@@ -1,0 +1,78 @@
+<div class="home-page">
+    <div class="banner">
+      <div class="container">
+        <h1 class="logo-font">El Gran Melon</h1>
+        <p>A place to share your <i>Angular</i> knowledge.</p>
+      </div>
+    </div>
+  
+    <div class="container page">
+      <div class="row">
+  
+        <div class="col-md-9">
+          <div class="feed-toggle">
+            <ul class="nav nav-pills outline-active">
+              <li class="nav-item">
+                <a class="nav-link">
+                   Your Feed
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">
+                   Global Feed
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">
+                   Events
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">
+                   Discotecas
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active">
+                  <!-- <i class="ion-pound"></i> {{ listConfig.filters.tag }} -->
+                </a>
+              </li>
+            </ul>
+          </div>
+  
+          <!-- <div [hidden]="listConfig.type == 'dicotecas'">
+            <app-discotecas-list [limit]="10" [config]="listConfig.filters"></app-discotecas-list>
+          </div>
+  
+          
+  
+          <div [hidden]="listConfig.type == 'eventos'">
+            <app-eventos-list [limit]="10" [config]="listConfig.filters"></app-eventos-list>
+          </div> -->
+  
+          <!-- <app-discoteca-list [limit]="10" [config]="listDiscoConfig"></app-discoteca-list> -->
+  
+          <!-- <app-article-list [limit]="10" [config]="listConfig"></app-article-list> -->
+        </div>
+  
+        <div class="col-md-3">
+          <div class="sidebar">
+            <p>Popular Tags</p>
+  
+            <div class="tag-list">
+              <a></a>
+            </div>
+  
+            <div>
+              Loading tags...
+            </div>
+  
+            <div >
+              No tags are here... yet.
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
