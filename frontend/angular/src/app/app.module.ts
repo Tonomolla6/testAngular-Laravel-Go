@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DiscotecaComponent } from './discoteca/discoteca.component';
 import { HomeComponent } from './home/home.component';
+import { HomeModule } from './home/home.module';
 import {
   FooterComponent,
   HeaderComponent
@@ -22,7 +23,8 @@ import {
   ], //Cuidado con las declarations y los imports
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
