@@ -6,25 +6,17 @@ import { AppComponent } from './app.component';
 import { DiscotecaComponent } from './discoteca/discoteca.component';
 import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home.module';
-import {
-  FooterComponent,
-  HeaderComponent
-} from './shared';
+// import {  }
 // import { SharedModule } from './shared';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DiscotecaComponent,
-    HomeComponent,
-    FooterComponent,
-    HeaderComponent
-    // SharedModule
+    AppComponent
   ], //Cuidado con las declarations y los imports
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    HomeModule
+    // AppRoutingModule,
+    // HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

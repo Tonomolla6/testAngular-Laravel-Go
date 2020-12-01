@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+    --color-primary: red;
+    --color-secundary: green;
+    --logo-font: serif;
+}
+
+.logo_font {
+    font-family: var(--logo-font);
+}
