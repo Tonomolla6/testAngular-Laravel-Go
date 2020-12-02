@@ -4,7 +4,7 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable ,  throwError } from 'rxjs';
 
-import { JwtService } from './jwt.service';
+import { JwtService } from './jwt.service'; 
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
@@ -14,9 +14,9 @@ export class ApiService {
         private http: HttpClient
       ) {}
 
-    //   private formatErrors(error: any) {
-    //     return  throwError(error.error);
-    //   }
+      private formatErrors(error: any) {
+        return  throwError(error.error);
+      }
       
 
       //ENDPOINTS para backend a continuacion
@@ -39,8 +39,8 @@ export class ApiService {
         ).pipe(catchError(this.formatErrors));
       }
     
-      delete(path): Observable<any> {
-        return this.http.delete(
+      delete(path: Observable<any>) {                //Originalmente estaba asi: delete(path): Observable<any>
+        return this.http.delete(                     //Pero no pilla el tipo de path al ser tipado y salta error
           `${environment.api_url}${path}`
         ).pipe(catchError(this.formatErrors));
       }

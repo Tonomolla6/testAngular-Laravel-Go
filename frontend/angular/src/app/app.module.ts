@@ -8,15 +8,25 @@ import { HomeComponent } from './home/home.component';
 import { HomeModule } from './home/home.module';
 // import {  }
 // import { SharedModule } from './shared';
+import {
+  FooterComponent,
+  HeaderComponent
+  // SharedModule
+} from './shared';
+import { CoreModule } from './core';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FooterComponent,
+    HeaderComponent
   ], //Cuidado con las declarations y los imports
   imports: [
     BrowserModule,
-    // AppRoutingModule,
-    // HomeModule
+    AppRoutingModule,
+    HomeModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
