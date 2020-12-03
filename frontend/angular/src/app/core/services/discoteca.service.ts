@@ -21,14 +21,20 @@ export class DiscotecasService {
         const params = {};
         
 
-        Object.keys(config.filters).forEach((key) => {
-          params[key] = config.filters[key];
-        });
+        // Object.keys(config.filters).forEach((key) => {
+        //   params[key] = config.filters[key];
+        // });
     
-        return this.apiService.get(
-          '/discotecas/' + ((config.type === 'feed') ? 'feed' : ''),
-          new HttpParams({ fromObject: params })
-        );
+        return this.apiService.get('/discotecas/' );
+
+
+        // return this.apiService.get(
+        //   '/discotecas/' + ((config.type === 'feed') ? 'feed' : ''),
+        //   new HttpParams({ fromObject: params })
+        // );
+
+
+       
       }
 
 
