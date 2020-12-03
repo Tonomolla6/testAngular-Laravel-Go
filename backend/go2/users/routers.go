@@ -7,16 +7,19 @@ import (
 	"net/http"
 )
 
+//Register o Login
 func UsersRegister(router *gin.RouterGroup) {
 	router.POST("/", UsersRegistration)
 	router.POST("/login", UsersLogin)
 }
 
+//Get user o Update user
 func UserRegister(router *gin.RouterGroup) {
 	router.GET("/", UserRetrieve)
 	router.PUT("/", UserUpdate)
 }
 
+//Follow o Unfolloe
 func ProfileRegister(router *gin.RouterGroup) {
 	router.GET("/:username", ProfileRetrieve)
 	router.POST("/:username/follow", ProfileFollow)
@@ -69,8 +72,10 @@ func ProfileUnfollow(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"profile": serializer.Response()})
 }
 
+//REGISTER
 func UsersRegistration(c *gin.Context) {
-	userModelValidator := NewUserModelValidator()
+	// fmt.Println("USER REGISTRATION");
+	userModelValidator := NewUserModelValidator()  //Esto es lo que valida sintactica y semanrticamente
 	if err := userModelValidator.Bind(c); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
 		return
