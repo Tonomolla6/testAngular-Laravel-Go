@@ -8,10 +8,13 @@ import { Discoteca, DiscotecaListConfig, DiscotecasService } from '../../core';
     templateUrl: './discoteca-list.component.html'
   })
   export class DiscotecaListComponent {
+    
     constructor (
       private discotecasService: DiscotecasService
-    ) {}
-  
+    ) {
+      //Declarar las variables aqui??
+      // this.query=Object[];
+    }
     @Input() limit: number;
     @Input()
     set config(config: DiscotecaListConfig) {
