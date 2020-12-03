@@ -8,33 +8,13 @@ console.log("DISCOTECA SERVICE");
 
 @Injectable()
 export class DiscotecasService {
-    constructor (
-      private apiService: ApiService
-    ) {}
+    constructor (private apiService: ApiService) {}
 
     //Querys
+    // console.log("");
       // Aqui es donde viene para ejecutar la query
-      query(config: DiscotecaListConfig): Observable<{discotecas: Discoteca[], discotecasCount: number}> {
-        // Convert any filters over to Angular's URLSearchParams
-
-        console.log("QUERY disoteca.servie");
-        const params = {};
-        
-
-        // Object.keys(config.filters).forEach((key) => {
-        //   params[key] = config.filters[key];
-        // });
-    
+      query(): Observable<{discoteca: Discoteca[]}> {
         return this.apiService.get('/discotecas/' );
-
-
-        // return this.apiService.get(
-        //   '/discotecas/' + ((config.type === 'feed') ? 'feed' : ''),
-        //   new HttpParams({ fromObject: params })
-        // );
-
-
-       
       }
 
 

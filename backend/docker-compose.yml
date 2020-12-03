@@ -1,7 +1,7 @@
 version: '3'
 services:  
-  laravel:  #NO
-    tty: true 
+  laravel:
+    tty: true
     image: bitnami/postgresql:latest
     environment:
       - DB_HOST=127.0.0.1
@@ -20,7 +20,7 @@ services:
     volumes:
       - ./laravel:/app
     # networks: 
-    #   - network tonto: DALEEEEEEEEEEEEEEEEEEEEEEE xema: QUE NO VAAAAA
+    #   - network 
       
   postgresql:
     image: 'docker.io/bitnami/postgresql:13-debian-10'
@@ -32,8 +32,6 @@ services:
     environment:
       - 'ALLOW_EMPTY_PASSWORD=yes'
       # - 'POSTGRES_PASSWORD=123456789'
-      
- #cierralo a ver
 
     # networks: 
     #   - network

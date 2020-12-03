@@ -1,11 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Nerko+One&display=swap'); 
 
-:root {
-    --color-primary: red;
-    --color-secundary: green;
-    --logo-font: serif;
+/* No funciona */
+/* @font-face {
+    font-family: 'Nerko One';
+    src: url('assets/fonts/NerkoOne-Regular.ttf') format('truetype');
+} */
+
+
+* {
+    margin: 0;
+    padding: 0;
 }
 
-.logo_font {
-    font-family: var(--logo-font);
+:root {
+    --color-primary: #ffce66;
+    --color-secundary: green;
+    --font-primary: 'Nerko One';
 }

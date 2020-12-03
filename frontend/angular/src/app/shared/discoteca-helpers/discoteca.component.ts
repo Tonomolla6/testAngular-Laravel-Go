@@ -1,24 +1,27 @@
 import { Component, OnInit, Input } from '@angular/core';
-// import { BuyProduct, BuysProducts } from '../../core';
-import { Discoteca, DiscotecaListConfig, DiscotecasService } from '../../core';
-
+import { Discoteca, DiscotecasService } from '../../core';
 
 @Component({
-  selector: 'app-discoteca',
+  selector: 'app-discotecas',
   templateUrl: './discoteca.component.html',
   styleUrls: ['./discoteca.component.css']
 })
-export class DiscotecaComponent implements OnInit {
+export class DiscotecasComponent implements OnInit {
+
   constructor(
-    private discotecasService: DiscotecasService) { }
-    discoArray = [];
+    private discotecasService: DiscotecasService,
+    private results: Discoteca[]
+  ) {
+
+  }
+
+  // results: Discoteca[];
 
   ngOnInit() {
-     this.discoArray = [];
-    console.log('Entra en el oninit');
+    this.results = [];
     this.discotecasService.query().subscribe(data => {
-      this.discoArray = data;
-      console.log(this.discoArray,'products laravel');
+
+      this.results = data;
     })
   }
 

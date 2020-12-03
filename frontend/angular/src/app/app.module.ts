@@ -1,20 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CoreModule } from './core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DiscotecaComponent } from './discoteca/discoteca.component';
-import { HomeComponent } from './home/home.component';
-import { HomeModule } from './home/home.module';
-// import {  }
-// import { SharedModule } from './shared';
-import {
-  FooterComponent,
-  HeaderComponent
-  // SharedModule
-} from './shared';
-import { CoreModule } from './core';
 
+// // Pagina principal
+import { HomeModule } from './home/home.module';
+
+// Componentes globales
+import { HeaderComponent } from './component/layout/header/header.component';
+import { FooterComponent } from './component/layout/footer/footer.component';
 
 @NgModule({
   declarations: [
