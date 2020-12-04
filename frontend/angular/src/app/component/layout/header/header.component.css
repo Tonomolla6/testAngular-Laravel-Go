@@ -1,0 +1,57 @@
+.browser {
+    height: 120px;
+    width: 100vw;
+    background-color:var(--color-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.browser .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.browser .logo .logo_img {
+    width: 70px;
+}
+
+.browser .logo .logo_title {
+    font-weight: bold;
+    font-family: var(--font-primary);
+    font-size: 40px;
+    margin-left: 20px;
+}
+
+.browser .menu {
+    display: flex;
+}
+
+.browser .menu ul {
+    display: flex;
+    list-style: none;
+    font-family: var(--font-primary);
+}
+
+.browser .menu ul li {
+    font-size: 30px;
+    margin: 17px;
+    cursor: pointer;
+}
+
+.browser .menu ul li:hover {
+    color: white;
+}
+
+.browser .menu ul.menu_login span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.browser .menu ul.menu_login {
+    margin-left: 40px;
+    margin-right: 40px;
+}
