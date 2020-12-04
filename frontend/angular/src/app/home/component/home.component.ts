@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+// For MDB Angular Free
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import {A11yModule} from '@angular/cdk/a11y';
+
+
 
 @Component({
   selector: 'app-home',

@@ -11,9 +11,10 @@ export class DiscotecasService {
     constructor (private apiService: ApiService) {}
 
     //Querys
-    // console.log("");
+    
       // Aqui es donde viene para ejecutar la query
       query(): Observable<{discoteca: Discoteca[]}> {
+        console.log("QUERY discoteca service");
         return this.apiService.get('/discotecas/' );
       }
 

@@ -5,8 +5,14 @@ import { CoreModule } from './core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// // Pagina principal
+// Pagina principal
 import { HomeModule } from './home/home.module';
+
+// Dsicoteca
+import { DiscotecaModule } from './discoteca/discoteca.module';
+
+// Login y register
+import { AuthModule } from './auth/auth.module';
 
 // Componentes globales
 import { HeaderComponent } from './component/layout/header/header.component';
@@ -22,6 +28,7 @@ import { FooterComponent } from './component/layout/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
+    DiscotecaModule,
     CoreModule
   ],
   providers: [],

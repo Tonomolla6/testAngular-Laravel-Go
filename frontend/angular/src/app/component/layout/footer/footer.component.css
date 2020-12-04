@@ -17,7 +17,17 @@
     margin-left: 20px;
 }
 
-.footer .footer_author a:hover {
+.footer .footer_author a.footer_account {
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+}
+
+.footer .footer_author a.footer_account:first-child {
+    margin-right: 10px;
+}
+
+.footer .footer_author a.footer_account:hover {
     color: var(--color-primary);
 }
 

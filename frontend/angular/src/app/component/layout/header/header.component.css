@@ -43,6 +43,7 @@
 
 .browser .menu ul li:hover {
     color: white;
+    transform: scale(1.05);
 }
 
 .browser .menu ul.menu_login span {

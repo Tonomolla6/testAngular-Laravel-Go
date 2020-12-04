@@ -1,20 +1,24 @@
 // Cosas de angular
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 // Cosas nuestras
 import { HomeComponent } from './component/home.component';
 import { HomeRoutingModule } from './home-routing.module';
+import { HomeSliderComponent } from './component/home-slider/home-slider.component';
 
 @NgModule({
-  // Importa los componentes de los modulos que necesita
-  imports: [
-    HomeRoutingModule
-  ],
-  // Componentes del modulo (home).
+  // Importa los modulos que necesita
   declarations: [
-    HomeComponent
+    HomeComponent,
+    HomeSliderComponent
   ],
+
+  // Componentes del modulo (home).
+  imports: [
+    HomeRoutingModule,
+  ]
+
   // Servicios que pueden utilizar otros componentes de la aplicacion.
 //   providers: [
 //     HomeAuthResolver

@@ -6,7 +6,7 @@ import { Observable ,  throwError } from 'rxjs';
 
 import { JwtService } from './jwt.service'; 
 import { catchError } from 'rxjs/operators';
-
+console.log("API SERVICE")
 @Injectable()
 
 export class ApiService {
