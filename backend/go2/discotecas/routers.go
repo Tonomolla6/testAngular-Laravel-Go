@@ -1,6 +1,7 @@
 package discotecas
 
 import (
+	"fmt"
 	"errors"
 	"github.com/xema/testAngular-Laravel-Go/backend/go2/common"
 	"github.com/gin-gonic/gin"
@@ -12,7 +13,7 @@ import (
 
 func DiscotecasRegister(router *gin.RouterGroup) {
 	router.POST("/", DiscotecaCreate)
-	// router.PUT("/:slug", DiscotecaUpdate)
+	router.PUT("/:id", DiscotecaUpdate)
 	router.DELETE("/:id", DiscotecaDelete)
 	// router.POST("/:slug/favorite", DiscotecaFavorite)
 	// router.DELETE("/:slug/favorite", DiscotecaUnfavorite)
@@ -22,9 +23,11 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 
 func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
 	router.GET("/", DiscotecaList)
-	// router.GET("/:slug", DiscotecaRetrieve)  //DiscotecaById
-	// router.GET("/:slug/comments", DiscotecaCommentList)
+	router.GET("/:id", DiscotecaById)  
+	
 }
+
+// router.GET("/:slug/comments", DiscotecaCommentList)
 
 func DiscotecaCreate(c *gin.Context){
 	var discoteca Discotecas
@@ -55,9 +58,58 @@ func DiscotecaList(c *gin.Context) {
 	}else{
 		c.JSON(http.StatusOK, discoteca)
 	}
-
-	
 }
+
+///////// Find ONE
+func DiscotecaById(c *gin.Context) {
+	id := c.Params.ByName("id")	
+
+	var discoteca Discotecas
+	err := GetDiscotecaById(&discoteca, id)
+	
+	if err != nil {
+		c.JSON(http.StatusOK, "Discoteca Not Found")
+		c.AbortWithStatus(http.StatusNotFound)
+		return
+	}else{
+		c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+		return
+	}
+	// serializer := DiscotecaSerializer{c, discotecaModel}     //Serializer para enviarlo a angular?
+	// c.JSON(http.StatusOK, gin.H{"discoteca": serializer.Response()})
+}
+////////
+
+//UPDATE discoteca
+
+func DiscotecaUpdate(c *gin.Context){
+	var discoteca Discotecas
+	var newDiscoteca Discotecas
+	fmt.Println("UPDATE discoteca")
+
+
+	c.BindJSON(&newDiscoteca);  //Aqui en teoria está la discoteca que le hemos pasado por postman
+	fmt.Println("new disco")
+	fmt.Println(newDiscoteca)
+
+	id := c.Params.ByName("id")
+	err := GetDiscotecaById(&discoteca, id) //Este es la discoteca que he pillao con ese id, ¿para que? para comprobar que existe ese id
+	if err != nil { 
+		c.JSON(http.StatusNotFound, "NOT FOUND")
+	}else{ 
+		c.BindJSON(&discoteca)
+		err = UpdateDiscoteca(&newDiscoteca)//&discoteca  Aqui hay que meterle la discoteca nueva, con el c.BingJSON pero no me hace el json de la nueva
+		if err != nil {
+			c.JSON(http.StatusOK, "Not found")
+			c.AbortWithStatus(http.StatusNotFound)
+		} else {
+			c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+			return
+		}
+	}
+
+}
+
 
 //DELETE discoteca
 func DiscotecaDelete(c *gin.Context){
@@ -77,51 +129,5 @@ func DiscotecaDelete(c *gin.Context){
 
 
 
-// ///////// Find ONE
-// func DiscotecaRetrieve(c *gin.Context) {
-// 	slug := c.Param("slug")
-// 	// if slug == "feed" {
-// 	// 	DiscotecaFeed(c)
-// 	// 	return
-// 	// }
-// 	discotecaModel, err := FindOneDiscoteca(&DiscotecaModel{Slug: slug})
-// 	if err != nil {
-// 		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid slug")))
-// 		return
-// 	}
-// 	serializer := DiscotecaSerializer{c, discotecaModel}
-// 	c.JSON(http.StatusOK, gin.H{"discoteca": serializer.Response()})
-// }
-// ////////
 
-// func DiscotecaUpdate(c *gin.Context) {
-// 	slug := c.Param("slug")
-// 	discotecaModel, err := FindOneDiscoteca(&DiscotecaModel{Slug: slug})
-// 	if err != nil {
-// 		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid slug")))
-// 		return
-// 	}
-// 	discotecaModelValidator := NewDiscotecaModelValidatorFillWith(discotecaModel)
-// 	if err := discotecaModelValidator.Bind(c); err != nil {
-// 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
-// 		return
-// 	}
 
-// 	discotecaModelValidator.discotecaModel.ID = discotecaModel.ID
-// 	if err := discotecaModel.Update(discotecaModelValidator.discotecaModel); err != nil {
-// 		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
-// 		return
-// 	}
-// 	serializer := DiscotecaSerializer{c, discotecaModel}
-// 	c.JSON(http.StatusOK, gin.H{"discoteca": serializer.Response()})
-// }
-
-// func DiscotecaDelete(c *gin.Context) {
-// 	slug := c.Param("slug")
-// 	err := DeleteDiscotecaModel(&DiscotecaModel{Slug: slug})
-// 	if err != nil {
-// 		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid slug")))
-// 		return
-// 	}
-// 	c.JSON(http.StatusOK, gin.H{"discoteca": "Delete success"})
-// }
