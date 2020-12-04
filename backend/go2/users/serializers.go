@@ -52,7 +52,7 @@ func (self *UserSerializer) Response() UserResponse {
 		Email:    myUserModel.Email,
 		Bio:      myUserModel.Bio,
 		Image:    myUserModel.Image,
-		Token:    common.GenToken(myUserModel.ID),
+		Token:    common.GenToken(myUserModel.ID),  //Aqui crea el token en una funcion de common/utils
 	}
 	return user
 }

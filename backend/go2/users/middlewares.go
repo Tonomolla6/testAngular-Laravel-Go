@@ -45,7 +45,7 @@ func UpdateContextUserModel(c *gin.Context, my_user_id uint) {
 
 // You can custom middlewares yourself as the doc: https://github.com/gin-gonic/gin#custom-middleware
 //  r.Use(AuthMiddleware(true))
-func AuthMiddleware(auto401 bool) gin.HandlerFunc {
+func AuthMiddleware(auto401 bool) gin.HandlerFunc { //Authmidelware true or false
 	return func(c *gin.Context) {
 		UpdateContextUserModel(c, 0)
 		token, err := request.ParseFromRequest(c.Request, MyAuth2Extractor, func(token *jwt.Token) (interface{}, error) {

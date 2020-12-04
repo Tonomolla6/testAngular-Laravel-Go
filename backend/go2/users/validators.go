@@ -9,11 +9,11 @@ import (
 // - Validator: write the form/json checking rule according to the doc https://github.com/go-playground/validator
 // - DataModel: fill with data from Validator after invoking common.Bind(c, self)
 // Then, you can just call model.save() after the data is ready in DataModel.
-type UserModelValidator struct {
+type UserModelValidator struct { //RegEx
 	User struct {
-		Username string `form:"username" json:"username" binding:"exists,alphanum,min=4,max=255"`
-		Email    string `form:"email" json:"email" binding:"exists,email"`
-		Password string `form:"password" json:"password" binding:"exists,min=8,max=255"`
+		Username string `form:"username" json:"username" ,alphanum,min=4,max=255"`
+		Email    string `form:"email" json:"email" ,email"`
+		Password string `form:"password" json:"password" ,min=8,max=255"`
 		Bio      string `form:"bio" json:"bio" binding:"max=1024"`
 		Image    string `form:"image" json:"image" binding:"omitempty,url"`
 	} `json:"user"`
@@ -28,6 +28,7 @@ func (self *UserModelValidator) Bind(c *gin.Context) error {
 	if err != nil {
 		return err
 	}
+	//Compara lo que nos viene con la estructura que tendria que tener
 	self.userModel.Username = self.User.Username
 	self.userModel.Email = self.User.Email
 	self.userModel.Bio = self.User.Bio
@@ -63,8 +64,8 @@ func NewUserModelValidatorFillWith(userModel UserModel) UserModelValidator {
 
 type LoginValidator struct {
 	User struct {
-		Email    string `form:"email" json:"email" binding:"exists,email"`
-		Password string `form:"password"json:"password" binding:"exists,min=8,max=255"`
+		Email    string `form:"email" json:"email" email"`
+		Password string `form:"password"json:"password" min=8,max=255"`
 	} `json:"user"`
 	userModel UserModel `json:"-"`
 }

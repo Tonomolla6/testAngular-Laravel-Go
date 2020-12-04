@@ -75,7 +75,7 @@ func ProfileUnfollow(c *gin.Context) {
 //REGISTER
 func UsersRegistration(c *gin.Context) {
 	// fmt.Println("USER REGISTRATION");
-	userModelValidator := NewUserModelValidator()  //Esto es lo que valida sintactica y semanrticamente
+	userModelValidator := NewUserModelValidator()  //Esto es lo que valida sintactica y semanticamente en validators.go
 	if err := userModelValidator.Bind(c); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
 		return
@@ -90,12 +90,16 @@ func UsersRegistration(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
 }
 
+
+//LOGIN
 func UsersLogin(c *gin.Context) {
 	loginValidator := NewLoginValidator()
 	if err := loginValidator.Bind(c); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
 		return
 	}
+
+
 	userModel, err := FindOneUser(&UserModel{Email: loginValidator.userModel.Email})
 
 	if err != nil {
@@ -107,10 +111,11 @@ func UsersLogin(c *gin.Context) {
 		c.JSON(http.StatusForbidden, common.NewError("login", errors.New("Not Registered email or invalid password")))
 		return
 	}
-	UpdateContextUserModel(c, userModel.ID)
+	UpdateContextUserModel(c, userModel.ID)  //Esto se guarda al tio que se ha logueado
 	serializer := UserSerializer{c}
 	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
 }
+
 
 func UserRetrieve(c *gin.Context) {
 	serializer := UserSerializer{c}
