@@ -85,20 +85,21 @@ func DiscotecaById(c *gin.Context) {
 func DiscotecaUpdate(c *gin.Context){
 	var discoteca Discotecas
 	var newDiscoteca Discotecas
-	fmt.Println("UPDATE discoteca")
-
-
 	c.BindJSON(&newDiscoteca);  //Aqui en teoria está la discoteca que le hemos pasado por postman
-	fmt.Println("new disco")
-	fmt.Println(newDiscoteca)
 
 	id := c.Params.ByName("id")
 	err := GetDiscotecaById(&discoteca, id) //Este es la discoteca que he pillao con ese id, ¿para que? para comprobar que existe ese id
+
+	discoteca.Name = newDiscoteca.Name
+	discoteca.Company = newDiscoteca.Company
+	discoteca.Events = newDiscoteca.Events
+
+
 	if err != nil { 
 		c.JSON(http.StatusNotFound, "NOT FOUND")
 	}else{ 
 		c.BindJSON(&discoteca)
-		err = UpdateDiscoteca(&newDiscoteca)//&discoteca  Aqui hay que meterle la discoteca nueva, con el c.BingJSON pero no me hace el json de la nueva
+		err = UpdateDiscoteca(&discoteca)//&discoteca  Aqui hay que meterle la discoteca nueva, con el c.BingJSON pero no me hace el json de la nueva
 		if err != nil {
 			c.JSON(http.StatusOK, "Not found")
 			c.AbortWithStatus(http.StatusNotFound)
