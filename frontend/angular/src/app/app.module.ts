@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from "@angular/common";  //Para en ngFor
 import { NgModule } from '@angular/core';
 import { CoreModule } from './core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +31,9 @@ import { FooterComponent } from './component/layout/footer/footer.component';
     AppRoutingModule,
     HomeModule,
     DiscotecaModule,
-    CoreModule
+    CoreModule,
+    HttpClientModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

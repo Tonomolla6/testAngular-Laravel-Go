@@ -1,7 +1,7 @@
 package discotecas
 
 import (
-	"fmt"
+
 	"errors"
 	"github.com/xema/testAngular-Laravel-Go/backend/go2/common"
 	"github.com/gin-gonic/gin"
@@ -9,6 +9,7 @@ import (
 	
 )
 // "strconv" para los coments
+//fmt para debug
 
 
 func DiscotecasRegister(router *gin.RouterGroup) {

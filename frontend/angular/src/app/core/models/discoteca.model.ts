@@ -1,5 +1,5 @@
 export interface Discoteca {
-    slug: string;
+    id: string;
     name: string;
     company: string;
     events: string[];
