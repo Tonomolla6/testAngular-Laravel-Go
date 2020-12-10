@@ -17,7 +17,7 @@ export class DiscotecaComponent implements OnInit {
   @Input()
   // discoteca: Discoteca | undefined; //Le ponemos undefined porque al declarar la variable fuera del constructor hay que rellenarla, y al no tener ningun dato le ponemos undefined
   discoteca!: Discoteca;  //Le ponemos "!"  para indicarle al compilador que esta linea está bien y no tiene que saltar error, porque a veces aunque esté bien la sintaxi salta error por cosas del typescript (creo)
-  results!:Discoteca[];
+  results!: Discoteca[];
 
 
   constructor(
@@ -44,11 +44,30 @@ export class DiscotecaComponent implements OnInit {
     //     this.discoteca = data.discoteca;
       // });
       console.log("NGONINIIIIIT")
-      this.discotecasService.query().subscribe(data => {
+
+  
+      // getAll(): Observable<Discoteca>{
+      //   return this.discotecasService.query().subscribe().pipe(map(data =>{
+          
+      //   }));
+      // }
+
+
+      this.discotecasService.query().subscribe(data => { 
         console.log("DATA del discoteca component");
-        console.log(data);
-        this.results = data.discoteca;
+        console.log(data)
+        console.log("data.discotecas")
+        console.log(data.discotecas[0]) 
+        
+        // console.log(data['discotecas']);
+ 
+        // this.results = data.discotecas;
+        // return data.discoteca;
+        // console.log("this results");
+        // console.log(this.results);
       });
+
+      
 
       
   }

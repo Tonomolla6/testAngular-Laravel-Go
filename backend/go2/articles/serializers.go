@@ -57,7 +57,7 @@ type ArticleResponse struct {
 	FavoritesCount uint                  `json:"favoritesCount"`
 }
 
-type ArticlesSerializer struct {
+type ArticlesSerializer struct {	
 	C        *gin.Context
 	Articles []ArticleModel
 }

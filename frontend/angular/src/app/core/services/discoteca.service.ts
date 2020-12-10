@@ -13,9 +13,23 @@ export class DiscotecasService {
     //Querys
     
       // Aqui es donde viene para ejecutar la query
-      query(): Observable<{discoteca: Discoteca[]}> {
+      query(): Observable<{discotecas: Discoteca[]}> {
         console.log("QUERY discoteca service");
-        return this.apiService.get('/discotecas/' );
+        // let prueba=this.apiService.get('/discotecas/' );
+        return this.apiService.get('/discotecas/').pipe(map(data => {
+          console.log("data del pipe");
+          console.log("data");
+          console.log(data);
+          console.log("data.discotecas");
+          console.log(data.discotecas);
+
+
+          return data;
+        }));
+        // console.log("PRUEBA");
+        // console.log(prueba);
+        // return prueba;
+        // return this.apiService.get('/discotecas/' );
       }
 
       //Details

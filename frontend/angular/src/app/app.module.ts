@@ -30,6 +30,7 @@ import { FooterComponent } from './component/layout/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     HomeModule,
+    AuthModule,
     DiscotecaModule,
     CoreModule,
     HttpClientModule,

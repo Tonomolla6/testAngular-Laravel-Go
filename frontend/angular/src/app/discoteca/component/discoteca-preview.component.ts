@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 // import { CommonModule } from "@angular/common";
 
+
+
+
 import { Discoteca } from '../../core';
 console.log("Discoteca preview component");
 @Component({

@@ -57,7 +57,10 @@ func DiscotecaList(c *gin.Context) {
 		c.JSON(http.StatusOK, "Not found")
 		c.AbortWithStatus(http.StatusNotFound)
 	}else{
-		c.JSON(http.StatusOK, discoteca)
+		// c.JSON(http.StatusOK, discoteca)
+		// serializer := DiscotecasSerializer
+		// c.JSON(http.StatusOK, gin.H{"discotecas":discotecaModel})
+		c.JSON(http.StatusOK, gin.H{"discotecas": discoteca})
 	}
 }
 
