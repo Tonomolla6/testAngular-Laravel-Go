@@ -1,7 +1,7 @@
 <div class="auth-page">
     <section class="singin">
         <article class="form">
-            <h1>{{authType == 'singin' ? 'SINGIN TO LIVE OUR EXPERIENCES!!!' : 'LOGIN AND START THE PARTY!!!'}}</h1>
+            <h1>{{authType == 'singin' ? 'SINGIN TO LIVE OUR EXPERIENCES!' : 'LOGIN AND START THE PARTY!'}}</h1>
             <form (ngSubmit)="submitForm()">
                 <label [hidden]="authType == 'login'" for="username">USERNAME</label>
                 <input [hidden]="authType == 'login'" type="text" name="username">
@@ -12,7 +12,7 @@
                 <label for="passwd">PASSWORD</label>
                 <input type="password" name="passwd">
 
-                <button type="submit" class="button">{{authType == 'singin' ? 'Signup!!' : 'Login!!'}}</button>
+                <button type="submit" class="button">{{authType == 'singin' ? 'Signup' : 'Login'}}</button>
             </form>
         </article>
         <article class="figure"></article>

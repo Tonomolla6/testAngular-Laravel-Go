@@ -1,9 +1,10 @@
 // Cosas de angular
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from "@angular/common";
 
 import { DiscotecaComponent } from './component/discoteca.component';
-import {DiscotecaPreviewComponent} from './component/discoteca-preview.component';
+import { DiscotecaPreviewComponent } from './component/discoteca-preview.component';
 import { DiscotecaRoutingModule } from './discoteca-routing.module';
 
 @NgModule({
@@ -12,7 +13,8 @@ import { DiscotecaRoutingModule } from './discoteca-routing.module';
     DiscotecaPreviewComponent
   ],
   imports: [
-    DiscotecaRoutingModule
+    DiscotecaRoutingModule,
+    CommonModule
   ]
 })
 

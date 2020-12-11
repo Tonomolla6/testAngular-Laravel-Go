@@ -2,36 +2,34 @@ version: '3'
 services:  
   laravel:
     tty: true
-    image: bitnami/postgresql:latest
-    environment:
-      - DB_HOST=127.0.0.1
-      - DB_CONNECTION=pgsql
-      - DB_USERNAME=elgranmelon
-      - DB_DATABASE=db_elgranmelon
-      - DB_PASSWORD=postgres123@?
-      - DB_PORT=5432
-      - POSTGRESQL_PASSWORD=''
-    depends_on:
-      - postgresql
-    # command: 
-    #    php artisan serve --port=3000
+    image: bitnami/laravel:7
+    container_name: laravel_container
     ports:
-      - 3100:3000
+      - 8083:3000
     volumes:
       - ./laravel:/app
-    # networks: 
-    #   - network 
+    command: >
+      bash -c " composer install
+      && php artisan route:list
+      && php artisan key:generate
+      && php artisan migrate
+      && php artisan db:seed
+      && php artisan serve --host=0.0.0.0 --port=3000 "
+    # depends_on:
+    #   - postgresql
+    networks:
+      - servidor_network
       
-  postgresql:
-    image: 'docker.io/bitnami/postgresql:13-debian-10'
-    restart: always
-    ports:
-      - '5432:5432'
-    volumes:
-      - 'postgresql_data:/bitnami/postgresql'
-    environment:
-      - 'ALLOW_EMPTY_PASSWORD=yes'
-      # - 'POSTGRES_PASSWORD=123456789'
+  # postgresql:
+  #   image: 'docker.io/bitnami/postgresql:13-debian-10'
+  #   restart: always
+  #   ports:
+  #     - '5432:5432'
+  #   volumes:
+  #     - 'postgresql_data:/bitnami/postgresql'
+  #   environment:
+  #     - 'ALLOW_EMPTY_PASSWORD=yes'
+  #     # - 'POSTGRES_PASSWORD=123456789'
 
     # networks: 
     #   - network
@@ -48,26 +46,12 @@ services:
 #     networks: 
 #       - network
 
-# networks: 
-#   network:
-#     external: true
+networks:
+  servidor_network:
 
-volumes:
-  postgresql_data:
+# volumes:
+#   postgresql_data:
 
-    #TONO, si le pones una network external, la busca en alguna que ya está creada, pero como no está creada peta y por eso tienes que crearla tu a mano
-
-
-
-#A ver, vamos a organizar aqui lo que necesitamos:
-# Servicios totales: laravel, postgres,
-#
-#
-#
-#
-#
-#
-#
 
 # services:
 
@@ -106,3 +90,92 @@ volumes:
 #         image: redis:4.0
 #         ports:
 #           - "6382:6379"
+
+
+# version: "3"
+# services:
+#   laravel:
+#     tty: true
+#     image: bitnami/laravel:7
+#     container_name: laravel_container
+#     ports:
+#       - 8083:3000
+#     volumes:
+#       - ./laravel:/app
+#     command: >
+#       bash -c " composer install
+#       && php artisan route:list
+#       && php artisan key:generate
+#       && php artisan migrate
+#       && php artisan db:seed
+#       && php artisan serve --host=0.0.0.0 --port=3000 "
+#     depends_on:
+#       - database
+#       - redis
+#     networks:
+#       - servidor_network
+
+#   web:
+#     image: golang:1.15
+#     container_name: go_container
+#     working_dir: /go/src/goApp
+#     volumes:
+#       - ./go:/go/src/goApp
+#     command: >
+#       bash -c " rm -f go.mod || true
+#       && rm -f go.sum || true
+#       && go mod init goApp
+#       && go mod tidy
+#       && go get github.com/pilu/fresh
+#       && fresh "
+#     ports:
+#       - "8090:3000"
+#     labels:
+#       traefik.backend: "web"
+#       traefik.frontend.rule: "PathPrefix:/"
+#     depends_on:
+#       - database
+#       - redis
+#     networks:
+#       - servidor_network
+
+#   database:
+#     image: mysql:5.7
+#     container_name: database_container
+#     environment:
+#       - "MYSQL_DATABASE=laravel"
+#       - "MYSQL_ROOT_PASSWORD=common404"
+#     volumes:
+#       - ./mySqlBackup:/var/lib/mysql
+#     ports:
+#       - "3306:3306"
+#     networks:
+#       - servidor_network
+
+#   redis:
+#     image: redis:4.0
+#     container_name: redis_container
+#     volumes:
+#       - redisData:/data
+#     ports:
+#       - "6382:6379"
+#     networks:
+#       - servidor_network
+
+#   traefik:
+#     image: traefik:v2.0
+#     container_name: traefik_container
+#     ports:
+#       - "80:80"
+#       - "8080:8080"
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock
+#       - ./traefik/traefik.yml:/etc/traefik/traefik.yml
+#     networks:
+#       - servidor_network
+
+# networks:
+#   servidor_network:
+
+# volumes:
+#   redisData:

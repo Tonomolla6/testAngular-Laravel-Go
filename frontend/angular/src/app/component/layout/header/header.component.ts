@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  // Declaramos el route para obtez url.
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
-
 }

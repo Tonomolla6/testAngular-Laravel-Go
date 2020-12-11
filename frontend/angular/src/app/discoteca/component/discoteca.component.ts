@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-
+import { DiscotecaPreviewComponent } from './discoteca-preview.component';
 
 import {
   Discoteca,
@@ -18,7 +18,6 @@ export class DiscotecaComponent implements OnInit {
   // discoteca: Discoteca | undefined; //Le ponemos undefined porque al declarar la variable fuera del constructor hay que rellenarla, y al no tener ningun dato le ponemos undefined
   discoteca!: Discoteca;  //Le ponemos "!"  para indicarle al compilador que esta linea está bien y no tiene que saltar error, porque a veces aunque esté bien la sintaxi salta error por cosas del typescript (creo)
   results!: Discoteca[];
-
 
   constructor(
     private route:ActivatedRoute,
@@ -43,7 +42,7 @@ export class DiscotecaComponent implements OnInit {
     // this.route.data.subscribe(   (data: {discoteca: Discoteca }) => {
     //     this.discoteca = data.discoteca;
       // });
-      console.log("NGONINIIIIIT")
+ 
 
   
       // getAll(): Observable<Discoteca>{
@@ -52,17 +51,18 @@ export class DiscotecaComponent implements OnInit {
       //   }));
       // }
 
-
       this.discotecasService.query().subscribe(data => { 
-        console.log("DATA del discoteca component");
-        console.log(data)
+        // console.log("DATA del discoteca component");
+        // console.log(data)
         console.log("data.discotecas")
-        console.log(data.discotecas[0]) 
+        // console.log(data.discotecas[0]) 
         
         // console.log(data['discotecas']);
+        console.log(data.discotecas)
  
-        // this.results = data.discotecas;
-        // return data.discoteca;
+        this.results = data.discotecas;
+        // return this.results;
+        //return data.discotecas;
         // console.log("this results");
         // console.log(this.results);
       });
