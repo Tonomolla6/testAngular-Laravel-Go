@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/jackc/pgx"
 )
 
 type Database struct {
@@ -15,7 +15,7 @@ var DB *gorm.DB
 
 // Opening a database and save the reference to `Database` struct.
 func Init() *gorm.DB {
-	db, err := gorm.Open("mysql",  DbURL(BuildDBConfig()))
+	db, err := gorm.Open("pgx",  DbURL(BuildDBConfig()))
 	if err != nil {
 		fmt.Println("db err: ", err)
 	}
@@ -38,10 +38,10 @@ type DBConfig struct {
 func BuildDBConfig() *DBConfig {
 	dbConfig := DBConfig{
 		Host:     "localhost",
-		Port:     3306,
+		Port:     5432,  //3306 for mysql
 		User:     "xema",
 		Password: "123456789",
-		DBName:   "first_go",
+		DBName:   "gran_melon", //first_go for mysql
 	}
 	return &dbConfig
 }
