@@ -11,7 +11,6 @@ export class DiscotecasService {
     constructor (private apiService: ApiService) {}
     
     //Querys
-    
       // Aqui es donde viene para ejecutar la query
       query(): Observable<{discotecas: Discoteca[]}> {
         console.log("QUERY discoteca service");

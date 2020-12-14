@@ -27,55 +27,13 @@ export class DiscotecaComponent implements OnInit {
 
   ) {}
   
-
-  // runQuery() {
-  //   console.log("Dentro del run query del discoteca component");
-
-  //   this.discotecasService.query().subscribe(data => {
-  //     console.log("DATA del discoteca component");
-  //     console.log(data);
-      
-  //     this.results = data.discoteca;
-  //   });
-  // }
-
   ngOnInit(): void { //En el oninit solo va el retrieve, que es para coger las discotecas que tenemos (listDiscotecas)
-    // Retreive the prefetched article
-    // this.route.data.subscribe(   (data: {discoteca: Discoteca }) => {
-    //     this.discoteca = data.discoteca;
-    //   });
-
-    console.log("DISCOTECA:");
-    console.log(this.discoteca);
- 
-      //Details
-      this.route.data.subscribe(
-        (data) => {
-          console.log("DATAAAA.discoteca");
-          console.log(data.discoteca);
-          this.results = data.discoteca;
-          // console.log("this results")
-          // console.log(this.results)
-          // this.discoteca=data.discoteca;
-  
-          // Load this discoteca comments 
-          // this.populateComments();
-        }
-      );
-      // debugger
-
-
-        //LIST
+    // Retreive the prefetched articles
       this.discotecasService.query().subscribe(data => { 
         console.log("data.discotecas")
         console.log(data.discotecas)
         this.results = data.discotecas;
       });
-
-      
-
-      
   }
   //Aqui irá el delete, update, comments, favorited...
-
 }
