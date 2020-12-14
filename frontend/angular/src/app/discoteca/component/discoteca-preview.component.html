@@ -1,7 +1,10 @@
+<div [routerLink]="['/discoteca', discoteca.Id ]" >
 <div class="discoteca-preview">
   <a>
     <h1>{{ discoteca.name }}</h1>
+    <p>{{ discoteca.events }}</p>
     <p>{{ discoteca.company }}</p>
-    <span>Read more...</span>
+    <!-- <p>{{ discoteca.Id }}</p> -->
   </a>
+</div>
 </div>

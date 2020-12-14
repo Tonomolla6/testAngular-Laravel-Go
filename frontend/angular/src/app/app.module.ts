@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 // Pagina principal
 import { HomeModule } from './home/home.module';
 
-// Dsicoteca
+// Discoteca
 import { DiscotecaModule } from './discoteca/discoteca.module';
 
 // Login y register

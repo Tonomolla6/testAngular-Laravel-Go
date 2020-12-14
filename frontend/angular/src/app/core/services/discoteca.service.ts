@@ -15,15 +15,9 @@ export class DiscotecasService {
       // Aqui es donde viene para ejecutar la query
       query(): Observable<{discotecas: Discoteca[]}> {
         console.log("QUERY discoteca service");
+        // console.log("-------------------------------------------------")
         // let prueba=this.apiService.get('/discotecas/' );
         return this.apiService.get('/discotecas/').pipe(map(data => {
-          console.log("data del pipe");
-          console.log("data");
-          console.log(data);
-          console.log("data.discotecas");
-          console.log(data.discotecas);
-
-
           return data;
         }));
         // console.log("PRUEBA");
@@ -34,6 +28,7 @@ export class DiscotecasService {
 
       //Details
       get(id: Observable<Discoteca>) {
+        console.log("DENTRO DEL GEEET");
         return this.apiService.get('/discotecas/' + id)
           .pipe(map(data => data.discoteca));
       }

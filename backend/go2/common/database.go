@@ -3,9 +3,12 @@ package common
 import (
 	"fmt"
 	"github.com/jinzhu/gorm"
-
-	_ "github.com/jackc/pgx"
+	// "database/sql"
+	_ "github.com/go-sql-driver/mysql"
 )
+
+//_ "github.com/go-sql-driver/mysql"
+// _ "github.com/lib/pq"
 
 type Database struct {
 	*gorm.DB
@@ -15,7 +18,7 @@ var DB *gorm.DB
 
 // Opening a database and save the reference to `Database` struct.
 func Init() *gorm.DB {
-	db, err := gorm.Open("pgx",  DbURL(BuildDBConfig()))
+	db, err := gorm.Open("mysql",  DbURL(BuildDBConfig())) //gorm.Open(mysql) from mysql //(postgres) for postgres
 	if err != nil {
 		fmt.Println("db err: ", err)
 	}
@@ -38,10 +41,10 @@ type DBConfig struct {
 func BuildDBConfig() *DBConfig {
 	dbConfig := DBConfig{
 		Host:     "localhost",
-		Port:     5432,  //3306 for mysql
-		User:     "xema",
+		Port:     3306,  //3306 for mysql  //5432 for postgres
+		User:     "xema", //xema for mysql  //postgres
 		Password: "123456789",
-		DBName:   "gran_melon", //first_go for mysql
+		DBName:   "first_go", //first_go for mysql  //gran_melon for postgres
 	}
 	return &dbConfig
 }
@@ -55,6 +58,9 @@ func DbURL(dbConfig *DBConfig) string {
 		dbConfig.Port,
 		dbConfig.DBName,
 	)
+	// return psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
+    // "password=%s dbname=%s sslmode=disable",
+    // host, port, user, password, dbname)
 }
 
 // Using this function to get a connection, you can create your connection pool here.

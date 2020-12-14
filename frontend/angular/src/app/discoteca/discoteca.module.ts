@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 
 import { DiscotecaComponent } from './component/discoteca.component';
 import { DiscotecaPreviewComponent } from './component/discoteca-preview.component';
+import { DiscotecaResolver } from './component/discoteca-resolver.service';
 import { DiscotecaRoutingModule } from './discoteca-routing.module';
 
 @NgModule({
@@ -15,6 +16,9 @@ import { DiscotecaRoutingModule } from './discoteca-routing.module';
   imports: [
     DiscotecaRoutingModule,
     CommonModule
+  ],
+  providers: [
+    DiscotecaResolver
   ]
 })
 
