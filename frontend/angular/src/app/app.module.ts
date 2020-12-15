@@ -36,7 +36,7 @@ import { FooterComponent } from './component/layout/footer/footer.component';
     HttpClientModule,
     CommonModule
   ],
-  providers: [],
+  providers: [], //////////////////////////
   bootstrap: [AppComponent]
 })
 export class AppModule { }

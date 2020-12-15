@@ -30,8 +30,6 @@ export class DiscotecaComponent implements OnInit {
   ngOnInit(): void { //En el oninit solo va el retrieve, que es para coger las discotecas que tenemos (listDiscotecas)
     // Retreive the prefetched articles
       this.discotecasService.query().subscribe(data => { 
-        console.log("data.discotecas")
-        console.log(data.discotecas)
         this.results = data.discotecas;
       });
   }

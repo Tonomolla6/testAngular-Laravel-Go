@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 
 import { Discoteca } from '../../core';
-console.log("Discoteca preview component");
+
 @Component({
   selector: 'app-discoteca-preview',
   templateUrl: './discoteca-preview.component.html'
@@ -16,7 +16,7 @@ export class DiscotecaPreviewComponent implements OnInit{
 
 
   ngOnInit(){
-    console.log("PREVIEWWW ON INIT");
+
 
   }
   

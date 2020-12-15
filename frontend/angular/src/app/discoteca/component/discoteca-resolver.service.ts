@@ -18,7 +18,7 @@ export class DiscotecaResolver implements Resolve<Discoteca> {
     ): Observable<any> {
   
         //This is getOne discoteca
-        console.log("DISCOTECA RESOLVER")
+       
         return this.discotecasService.get(route.params['id'])
         .pipe(catchError((err) => this.router.navigateByUrl('/')));  //Si hay error nos envia al home
     }

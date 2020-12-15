@@ -25,16 +25,11 @@ export class DiscotecaDetailsComponent implements OnInit {
   ) {}
   
   ngOnInit(): void { 
-    console.log("Tono gilipollas");
+    
       //Details
       this.route.data.subscribe((data) => {
-          console.log("DATAAAA.discoteca");
-          console.log(data);
-          // debugger
-          console.log(data.discoteca);
           this.discoteca = data.discoteca;
-          console.log("THIS RESULTSSSSSSSSSSSSs");
-          console.log(this.discoteca);
+
           // this.populateComments();
         }
       );

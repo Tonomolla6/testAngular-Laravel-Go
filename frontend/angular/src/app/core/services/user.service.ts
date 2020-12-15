@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
 
@@ -9,6 +9,8 @@ import { map ,  distinctUntilChanged } from 'rxjs/operators';
 
 
 @Injectable()
+
+
 export class UserService {
   private currentUserSubject = new BehaviorSubject<User>({} as User);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
@@ -56,7 +58,7 @@ export class UserService {
     this.isAuthenticatedSubject.next(false);
   }
 
-  attemptAuth(type, credentials): Observable<User> {
+  attemptAuth(type:String, credentials:[]): Observable<User> {
     const route = (type === 'login') ? 'login' : '';
     return this.apiService.post('/users/' + route, {user: credentials})
       .pipe(map(
@@ -72,7 +74,7 @@ export class UserService {
   }
 
   // Update the user on the server (email, pass, etc)
-  update(user): Observable<User> {
+  update(user:User): Observable<User>  {   //Originalmente-> (user): Observable<User>
     return this.apiService
     .put('/user/', { user })
     .pipe(map(data => {
