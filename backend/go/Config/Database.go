@@ -57,7 +57,7 @@ type DBConfig struct {
 
 func BuildDBConfig() *DBConfig {
 	dbConfig := DBConfig{
-		Host:     "localhost",
+		Host:     "mysql",
 		Port:     3306,
 		User:     "xema",
 		Password: "123456789",

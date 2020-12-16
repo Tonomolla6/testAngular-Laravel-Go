@@ -15,11 +15,66 @@ services:
       && php artisan migrate
       && php artisan db:seed
       && php artisan serve --host=0.0.0.0 --port=3000 "
-    # depends_on:
-    #   - postgresql
+    depends_on:
+      - mysql
+    networks:
+      - servidor_network
+
+  go:
+    image: golang:1.15
+    container_name: go_container
+    working_dir: /go/src/goApp
+    volumes:
+      - ./go:/go/src/goApp
+    command: >
+      bash -c " rm -f go.mod || true
+      && rm -f go.sum || true
+      && go mod init goApp
+      && go mod tidy
+      && go get github.com/jinzhu/gorm
+      && fresh "
+    ports:
+      - "8090:3000"
+    labels:
+      traefik.backend: "web"
+      traefik.frontend.rule: "PathPrefix:/"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - servidor_network
+
+  mysql:
+    image: mysql:5.7
+    container_name: database_container
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456789
+      - MYSQL_DATABASE=gran_melon
+      - MYSQL_USER=xema
+      - MYSQL_PASSWORD=123456789
+    volumes:
+      - ./mySqlBackup:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - servidor_network
+
+  redis:
+    image: redis:4.0
+    container_name: redis_container
+    volumes:
+      - ./redisData:/data
+    ports:
+      - "6382:6379"
     networks:
       - servidor_network
       
+networks:
+  servidor_network:
+
+
+###############  POSTGRESQL  ###############
+
   # postgresql:
   #   image: 'docker.io/bitnami/postgresql:13-debian-10'
   #   restart: always
@@ -29,7 +84,7 @@ services:
   #     - 'postgresql_data:/bitnami/postgresql'
   #   environment:
   #     - 'ALLOW_EMPTY_PASSWORD=yes'
-  #     # - 'POSTGRES_PASSWORD=123456789'
+  #     - 'POSTGRES_PASSWORD=123456789'
 
     # networks: 
     #   - network
@@ -45,53 +100,12 @@ services:
 #       - 6969:80
 #     networks: 
 #       - network
-
-networks:
-  servidor_network:
-
 # volumes:
 #   postgresql_data:
 
 
-# services:
 
-#   nginx:
-#     image: nginx:latest
-#     ports:
-#       - 8083:80
-#     volumes:
-#       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-#     volumes_from:
-#       - php
-
-#   php:
-#     build: ./docker/php/
-#     volumes:
-#       - .:/var/www/html
-#       - ./docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
-#     links:
-#         - database
-#         - redis
-#     environment:
-#       - "DB_PORT=3306"
-#       - "DB_HOST=database"
-
-#   database:
-#         image: mysql:5.7
-#         environment:
-#           - "MYSQL_DATABASE=laravel"
-#           - "MYSQL_ROOT_PASSWORD=common404"
-#         volumes:
-#           - ${BACKUP_DATA_PATH}/mysql3:/var/lib/mysql
-#         ports:
-#           - "3306:3306"
-
-#   redis:
-#         image: redis:4.0
-#         ports:
-#           - "6382:6379"
-
-
+###############  COPIA  ###############
 # version: "3"
 # services:
 #   laravel:
