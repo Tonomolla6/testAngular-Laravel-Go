@@ -5,12 +5,13 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { UserService } from '../core/services/user.service';
 import { JwtService } from '../core/services/jwt.service';
 import { FormBuilder } from '@angular/forms';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AuthComponent],
   imports: [
-    AuthRoutingModule
+    AuthRoutingModule,
+    ReactiveFormsModule
   ],
   providers:[UserService,JwtService,FormBuilder],
 })
