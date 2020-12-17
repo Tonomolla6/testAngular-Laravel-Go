@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
+	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"net/http/httptest"

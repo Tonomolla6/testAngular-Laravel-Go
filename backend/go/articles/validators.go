@@ -2,8 +2,8 @@ package articles
 
 import (
 	"github.com/gosimple/slug"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/users"
+	"goApp/common"
+	"goApp/users"
 	"github.com/gin-gonic/gin"
 )
 

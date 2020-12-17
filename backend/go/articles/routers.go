@@ -2,8 +2,8 @@ package articles
 
 import (
 	"errors"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/users"
+	"goApp/common"
+	"goApp/users"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"

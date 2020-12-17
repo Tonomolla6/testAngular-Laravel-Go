@@ -3,7 +3,7 @@ package users
 import (
 	"github.com/gin-gonic/gin"
 
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
+	"goApp/common"
 )
 
 type ProfileSerializer struct {

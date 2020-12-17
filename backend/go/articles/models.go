@@ -3,8 +3,8 @@ package articles
 import (
 	_ "fmt"
 	"github.com/jinzhu/gorm"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/users"
+	"goApp/common"
+	"goApp/users"
 	"strconv"
 )
 

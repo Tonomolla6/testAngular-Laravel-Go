@@ -2,7 +2,7 @@ package discotecas
 
 import (
 	"fmt"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
+	"goApp/common"
 
 )
 

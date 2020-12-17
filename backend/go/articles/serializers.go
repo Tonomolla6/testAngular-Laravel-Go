@@ -2,7 +2,7 @@ package articles
 
 import (
 	"github.com/gosimple/slug"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/users"
+	"goApp/users"
 	"github.com/gin-gonic/gin")
 
 type TagSerializer struct {
