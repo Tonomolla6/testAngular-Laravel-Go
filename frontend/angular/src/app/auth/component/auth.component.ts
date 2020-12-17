@@ -20,12 +20,9 @@ export class AuthComponent implements OnInit {
       private router: Router
     ) {
       this.authForm = this.fb.group({
-        'email': ['',Validators.required],  //['',Validators.required] si lo ponemos asi el form es invalid siempre porque declaramos los campos como vacios
-        'password': ['',Validators.required]
+        'email': ['', Validators.required],
+        'password': ['', Validators.required]
       });
-      console.log("Despues del constructor");
-      console.log(this.authForm)
-      debugger
     }
 
   ngOnInit() {
@@ -33,8 +30,9 @@ export class AuthComponent implements OnInit {
     this.route.url.subscribe(data => {
       // Coger la url para ver si muestras un formulario o otro.
       this.authType = data[data.length - 1].path;
-      console.log("THIS auth type")
-      console.log(this.authType);
+      if (this.authType === 'register') {
+        this.authForm.addControl('username', new FormControl());
+      }
     });
   }
 

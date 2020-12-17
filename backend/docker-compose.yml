@@ -25,16 +25,16 @@ services:
     container_name: go_container
     working_dir: /go/src/goApp
     volumes:
-      - ./go:/go/src/goApp
+      - ./go2:/go/src/goApp
     command: >
       bash -c " rm -f go.mod || true
       && rm -f go.sum || true
       && go mod init goApp
       && go mod tidy
       && go get github.com/jinzhu/gorm
-      && fresh "
+      
     ports:
-      - "8090:3000"
+      - "3000:3000"
     labels:
       traefik.backend: "web"
       traefik.frontend.rule: "PathPrefix:/"
@@ -46,7 +46,7 @@ services:
 
   mysql:
     image: mysql:5.7
-    container_name: database_container
+    container_name: mysql_container
     environment:
       - MYSQL_ROOT_PASSWORD=123456789
       - MYSQL_DATABASE=gran_melon
@@ -55,7 +55,7 @@ services:
     volumes:
       - ./mySqlBackup:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - "3307:3306"
     networks:
       - servidor_network
 

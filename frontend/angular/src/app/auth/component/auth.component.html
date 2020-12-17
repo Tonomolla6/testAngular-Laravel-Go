@@ -2,15 +2,15 @@
     <section class="singin">
         <article class="form">
             <h1>{{authType == 'singin' ? 'SINGIN TO LIVE OUR EXPERIENCES!' : 'LOGIN AND START THE PARTY!'}}</h1>
-            <form (ngSubmit)="submitForm()">
+            <form [formGroup]="authForm" (ngSubmit)="submitForm()">
                 <label [hidden]="authType == 'login'" for="username">USERNAME</label>
-                <input [hidden]="authType == 'login'" type="text" name="username">
+                <input [hidden]="authType == 'login'" formControlName="username" type="text"/>
 
                 <label for="email">EMAIL</label>
-                <input type="email" name="email">
+                <input type="email" formControlName="email"/>
 
                 <label for="passwd">PASSWORD</label>
-                <input type="password" name="passwd">
+                <input type="password" formControlName="passwd"/>
 
                 <button type="submit" class="button">{{authType == 'singin' ? 'Signup' : 'Login'}}</button>
             </form>
