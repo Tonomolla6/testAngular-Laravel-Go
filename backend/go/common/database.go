@@ -40,11 +40,11 @@ type DBConfig struct {
 
 func BuildDBConfig() *DBConfig {
 	dbConfig := DBConfig{
-		Host:     "localhost",
+		Host:     "mysql",
 		Port:     3306,  //3306 for mysql  //5432 for postgres
 		User:     "xema", //xema for mysql  //postgres
 		Password: "123456789",
-		DBName:   "first_go", //first_go for mysql  //gran_melon for postgres
+		DBName:   "gran_melon", //first_go for mysql  //gran_melon for postgres
 	}
 	return &dbConfig
 }

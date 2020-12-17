@@ -3,7 +3,7 @@ package users
 import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
+	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"

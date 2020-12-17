@@ -6,9 +6,9 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/jinzhu/gorm"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/discotecas"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
-	"github.com/xema/testAngular-Laravel-Go/backend/go/users"
+	"goApp/discotecas"
+	"goApp/common"
+	"goApp/users"
 )
 
 func Migrate(db *gorm.DB) {

@@ -1,7 +1,7 @@
 package users
 
 import (
-	"github.com/xema/testAngular-Laravel-Go/backend/go/common"
+	"goApp/common"
 	"github.com/gin-gonic/gin"
 )
 

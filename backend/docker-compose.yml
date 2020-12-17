@@ -25,13 +25,15 @@ services:
     container_name: go_container
     working_dir: /go/src/goApp
     volumes:
-      - ./go2:/go/src/goApp
+      - ./go:/go/src/goApp
     command: >
       bash -c " rm -f go.mod || true
       && rm -f go.sum || true
       && go mod init goApp
       && go mod tidy
       && go get github.com/jinzhu/gorm
+      && go get github.com/pilu/fresh
+      && fresh "
       
     ports:
       - "3000:3000"
