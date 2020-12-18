@@ -62,7 +62,33 @@ services:
       && fresh "
       
     ports:
-      - "3000:3000"
+      - "3000:8080"
+    labels:
+      traefik.backend: "web"
+      traefik.frontend.rule: "PathPrefix:/"
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - servidor_network
+
+  users:
+    image: golang:1.15
+    container_name: go_users
+    working_dir: /go/src/goApp_users
+    volumes:
+      - ./go/users:/go/src/goApp_users
+    command: >
+      bash -c " rm -f go.mod || true
+      && rm -f go.sum || true
+      && go mod init goApp_users
+      && go mod tidy
+      && go get github.com/jinzhu/gorm
+      && go get github.com/pilu/fresh
+      && fresh "
+      
+    ports:
+      - "3001:8080"
     labels:
       traefik.backend: "web"
       traefik.frontend.rule: "PathPrefix:/"

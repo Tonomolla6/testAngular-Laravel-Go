@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/jinzhu/gorm"
-	"goApp_users/discotecas"
 	"goApp_users/common"
-	"goApp_users/users"
+	"goApp_users/src"
 )
+// "goApp_users/users"
 
 func Migrate(db *gorm.DB) {
 	users.AutoMigrate()
@@ -41,7 +41,7 @@ func main() {
 
 
 	fmt.Printf("0.0.0.0:3000")
-	r.Run(":3000") // listen and serve on 0.0.0.0:8080 by default
+	r.Run(":8080") // listen and serve on 0.0.0.0:8080 by default
 }
 
 func MakeRoutes(r *gin.Engine) {
