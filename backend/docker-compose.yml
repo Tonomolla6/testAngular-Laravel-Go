@@ -20,16 +20,42 @@ services:
     networks:
       - servidor_network
 
-  go:
+  # go:
+  #   image: golang:1.15
+  #   container_name: go_container
+  #   working_dir: /go/src/goApp
+  #   volumes:
+  #     - ./go:/go/src/goApp
+  #   command: >
+  #     bash -c " rm -f go.mod || true
+  #     && rm -f go.sum || true
+  #     && go mod init goApp
+  #     && go mod tidy
+  #     && go get github.com/jinzhu/gorm
+  #     && go get github.com/pilu/fresh
+  #     && fresh "
+      
+  #   ports:
+  #     - "3000:3000"
+  #   labels:
+  #     traefik.backend: "web"
+  #     traefik.frontend.rule: "PathPrefix:/"
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  #   networks:
+  #     - servidor_network
+
+  discotecas:
     image: golang:1.15
-    container_name: go_container
-    working_dir: /go/src/goApp
+    container_name: go_discotecas
+    working_dir: /go/src/goApp_discotecas
     volumes:
-      - ./go:/go/src/goApp
+      - ./go/discotecas:/go/src/goApp_discotecas
     command: >
       bash -c " rm -f go.mod || true
       && rm -f go.sum || true
-      && go mod init goApp
+      && go mod init goApp_discotecas
       && go mod tidy
       && go get github.com/jinzhu/gorm
       && go get github.com/pilu/fresh
