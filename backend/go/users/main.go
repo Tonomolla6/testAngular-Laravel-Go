@@ -31,8 +31,6 @@ func main() {
 
 	v1.Use(users.AuthMiddleware(false))
 
-	
-
 
 	v1.Use(users.AuthMiddleware(true))
 	users.UserRegister(v1.Group("/user"))

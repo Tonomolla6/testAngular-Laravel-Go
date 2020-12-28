@@ -62,13 +62,14 @@ services:
       && fresh "
       
     ports:
-      - "3000:8081"
+      - "3000:8080"
     labels:
       traefik.backend: "web"
       traefik.frontend.rule: "PathPrefix:/"
     depends_on:
       - mysql
       - redis
+      - traefik
     networks:
       - servidor_network
 
@@ -95,6 +96,7 @@ services:
     depends_on:
       - mysql
       - redis
+      - traefik
     networks:
       - servidor_network
 
@@ -122,9 +124,63 @@ services:
       - "6382:6379"
     networks:
       - servidor_network
+
+  #  traefik:
+  #   image: traefik:v2.0
+  #   container_name: traefik
+  #   restart: unless-stopped
+  #   security_opt:
+  #     - no-new-privileges:true
+  #   networks:
+  #     - proxy
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #   volumes:
+  #     - /etc/localtime:/etc/localtime:ro
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - ./data/traefik.yml:/traefik.yml:ro
+  #     - ./data/acme.json:/acme.json
+  #   labels:
+  #     - "traefik.enable=true"
+  #     # - "traefik.http.routers.traefik.entrypoints=http"
+  #     - "traefik.http.routers.traefik.rule=Host(`traefik.example.com`)"
+  #     - "traefik.http.middlewares.traefik-auth.basicauth.users=USER:PASSWORD"
+  #     - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+  #     - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+  #     - "traefik.http.routers.traefik-secure.entrypoints=https"
+  #     - "traefik.http.routers.traefik-secure.rule=Host(`traefik.example.com`)"
+  #     - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+  #     - "traefik.http.routers.traefik-secure.tls=true"
+  #     - "traefik.http.routers.traefik-secure.tls.certresolver=http"
+  #     - "traefik.http.routers.traefik-secure.service=api@internal"
+
+  traefik:
+    image: traefik:v1.7
+    command: --docker --docker.domain=great_melon.io
+
+    ports:
+      - 8080:8080
+      - 443:443
+    networks:
+      - proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik.toml:/traefik.toml
+      - ./acme.json:/acme.json
+    labels:
+      - "traefik.enable=true"
+      - "traefik.frontend.rule=Host:traefik.great_melon.io"
+      - "traefik.port=8080"
+      # - "traefik.http.routers.traefik.entrypoints=http"
+    container_name: traefik
+    restart: always
+
       
 networks:
   servidor_network:
+  proxy:
+    external: true
 
 
 ###############  POSTGRESQL  ###############
