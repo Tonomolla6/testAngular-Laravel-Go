@@ -143,8 +143,29 @@ services:
     - users
     restart: always
 
+  grafana:
+    image: grafana/grafana:7.1.5
+    ports:
+      - "3500:3000"
+    volumes:
+      - './common/grafana:/etc/grafana/provisioning/datasources/'
+      - 'grafana:/var/lib/grafana'
+    environment:
+      GF_INSTALL_PLUGINS: "grafana-clock-panel 1.0.1"
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_DISABLE_LOGIN_FORM: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+    depends_on: 
+      - users
+      - laravel
+    networks:
+      - servidor_network
+
 networks:
   servidor_network:
+
+volumes:
+  grafana:
 
 # [17:27, 2/1/2021] Joel - Instalation: tu tens que fer que tots els microserveis ixquen per el 80 si no m'equivoque
 # [17:27, 2/1/2021] Joel - Instalation: i en el main.go igual
