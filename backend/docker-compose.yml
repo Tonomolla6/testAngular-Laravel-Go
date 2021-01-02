@@ -5,7 +5,7 @@ services:
     image: bitnami/laravel:7
     container_name: laravel_container
     ports:
-      - 8083:3000
+      - 8000:3000
     volumes:
       - ./laravel:/app
     command: >
@@ -14,7 +14,7 @@ services:
       && php artisan key:generate
       && php artisan migrate
       && php artisan db:seed
-      && php artisan serve --host=0.0.0.0 --port=3000 "
+      && php artisan serve --host=0.0.0.0 --port=3000"
     depends_on:
       - mysql
     networks:
@@ -60,16 +60,17 @@ services:
       && go get github.com/jinzhu/gorm
       && go get github.com/pilu/fresh
       && fresh "
-      
-    ports:
-      - "3000:8080"
+
+    expose:
+    - 8080
     labels:
-      traefik.backend: "web"
-      traefik.frontend.rule: "PathPrefix:/"
+      traefik.http.routers.discotecas.rule: Host(`discotecas.docker.localhost`)
+      traefik.enable: true
+      traefik.docker.network: servidor_network
+      traefik.port: 8080
     depends_on:
       - mysql
       - redis
-      - traefik
     networks:
       - servidor_network
 
@@ -87,16 +88,16 @@ services:
       && go get github.com/jinzhu/gorm
       && go get github.com/pilu/fresh
       && fresh "
-      
-    ports:
-      - "3001:8080"
+    expose:
+    - 8080
     labels:
-      traefik.backend: "web"
-      traefik.frontend.rule: "PathPrefix:/"
+      traefik.http.routers.users.rule: Host(`users.docker.localhost`)
+      traefik.enable: true
+      traefik.docker.network: servidor_network
+      traefik.port: 8080
     depends_on:
       - mysql
       - redis
-      - traefik
     networks:
       - servidor_network
 
@@ -118,70 +119,41 @@ services:
   redis:
     image: redis:4.0
     container_name: redis_container
+    ports:
+      - 6379:6379
     volumes:
       - ./redisData:/data
-    ports:
-      - "6382:6379"
     networks:
       - servidor_network
 
-  #  traefik:
-  #   image: traefik:v2.0
-  #   container_name: traefik
-  #   restart: unless-stopped
-  #   security_opt:
-  #     - no-new-privileges:true
-  #   networks:
-  #     - proxy
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #   volumes:
-  #     - /etc/localtime:/etc/localtime:ro
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - ./data/traefik.yml:/traefik.yml:ro
-  #     - ./data/acme.json:/acme.json
-  #   labels:
-  #     - "traefik.enable=true"
-  #     # - "traefik.http.routers.traefik.entrypoints=http"
-  #     - "traefik.http.routers.traefik.rule=Host(`traefik.example.com`)"
-  #     - "traefik.http.middlewares.traefik-auth.basicauth.users=USER:PASSWORD"
-  #     - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
-  #     - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-  #     - "traefik.http.routers.traefik-secure.entrypoints=https"
-  #     - "traefik.http.routers.traefik-secure.rule=Host(`traefik.example.com`)"
-  #     - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
-  #     - "traefik.http.routers.traefik-secure.tls=true"
-  #     - "traefik.http.routers.traefik-secure.tls.certresolver=http"
-  #     - "traefik.http.routers.traefik-secure.service=api@internal"
-
   traefik:
-    image: traefik:v1.7
-    command: --docker --docker.domain=great_melon.io
+    image: traefik:v2.3
+    command: --api.dashboard=true --api.insecure=true --providers.docker --entrypoints.web.address=:80
 
     ports:
+      - 80:80
       - 8080:8080
-      - 443:443
     networks:
-      - proxy
+      - servidor_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./traefik.toml:/traefik.toml
-      - ./acme.json:/acme.json
-    labels:
-      - "traefik.enable=true"
-      - "traefik.frontend.rule=Host:traefik.great_melon.io"
-      - "traefik.port=8080"
-      - "traefik.http.routers.traefik.entrypoints=http"
+      # - "traefik.port=8080"
     container_name: traefik
+    depends_on: 
+    - users
     restart: always
 
-      
 networks:
   servidor_network:
-  proxy:
-    external: true
 
+# [17:27, 2/1/2021] Joel - Instalation: tu tens que fer que tots els microserveis ixquen per el 80 si no m'equivoque
+# [17:27, 2/1/2021] Joel - Instalation: i en el main.go igual
+# [17:27, 2/1/2021] tonomolla6: pero, per el mateix?
+# [17:27, 2/1/2021] tonomolla6: Y com faig les peticions
+# [17:27, 2/1/2021] Joel - Instalation: i traefik ja els distribueix
+# [17:27, 2/1/2021] Joel - Instalation: go_users.docker.localhost o algo aixina
+# [17:27, 2/1/2021] tonomolla6: Vale
+# [17:27, 2/1/2021] Joel - Instalation: sense indicar port
 
 ###############  POSTGRESQL  ###############
 

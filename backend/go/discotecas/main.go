@@ -33,7 +33,7 @@ func main() {
 	discotecas.DiscotecasRegister(v1.Group("/discotecas"))
 
 	fmt.Printf("0.0.0.0:3000")
-	r.Run(":8081")//Cambiar al 8080 para traefik // listen and serve on 0.0.0.0:8080 by default
+	r.Run(":8080")//Cambiar al 8080 para traefik // listen and serve on 0.0.0.0:8080 by default
 }
 
 func MakeRoutes(r *gin.Engine) {
