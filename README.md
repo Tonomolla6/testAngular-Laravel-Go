@@ -1,29 +1,28 @@
 # Práctica Mejora Proyecto Servidor
 
-## Jose Maria Maestre Quiles
-
 # Introducción
  
-## ¿GO O GOLANG?
-_Go es un lenguaje de programación concurrente y compilado, desarrollado por los ingenieros de Google._
-_Go es un lenguaje maduro, con el cual se han desarrollado miles de proyectos alrededor del mundo, inclusive, versiones actuales de Go están escritas con el mismo Go._
+## ¿QUE ES GO?
+Go es la tecnología que hemos utilizado para hacer la práctica, es un lenguaje de programación concurrente y compilado, desarrollado por los ingenieros de Google, es un lenguaje maduro, con el cual se han desarrollado miles de proyectos alrededor del mundo, incluso, versiones actuales de Go están escritas con el mismo Go, su lanzamiento oficial fue a finales de 2009 (aunque su primera versión estable fue en 2012), está basado principalmente en C, incluso se denomina que go es el sustituto de C.
 
-_Desde mi punto de vista podemos ver la sintaxis de Go como una mezcla entre Python y C como veremos más adelante_
+Go usa tipado estático y es tan eficiente como C. Está pensado para facilitar la vida al máximo a los programadores. Permite detectar errores en la sintaxis durante la compilación y no durante la ejecución, a diferencia de otros lenguajes compilados.
+
+En conclusión es un lenguaje de programación muy ligero y eficiente superior a C.
 
 # Refactorizar la aplicación
 
 ## Objetivo
 
-_Una de las ventajas que nos dan los modulos de go (go modules) es el adiós a las variables de entorno GOPATH, podemos iniciar nuestro proyecto en go desde el directorio que queramos, lo que nos aporta una gran sencillez a la hora de dockerizar la aplicación._
+Una de las ventajas que nos dan los modulos de go (go modules) es el adiós a las variables de entorno GOPATH, podemos iniciar nuestro proyecto en go desde el directorio que queramos, lo que nos aporta una gran sencillez a la hora de dockerizar la aplicación.
 
 ## Como iniciar
 
 Por defecto Go Modules no viene activado para ser usado en GOPATH, pero si queremos utilizarlo será tan sencillo como activar la variable de entorno que nos ofrecen.
 
-```
+``` sh
 $ echo "export GO111MODULE=on" >> ~/.bash_profile
 ```
-```
+``` sh
 $ source ~/.bash_profile
 ```
 
@@ -35,7 +34,7 @@ Para crear un go module independiente del resto, nos situamos en el directorio d
 
 Nos situamos en la carpeta events y ejecutamos: 
 
-```
+``` sh
 $ go mod init goApp_events
 ```
 
@@ -48,7 +47,7 @@ Estro nos creará un fichero llamado go.mod, en el cual no tendremos que tocar m
 
 Una vez hemos inicializado Go Modules en nuestro proyecto, podemos descargar las dependencias del mismo, esto servirá tanto para la primera vez como para cada vez que añadamos una nueva dependencia.
 
-```
+``` sh
 $ go mod tidy
 ```
 
@@ -207,7 +206,6 @@ Ya tenemos  nuestro servicio de traefik configurado.
 Ahora, tenemos que ir a los microservicios que hemos creado antes en nuestro .yml y añadimos lo siguiente
 
 - La primera opcion será para definir la ruta de acceso a este microservicio, en este caso será events.docker.localhost 
-- La segunda opcion
 - La tercera opcion será para definir la network compartida, que es servidor_network 
 - La cuarta opción definimos el puerto asociado a traefik, por el cual partirán todos los microservicios, en este caso el puerto 8080
 
@@ -291,6 +289,3 @@ Y observamos el resultado
 ![alt text](./img/30.png)
 
 Como podemos ver, el microservicio de events gestionado por traefik funciona correctamente. 
-
-
-
