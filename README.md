@@ -136,33 +136,76 @@ Un archivo data (en este caso llamado resolvers) en donde se incluyen las funcio
 
 ## Docker-compose
 
-Para poder lanzar los microservicios, es necesario dockerizar la aplicación y añadir los microservicios, para ellos, configuraremos nuestro .yml de la siguiente manera:
+Para poder lanzar los microservicios, es necesario dockerizar la aplicación y añadirlos, como vamos a repetir codigo vamos a usar extensiones de servicios:
 
+Creamos un archivo llamado microservices-go.yml con el servicio "microservices"
+``` yaml
+version: '3'
+services:
+    microservices:
+```
 - Partiremos de una imagen golang:1.15
-- El nombre del contenedor lo llamaremos go_events
-- El directorio de trabajo será /go/src/goApp_events
-- Tendrá un volumen asociado a la carpeta events que será goApp_events 
-  ./go/events:/go/src/goApp_event  s
-
-![alt text](./img/12.png)
-
-
-- Ejecutaremos los comandos necesarios para que funcione nuestro microservicio en go
-- Exponemos el puerto 8080 común en todos los microservicios 
-
-![alt text](./img/13.png)
-
-- Tendrá dependencias para los servicios de mysql y de redis
+    ``` yaml
+    image: golang:1.15
+    ```
+- El directorio de trabajo será /go/src/goApp 
+    ``` yaml
+    working_dir: /go/src/goApp
+    ```
+- Exponemos el puerto 8080 común en todos los microservicios
+    ``` yaml
+    expose:
+        - 8080
+    ```
+- Añadimos los comandos necesarios para iniciar nuestro microservicio.
+    ``` yaml
+    command: >
+        bash -c " rm -f go.mod || true
+        && rm -f go.sum || true
+        && go mod init goApp
+        && go mod tidy
+        && go get github.com/jinzhu/gorm
+        && go get github.com/pilu/fresh
+        && fresh "
+    ```
 - Tendrá una network común, que en este caso será servidor_network
+    ``` yaml
+    networks:
+        - servidor_network
+    ```
+    
+![alt text](./img/31.png)
+     
+Una vez configurado el documento microservices-go.yml con todas las propiedades en comun que tendran los microservicios vamos a añadirlos a el documento docker-compose.yml
 
-![alt text](./img/14.png)
-
+Creamos un microservicio con el nombre que queramos (en mi caso con el nombre del microservicio) y ponemos el nombre del archivo del cual extiende el servicio.
+``` yml
+discotecas:
+    extends:
+        file: microservices-go.yml
+        service: microservices
+```
+- El nombre del contenedor lo llamaremos go_discotecas
+    ``` yml
+    container_name: go_discotecas
+    ```
+- Tendrá un volumen asociado a la carpeta events que será goApp
+  ./go/events:/go/src/goApp
+    ``` yml
+    volumes:
+        - ./go/discotecas:/go/src/goApp
+    ```
+- Tendrá dependencias para los servicios de mysql y de redis
+    ``` yml
+    depends_on:
+        - mysql
+        - redis
+    ```
+    
+![alt text](./img/32.png)
 
 Configuraremos los servicios de mysql y de redis de la siguiente manera:
-
-![alt text](./img/15.png)
-
-Repetir el proceso anterior para cada microservicio que queramos crear.
+![alt text](./img/33.png)
 
 ## Traefik
 
@@ -176,9 +219,6 @@ _Traefik es un proxy inverso y un balanceador HTTP y TCP escrito en GO que ofrec
 · Métricas
 · Despliegues sobre un subconjunto de clientes
 · Mirroring
-
-_Además integra una completa UI que nos da información sobre todo lo que ofrece que veremos más adelante_
- 
  
 ## Configuración
 Creamos una carpeta llamada traefik con un archivo llamado acme.json dentro
@@ -202,45 +242,48 @@ Creamos una carpeta llamada traefik con un archivo llamado acme.json dentro
 Ya tenemos  nuestro servicio de traefik configurado.
 
 
+Ahora vamos al servicio que hemos creado en el punto anterior en el archivo microservices-go.yml y asignamos los labels que vamos a utilizar en todos los microservicios como es el caso.
 
-Ahora, tenemos que ir a los microservicios que hemos creado antes en nuestro .yml y añadimos lo siguiente
+- La primera opcion será para habilitar el servicio traefik
+- La segunda opcion será para definir la network compartida, que es servidor_network 
+- La tercera opción definimos el puerto asociado a traefik, por el cual partirán todos los microservicios, en este caso el puerto 8080
+- 
+![alt text](./img/34.png)
 
-- La primera opcion será para definir la ruta de acceso a este microservicio, en este caso será events.docker.localhost 
-- La tercera opcion será para definir la network compartida, que es servidor_network 
-- La cuarta opción definimos el puerto asociado a traefik, por el cual partirán todos los microservicios, en este caso el puerto 8080
+Hay un label que si que vamos a tener que poner en cada microservicio en el archivo docker-compose.yml por que es diferente
 
-![alt text](./img/20.png)
+- Es para definir la ruta de acceso a este microservicio, en este caso será events.docker.localhost 
+![alt text](./img/35.png)
 
 Repetimos el proceso anterior en cada uno de los microservicios que tengamos en nuestra app, en mi caso tengo “events”, “discotecas” y “users”, y quedaria de la siguiente manera
 
 ### Discotecas:
 
-![alt text](./img/21.png)
-
+![alt text](./img/36.png)
 
 ### Users:
 
-![alt text](./img/22.png)
+![alt text](./img/37.png)
 
 ### Events:
 
-![alt text](./img/23.png)
+![alt text](./img/38.png)
 
 ## Puertos
 
 Evidentemente, cada microservicio será lanzado por el puerto 8080, que definimos en cada main.go de cada microservicio para que traefik se encargue de asignar un puerto.
 
-``` sh
+``` go
 r.Run(“:8080”)
 ```
 
 ![alt text](./img/24.png)
 
 
-Una vez completados todos los pasos, procedemos a lanzar los contenedores de nuestro .yml con
+Una vez completados todos los pasos, procedemos a lanzar los contenedores de nuestro docker-compose.yml con
 
 ``` sh
-$ sudo docker compose up
+$ sudo docker-compose up
 ```
 
 ![alt text](./img/25.png)
@@ -252,7 +295,7 @@ $ sudo docker compose up
 
 Una vez lanzados nuestros contenedores, accedemos al dashboard de traefik en el puerto 8080
 
-``` sh
+```
 localhost:8080
 ```
 
@@ -270,7 +313,7 @@ Como podemos ver, todos nuestros servicios funcionan correctamente, y si hacemos
 
 Como podemos comprobar, para acceder a este microservicio tendremos que acceder a 
 
-``` sh
+```
 Host(`events.docker.localhost`)
 ```
 
@@ -289,3 +332,6 @@ Y observamos el resultado
 ![alt text](./img/30.png)
 
 Como podemos ver, el microservicio de events gestionado por traefik funciona correctamente. 
+
+
+
