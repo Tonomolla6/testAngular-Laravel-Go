@@ -363,5 +363,9 @@ discotecas:
     
 ![alt text](./img/32.png)
 
+Comprobamos que los microservicios con las extensiones funcionan
+
+![alt text](./img/40.png)
+
 # Prometheus y Grafena con Traefik
 
