@@ -205,6 +205,7 @@ discotecas:
 ![alt text](./img/32.png)
 
 Configuraremos los servicios de mysql y de redis de la siguiente manera:
+
 ![alt text](./img/33.png)
 
 ## Traefik
@@ -247,12 +248,13 @@ Ahora vamos al servicio que hemos creado en el punto anterior en el archivo micr
 - La primera opcion será para habilitar el servicio traefik
 - La segunda opcion será para definir la network compartida, que es servidor_network 
 - La tercera opción definimos el puerto asociado a traefik, por el cual partirán todos los microservicios, en este caso el puerto 8080
-- 
+
 ![alt text](./img/34.png)
 
 Hay un label que si que vamos a tener que poner en cada microservicio en el archivo docker-compose.yml por que es diferente
 
 - Es para definir la ruta de acceso a este microservicio, en este caso será discotecas.docker.localhost 
+
 ![alt text](./img/35.png)
 
 Repetimos el proceso anterior en cada uno de los microservicios que tengamos en nuestra app, en mi caso tengo “events”, “discotecas” y “users”, y quedaria de la siguiente manera
