@@ -20,8 +20,12 @@ _Una de las ventajas que nos dan los modulos de go (go modules) es el adiós a l
 
 Por defecto Go Modules no viene activado para ser usado en GOPATH, pero si queremos utilizarlo será tan sencillo como activar la variable de entorno que nos ofrecen.
 
-- $ echo "export GO111MODULE=on" >> ~/.bash_profile
-- $ source ~/.bash_profile
+```
+$ echo "export GO111MODULE=on" >> ~/.bash_profile
+```
+```
+$ source ~/.bash_profile
+```
 
 Con esto, ya tendríamos go modules activado
 
@@ -31,7 +35,9 @@ Para crear un go module independiente del resto, nos situamos en el directorio d
 
 Nos situamos en la carpeta events y ejecutamos: 
 
-- $ go mod init goApp_events
+```
+$ go mod init goApp_events
+```
 
 ![alt text](./img/1.png)
 
@@ -42,7 +48,9 @@ Estro nos creará un fichero llamado go.mod, en el cual no tendremos que tocar m
 
 Una vez hemos inicializado Go Modules en nuestro proyecto, podemos descargar las dependencias del mismo, esto servirá tanto para la primera vez como para cada vez que añadamos una nueva dependencia.
 
-- $ go mod tidy
+```
+$ go mod tidy
+```
 
 _Go mod tidy incluye en nuestro go.mod todas las dependencias necesarias para nuestros tests, de manera que si un test falla, sabremos cual es la dependencia que utiliza para reproducir el error._
 
@@ -74,7 +82,7 @@ Nuestro go.mod quedaría de la siguiente manera:
 
 Y nuestro go.sum se creará automáticamente con todas las dependencias que necesitamos en nuestro package “events”
 
-![alt text](./img/8.png)
+![alt text](./img/8a.png)
 
 Y ya tendríamos nuestro modulo en go activo y listo.
 
@@ -87,185 +95,200 @@ Y ya tendríamos nuestro modulo en go activo y listo.
 # Microservicios
 ## Introducción
 
-Los microservicios son, explicado de una manera cotidiana, un backend para cada uno de los modelos de nuestra app, en el que cada uno funciona por un o unos puertos diferentes. 
+_Los microservicios son, explicado de una manera cotidiana, un backend para cada uno de los modelos de nuestra app, en el que cada uno funciona por un o unos puertos diferentes._
 
-Es decir, si antes teníamos un main.go que lanzaba todos nuestros modelos, ahora cada modelo tendrá su propio main.go con sus dependencias que serán independientes al resto de módulos. 
+_Es decir, si antes teníamos un main.go que lanzaba todos nuestros modelos, ahora cada modelo tendrá su propio main.go con sus dependencias que serán independientes al resto de módulos._
 
-El beneficio que nos da esto es que cada uno irá por un puerto diferente y eso nos da una velocidad de acceso que no teníamos antes, y además podemos prevenir fallos ya que, si un microservicio cae, no afectaría al resto porque son independientes, al contrario que pasaba anteriormente. 
+_El beneficio que nos da esto es que cada uno irá por un puerto diferente y eso nos da una velocidad de acceso que no teníamos antes, y además podemos prevenir fallos ya que, si un microservicio cae, no afectaría al resto porque son independientes, al contrario que pasaba anteriormente._ 
 
 
-Iniciación
+## Iniciación
 
 En el ejercicio de antes hemos refactorizado la app para poder usar módulos, y está preparada de una manera en la que ya podemos implementar microservicios al tener cada uno:
 
-Common
+## Common
 
 Una carpeta common con aspectos de configuración globales al microservicio así como utilidades para la creación de sesiones de base de datos
 
 
+![alt text](./img/8.png)
 
 
 
 
-
-Models
+## Models
 
 Un archivo models dentro de la carpeta src en donde se definirán los modelos utilizados por el microservicio
 
+![alt text](./img/9.png)
 
-
-Routers
+## Routers
 
 Un archivo routers dentro también de la carpeta src para la definición de las rutas o endpoints que publicará el microservicio
 
+![alt text](./img/10.png)
 
-
-Data
+## Data
 
 Un archivo data (en este caso llamado resolvers) en donde se incluyen las funciones que son ejecutadas para obtener la información de respuesta de los endpoints del microservicio
 
 
+![alt text](./img/11.png)
 
-
-Docker-compose
+## Docker-compose
 
 Para poder lanzar los microservicios, es necesario dockerizar la aplicación y añadir los microservicios, para ellos, configuraremos nuestro .yml de la siguiente manera:
 
-Partiremos de una imagen golang:1.15
-El nombre del contenedor lo llamaremos go_events
-El directorio de trabajo será /go/src/goApp_events
-Tendrá un volumen asociado a la carpeta events que será goApp_events 
-./go/events:/go/src/goApp_events
+- Partiremos de una imagen golang:1.15
+- El nombre del contenedor lo llamaremos go_events
+- El directorio de trabajo será /go/src/goApp_events
+- Tendrá un volumen asociado a la carpeta events que será goApp_events 
+  ./go/events:/go/src/goApp_event  s
+
+![alt text](./img/12.png)
 
 
+- Ejecutaremos los comandos necesarios para que funcione nuestro microservicio en go
+- Exponemos el puerto 8080 común en todos los microservicios 
 
+![alt text](./img/13.png)
 
+- Tendrá dependencias para los servicios de mysql y de redis
+- Tendrá una network común, que en este caso será servidor_network
 
-Ejecutaremos los comandos necesarios para que funcione nuestro microservicio en go
-Exponemos el puerto 8080 común en todos los microservicios 
-
-
-Tendrá dependencias para los servicios de mysql y de redis
-Tendrá una network común, que en este caso será servidor_network
-
+![alt text](./img/14.png)
 
 
 Configuraremos los servicios de mysql y de redis de la siguiente manera:
 
+![alt text](./img/15.png)
+
 Repetir el proceso anterior para cada microservicio que queramos crear.
 
-Traefik
+## Traefik
 
 Al ser independientes los microservicios entre ellos mismos, necesitamos una herramienta que gestione los puertos asociados a cada microservicio, para ellos utilizaremos traefik
 
-Introducción
+### Introducción
 
-Traefik es un proxy inverso y un balanceador HTTP y TCP escrito en GO que ofrece un conjunto de características muy interesantes:
+_Traefik es un proxy inverso y un balanceador HTTP y TCP escrito en GO que ofrece un conjunto de características muy interesantes:_ 
 · Auto-descubrimiento de servicios
 · Tracing
 · Métricas
 · Despliegues sobre un subconjunto de clientes
 · Mirroring
-Además integra una completa UI que nos da información sobre todo lo que ofrece que veremos más adelante
+
+_Además integra una completa UI que nos da información sobre todo lo que ofrece que veremos más adelante_
  
  
- 
- 
- 
-Configuración
+##Configuración
 Creamos una carpeta llamada traefik con un archivo llamado acme.json dentro
 
+![alt text](./img/16.png)
 
-Partiremos de una imagen de traefik:v2.3
-Ejecutará los comandos reflejados en la imagen de abajo para su correcto funcionamiento
-Expondrá los puertos 80 y 8080 
-Compartirá la network “servidor_network”
+- Partiremos de una imagen de traefik:v2.3
+- Ejecutará los comandos reflejados en la imagen de abajo para su correcto funcionamiento
+- Expondrá los puertos 80 y 8080 
+- Compartirá la network “servidor_network”
 
+![alt text](./img/17.png)
 
-Tendrá un volumen asociado a /var/run/docker.sock:/var/run/docker.sock 
-El nombre del contenedor será traefik 
-Aplicaremos la opción de restart: always para que pueda ejecutar todos los microservicios por si alguno falla
+- Tendrá un volumen asociado a /var/run/docker.sock:/var/run/docker.sock 
+- El nombre del contenedor será traefik 
+- Aplicaremos la opción de restart: always para que pueda ejecutar todos los microservicios por si alguno falla
 
+![alt text](./img/18.png)
 
 
 Ya tenemos  nuestro servicio de traefik configurado.
 
 
 
-
-
-
-
-
-
 Ahora, tenemos que ir a los microservicios que hemos creado antes en nuestro .yml y añadimos lo siguiente
 
-La primera opcion será para definir la ruta de acceso a este microservicio, en este caso será events.docker.localhost 
-La segunda opcion
-La tercera opcion será para definir la network compartida, que es servidor_network 
-La cuarta opción definimos el puerto asociado a traefik, por el cual partirán todos los microservicios, en este caso el puerto 8080
+- La primera opcion será para definir la ruta de acceso a este microservicio, en este caso será events.docker.localhost 
+- La segunda opcion
+- La tercera opcion será para definir la network compartida, que es servidor_network 
+- La cuarta opción definimos el puerto asociado a traefik, por el cual partirán todos los microservicios, en este caso el puerto 8080
 
-
+![alt text](./img/19.png)
 
 Repetimos el proceso anterior en cada uno de los microservicios que tengamos en nuestra app, en mi caso tengo “events”, “discotecas” y “users”, y quedaria de la siguiente manera
 
-Discotecas:
+### Discotecas:
+
+![alt text](./img/20.png)
 
 
+### Users:
 
+![alt text](./img/21.png)
 
-Users:
+### Events:
 
+![alt text](./img/22.png)
 
-
-
-Events:
-
-
-Puertos
+## Puertos
 
 Evidentemente, cada microservicio será lanzado por el puerto 8080, que definimos en cada main.go de cada microservicio para que traefik se encargue de asignar un puerto.
 
+```
 r.Run(“:8080”)
+```
 
+![alt text](./img/23.png)
 
 
 Una vez completados todos los pasos, procedemos a lanzar los contenedores de nuestro .yml con
 
+```
 $ sudo docker compose up
+```
+
+![alt text](./img/24.png)
+![alt text](./img/25.png)
 
 
 
-
-
-
-DashBoard
+## DashBoard
 
 Una vez lanzados nuestros contenedores, accedemos al dashboard de traefik en el puerto 8080
 
+```
 localhost:8080
+```
 
-
+![alt text](./img/26.png)
 
 
 
 Hacemos click en HTTP y comprobamos nuestros servicios activos
 
-
+![alt text](./img/27.png)
 
 Como podemos ver, todos nuestros servicios funcionan correctamente, y si hacemos click en alguno de ellos, en este caso el de events (4º posición) podremos ver la configuración del mismo y muchas más cosas, entre ellas, cómo acceder a este para realizar peticiones
 
-
+![alt text](./img/28.png)
 
 Como podemos comprobar, para acceder a este microservicio tendremos que acceder a 
 
+```
 Host(`events.docker.localhost`)
+```
 
 Vamos a crear un event de prueba para verificar que funciona correctamente:
 
-Accedemos a -> http://events.docker.localhost/api/events/ y observamos el resultado
+![alt text](./img/29.png)
 
+Accedemos a:
 
+```
+http://events.docker.localhost/api/events/ 
+```
+
+Y observamos el resultado
+
+![alt text](./img/30.png)
 
 Como podemos ver, el microservicio de events gestionado por traefik funciona correctamente. 
 
