@@ -20,38 +20,12 @@ services:
     networks:
       - servidor_network
 
-  # go:
-  #   image: golang:1.15
-  #   container_name: go_container
-  #   working_dir: /go/src/goApp
-  #   volumes:
-  #     - ./go:/go/src/goApp
-  #   command: >
-  #     bash -c " rm -f go.mod || true
-  #     && rm -f go.sum || true
-  #     && go mod init goApp
-  #     && go mod tidy
-  #     && go get github.com/jinzhu/gorm
-  #     && go get github.com/pilu/fresh
-  #     && fresh "
-      
-  #   ports:
-  #     - "3000:3000"
-  #   labels:
-  #     traefik.backend: "web"
-  #     traefik.frontend.rule: "PathPrefix:/"
-  #   depends_on:
-  #     - mysql
-  #     - redis
-  #   networks:
-  #     - servidor_network
-
 # MICROSERVICES
   discotecas:
     extends:
       file: microservices-go.yml
       service: microservices
-    container_name: go_discotecas
+    container_name: go_discotecas_container
     volumes:
       - ./go/discotecas:/go/src/goApp
     labels:
@@ -64,7 +38,7 @@ services:
     extends:
       file: microservices-go.yml
       service: microservices
-    container_name: go_users
+    container_name: go_users_container
     volumes:
       - ./go/users:/go/src/goApp
     labels:
@@ -77,7 +51,7 @@ services:
     extends:
       file: microservices-go.yml
       service: microservices
-    container_name: go_events
+    container_name: go_events_container
     volumes:
       - ./go/events:/go/src/goApp
     labels:
@@ -85,8 +59,9 @@ services:
     depends_on:
       - mysql
       - redis
-#END MICROSERVICES 
+# END MICROSERVICES 
 
+# MYSQL
   mysql:
     image: mysql:5.7
     container_name: mysql_container
@@ -102,6 +77,7 @@ services:
     networks:
       - servidor_network
 
+# REDIS
   redis:
     image: redis:4.0
     container_name: redis_container
@@ -112,27 +88,41 @@ services:
     networks:
       - servidor_network
 
+# TRAEFIK
   traefik:
     image: traefik:v2.3
-    command: --api.dashboard=true --api.insecure=true --providers.docker --entrypoints.web.address=:80
+    container_name: traefik_container
+    command: 
+    # configure traefik
+      - "--api=true"
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      - "--providers.docker"
+      - "--entrypoints.web.address=:80"
+
+    # configure traefik metrics to prometheus
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.buckets=0.100000, 0.300000, 1.200000, 5.000000"
 
     ports:
       - 80:80
       - 8080:8080
+      - 433:433
     networks:
       - servidor_network
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       # - "traefik.port=8080"
-    container_name: traefik
     restart: always
 
+# GRAFANA
   grafana:
     image: grafana/grafana:7.1.5
+    container_name: grafana_container
     ports:
       - "3500:3000"
     volumes:
-      - './common/grafana:/etc/grafana/provisioning/datasources/'
+      - './grafana.yml:/etc/grafana/provisioning/datasources/datasources.yml'
       - 'grafana:/var/lib/grafana'
     environment:
       GF_INSTALL_PLUGINS: "grafana-clock-panel 1.0.1"
@@ -140,10 +130,31 @@ services:
       GF_AUTH_DISABLE_LOGIN_FORM: "true"
       GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
     depends_on: 
-      - users
-      - laravel
+      - prometheus
     networks:
       - servidor_network
+
+# PROMETHEUS
+  prometheus:
+    image: prom/prometheus:v2.20.1
+    container_name: prometheus_container
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command: 
+    - "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      servidor_network:
+    labels:
+      traefik.backend: prometheus
+      traefik.docker.network: servidor_network
+      traefik.frontend.rule: Host:prometheus.localhost
+      traefik.port: 9090
+    depends_on: 
+      - users
+      - discotecas
+      - events
 
 networks:
   servidor_network:
