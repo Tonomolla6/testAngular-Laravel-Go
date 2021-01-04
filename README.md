@@ -1,42 +1,273 @@
-# testAngular-Laravel-Go
- hola
+# Práctica Mejora Proyecto Servidor
 
-## Instalar php
-sudo apt-get install apache2 php7.3 libapache2-mod-php7.3
+## Jose Maria Maestre Quiles
 
-sudo apt-get install php-gd php-xml php7.2-mbstring
+# Introducción
+ 
+## ¿GO O GOLANG?
+_Go es un lenguaje de programación concurrente y compilado, desarrollado por los ingenieros de Google._
+_Go es un lenguaje maduro, con el cual se han desarrollado miles de proyectos alrededor del mundo, inclusive, versiones actuales de Go están escritas con el mismo Go._
 
-sudo apt-get install php7.2-xml
+_Desde mi punto de vista podemos ver la sintaxis de Go como una mezcla entre Python y C como veremos más adelante_
+
+# Refactorizar la aplicación
+
+## Objetivo
+
+_Una de las ventajas que nos dan los modulos de go (go modules) es el adiós a las variables de entorno GOPATH, podemos iniciar nuestro proyecto en go desde el directorio que queramos, lo que nos aporta una gran sencillez a la hora de dockerizar la aplicación._
+
+## Como iniciar
+
+Por defecto Go Modules no viene activado para ser usado en GOPATH, pero si queremos utilizarlo será tan sencillo como activar la variable de entorno que nos ofrecen.
+
+- $ echo "export GO111MODULE=on" >> ~/.bash_profile
+- $ source ~/.bash_profile
+
+Con esto, ya tendríamos go modules activado
+
+## Crear un modulo
+
+Para crear un go module independiente del resto, nos situamos en el directorio de nuestra aplicación, y crearemos una carpeta con el nombre del módulo que deseamos, en este caso, se llamará “events” .
+
+Nos situamos en la carpeta events y ejecutamos: 
+
+- $ go mod init goApp_events
+
+![alt text](./img/1.png)
 
 
-## Activar apache con php
-a2query -m php7.3
+Estro nos creará un fichero llamado go.mod, en el cual no tendremos que tocar mucho
 
-sudo a2enmod php7.3
+![alt text](./img/2.png)
 
-sudo service apache2 restart
+Una vez hemos inicializado Go Modules en nuestro proyecto, podemos descargar las dependencias del mismo, esto servirá tanto para la primera vez como para cada vez que añadamos una nueva dependencia.
 
+- $ go mod tidy
 
-## Instalar Postgres
-sudo apt install postgresql postgresql-contrib
-
-sudo -u postgres psql -c "SELECT version();"
-
-## Postgres con php
-apt-get install php-pgsql
+_Go mod tidy incluye en nuestro go.mod todas las dependencias necesarias para nuestros tests, de manera que si un test falla, sabremos cual es la dependencia que utiliza para reproducir el error._
 
 
-## Instlar pgadmin4 (Debian 10)
-apt-get install curl ca-certificates gnupg
-curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+Ya podemos continuar con la creación del módulo, para ellos empezaremos por el main.go, dentro de la carpeta “events”
 
-echo "deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list
+![alt text](./img/3.png)
 
-apt-get update
-apt-get install pgadmin4  pgadmin4-apache2
 
-## Instlar pgadmin4 (Ubuntu 20)
-curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
-sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt sources.list.d/pgadmin4.list && apt update'
+El codigo de main.go se puede ver en el repositorio de github asociado en https://github.com/Tonomolla6/testAngular-Laravel-Go/tree/develop
 
-sudo apt install pgadmin4
+
+Creamos la carpeta common, que como bien indica el nombre, será una carpeta común en cada módulo de nuestra aplicación, de esta manera nos aseguramos de que si, por casualidades de la vida un módulo cae, no afectaría a los demás módulos y podría seguir funcionando la aplicación
+
+![alt text](./img/4.png)
+
+Creamos la carpeta “src” donde estarán los archivos relacionados con nuestro módulo events y sus dependencias
+
+![alt text](./img/5.png)
+
+Una vez hecho el paso anterior volvemos a hacer go mod tidy para que instale las dependencias automáticamente, las añada al go.mod (por eso hemos dicho antes que no hay que tocarlo) y borre las dependencias que no estamos usando (por ejemplo “fmt” que es para debuggear).
+
+![alt text](./img/6.png)
+
+
+Nuestro go.mod quedaría de la siguiente manera:
+
+![alt text](./img/7.png)
+
+Y nuestro go.sum se creará automáticamente con todas las dependencias que necesitamos en nuestro package “events”
+
+![alt text](./img/8.png)
+
+Y ya tendríamos nuestro modulo en go activo y listo.
+
+
+
+
+
+
+
+# Microservicios
+## Introducción
+
+Los microservicios son, explicado de una manera cotidiana, un backend para cada uno de los modelos de nuestra app, en el que cada uno funciona por un o unos puertos diferentes. 
+
+Es decir, si antes teníamos un main.go que lanzaba todos nuestros modelos, ahora cada modelo tendrá su propio main.go con sus dependencias que serán independientes al resto de módulos. 
+
+El beneficio que nos da esto es que cada uno irá por un puerto diferente y eso nos da una velocidad de acceso que no teníamos antes, y además podemos prevenir fallos ya que, si un microservicio cae, no afectaría al resto porque son independientes, al contrario que pasaba anteriormente. 
+
+
+Iniciación
+
+En el ejercicio de antes hemos refactorizado la app para poder usar módulos, y está preparada de una manera en la que ya podemos implementar microservicios al tener cada uno:
+
+Common
+
+Una carpeta common con aspectos de configuración globales al microservicio así como utilidades para la creación de sesiones de base de datos
+
+
+
+
+
+
+
+Models
+
+Un archivo models dentro de la carpeta src en donde se definirán los modelos utilizados por el microservicio
+
+
+
+Routers
+
+Un archivo routers dentro también de la carpeta src para la definición de las rutas o endpoints que publicará el microservicio
+
+
+
+Data
+
+Un archivo data (en este caso llamado resolvers) en donde se incluyen las funciones que son ejecutadas para obtener la información de respuesta de los endpoints del microservicio
+
+
+
+
+Docker-compose
+
+Para poder lanzar los microservicios, es necesario dockerizar la aplicación y añadir los microservicios, para ellos, configuraremos nuestro .yml de la siguiente manera:
+
+Partiremos de una imagen golang:1.15
+El nombre del contenedor lo llamaremos go_events
+El directorio de trabajo será /go/src/goApp_events
+Tendrá un volumen asociado a la carpeta events que será goApp_events 
+./go/events:/go/src/goApp_events
+
+
+
+
+
+Ejecutaremos los comandos necesarios para que funcione nuestro microservicio en go
+Exponemos el puerto 8080 común en todos los microservicios 
+
+
+Tendrá dependencias para los servicios de mysql y de redis
+Tendrá una network común, que en este caso será servidor_network
+
+
+
+Configuraremos los servicios de mysql y de redis de la siguiente manera:
+
+Repetir el proceso anterior para cada microservicio que queramos crear.
+
+Traefik
+
+Al ser independientes los microservicios entre ellos mismos, necesitamos una herramienta que gestione los puertos asociados a cada microservicio, para ellos utilizaremos traefik
+
+Introducción
+
+Traefik es un proxy inverso y un balanceador HTTP y TCP escrito en GO que ofrece un conjunto de características muy interesantes:
+· Auto-descubrimiento de servicios
+· Tracing
+· Métricas
+· Despliegues sobre un subconjunto de clientes
+· Mirroring
+Además integra una completa UI que nos da información sobre todo lo que ofrece que veremos más adelante
+ 
+ 
+ 
+ 
+ 
+Configuración
+Creamos una carpeta llamada traefik con un archivo llamado acme.json dentro
+
+
+Partiremos de una imagen de traefik:v2.3
+Ejecutará los comandos reflejados en la imagen de abajo para su correcto funcionamiento
+Expondrá los puertos 80 y 8080 
+Compartirá la network “servidor_network”
+
+
+Tendrá un volumen asociado a /var/run/docker.sock:/var/run/docker.sock 
+El nombre del contenedor será traefik 
+Aplicaremos la opción de restart: always para que pueda ejecutar todos los microservicios por si alguno falla
+
+
+
+Ya tenemos  nuestro servicio de traefik configurado.
+
+
+
+
+
+
+
+
+
+Ahora, tenemos que ir a los microservicios que hemos creado antes en nuestro .yml y añadimos lo siguiente
+
+La primera opcion será para definir la ruta de acceso a este microservicio, en este caso será events.docker.localhost 
+La segunda opcion
+La tercera opcion será para definir la network compartida, que es servidor_network 
+La cuarta opción definimos el puerto asociado a traefik, por el cual partirán todos los microservicios, en este caso el puerto 8080
+
+
+
+Repetimos el proceso anterior en cada uno de los microservicios que tengamos en nuestra app, en mi caso tengo “events”, “discotecas” y “users”, y quedaria de la siguiente manera
+
+Discotecas:
+
+
+
+
+Users:
+
+
+
+
+Events:
+
+
+Puertos
+
+Evidentemente, cada microservicio será lanzado por el puerto 8080, que definimos en cada main.go de cada microservicio para que traefik se encargue de asignar un puerto.
+
+r.Run(“:8080”)
+
+
+
+Una vez completados todos los pasos, procedemos a lanzar los contenedores de nuestro .yml con
+
+$ sudo docker compose up
+
+
+
+
+
+
+DashBoard
+
+Una vez lanzados nuestros contenedores, accedemos al dashboard de traefik en el puerto 8080
+
+localhost:8080
+
+
+
+
+
+Hacemos click en HTTP y comprobamos nuestros servicios activos
+
+
+
+Como podemos ver, todos nuestros servicios funcionan correctamente, y si hacemos click en alguno de ellos, en este caso el de events (4º posición) podremos ver la configuración del mismo y muchas más cosas, entre ellas, cómo acceder a este para realizar peticiones
+
+
+
+Como podemos comprobar, para acceder a este microservicio tendremos que acceder a 
+
+Host(`events.docker.localhost`)
+
+Vamos a crear un event de prueba para verificar que funciona correctamente:
+
+Accedemos a -> http://events.docker.localhost/api/events/ y observamos el resultado
+
+
+
+Como podemos ver, el microservicio de events gestionado por traefik funciona correctamente. 
+
+
+
