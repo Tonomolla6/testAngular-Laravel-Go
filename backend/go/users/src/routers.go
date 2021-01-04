@@ -2,7 +2,7 @@ package users
 
 import (
 	"errors"
-	"goApp_users/common"
+	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

@@ -4,14 +4,14 @@ import (
 	"fmt"
 
 	"github.com/gin-gonic/gin"
-	"goApp_discotecas/common"
+	"goApp/common"
 	"github.com/jinzhu/gorm"
-	"goApp_discotecas/src"
+	"goApp/src"
 	
 )
 
-// "goApp_discotecas/discotecas"
-// "goApp_discotecas/common"
+// "goApp/discotecas"
+// "goApp/common"
 
 func Migrate(db *gorm.DB) {
 

@@ -3,7 +3,7 @@ package discotecas
 import (
 
 	"errors"
-	"goApp_discotecas/common"
+	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	

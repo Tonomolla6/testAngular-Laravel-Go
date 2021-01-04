@@ -1,7 +1,7 @@
 package users
 
 import (
-	"goApp_users/common"
+	"goApp/common"
 	"github.com/gin-gonic/gin"
 )
 

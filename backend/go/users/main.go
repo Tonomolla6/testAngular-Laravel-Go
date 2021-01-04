@@ -6,10 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/jinzhu/gorm"
-	"goApp_users/common"
-	"goApp_users/src"
+	"goApp/common"
+	"goApp/src"
 )
-// "goApp_users/users"
+// "goApp/users"
 
 func Migrate(db *gorm.DB) {
 	users.AutoMigrate()

@@ -1,4 +1,4 @@
-module goApp_discotecas
+module goApp
 
 go 1.15
 

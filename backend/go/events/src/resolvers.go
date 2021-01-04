@@ -2,7 +2,7 @@ package events
 
 import (
 	"fmt"
-	"goApp_events/common"
+	"goApp/common"
 
 )
 

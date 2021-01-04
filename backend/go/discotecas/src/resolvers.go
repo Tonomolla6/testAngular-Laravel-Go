@@ -2,7 +2,7 @@ package discotecas
 
 import (
 	"fmt"
-	"goApp_discotecas/common"
+	"goApp/common"
 
 )
 

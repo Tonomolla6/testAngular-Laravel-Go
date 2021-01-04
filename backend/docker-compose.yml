@@ -47,89 +47,44 @@ services:
   #     - servidor_network
 
 # MICROSERVICES
-
   discotecas:
-    image: golang:1.15
+    extends:
+      file: microservices-go.yml
+      service: microservices
     container_name: go_discotecas
-    working_dir: /go/src/goApp_discotecas
     volumes:
-      - ./go/discotecas:/go/src/goApp_discotecas
-    command: >
-      bash -c " rm -f go.mod || true
-      && rm -f go.sum || true
-      && go mod init goApp_discotecas
-      && go mod tidy
-      && go get github.com/jinzhu/gorm
-      && go get github.com/pilu/fresh
-      && fresh "
-
-    expose:
-    - 8080
+      - ./go/discotecas:/go/src/goApp
     labels:
       traefik.http.routers.discotecas.rule: Host(`discotecas.docker.localhost`)
-      traefik.enable: true
-      traefik.docker.network: servidor_network
-      traefik.port: 8080
     depends_on:
       - mysql
       - redis
-    networks:
-      - servidor_network
 
   users:
-    image: golang:1.15
+    extends:
+      file: microservices-go.yml
+      service: microservices
     container_name: go_users
-    working_dir: /go/src/goApp_users
     volumes:
-      - ./go/users:/go/src/goApp_users
-    command: >
-      bash -c " rm -f go.mod || true
-      && rm -f go.sum || true
-      && go mod init goApp_users
-      && go mod tidy
-      && go get github.com/jinzhu/gorm
-      && go get github.com/pilu/fresh
-      && fresh "
-    expose:
-    - 8080
+      - ./go/users:/go/src/goApp
     labels:
       traefik.http.routers.users.rule: Host(`users.docker.localhost`)
-      traefik.enable: true
-      traefik.docker.network: servidor_network
-      traefik.port: 8080
     depends_on:
       - mysql
       - redis
-    networks:
-      - servidor_network
 
   events:
-    image: golang:1.15
+    extends:
+      file: microservices-go.yml
+      service: microservices
     container_name: go_events
-    working_dir: /go/src/goApp_events
     volumes:
-      - ./go/events:/go/src/goApp_events
-    command: >
-      bash -c " rm -f go.mod || true
-      && rm -f go.sum || true
-      && go mod init goApp_events
-      && go mod tidy
-      && go get github.com/jinzhu/gorm
-      && go get github.com/pilu/fresh
-      && fresh "
-    expose:
-    - 8080
+      - ./go/events:/go/src/goApp
     labels:
       traefik.http.routers.events.rule: Host(`events.docker.localhost`)
-      traefik.enable: true
-      traefik.docker.network: servidor_network
-      traefik.port: 8080
     depends_on:
       - mysql
       - redis
-    networks:
-      - servidor_network
-      
 #END MICROSERVICES 
 
   mysql:
@@ -195,15 +150,6 @@ networks:
 
 volumes:
   grafana:
-
-# [17:27, 2/1/2021] Joel - Instalation: tu tens que fer que tots els microserveis ixquen per el 80 si no m'equivoque
-# [17:27, 2/1/2021] Joel - Instalation: i en el main.go igual
-# [17:27, 2/1/2021] tonomolla6: pero, per el mateix?
-# [17:27, 2/1/2021] tonomolla6: Y com faig les peticions
-# [17:27, 2/1/2021] Joel - Instalation: i traefik ja els distribueix
-# [17:27, 2/1/2021] Joel - Instalation: go_users.docker.localhost o algo aixina
-# [17:27, 2/1/2021] tonomolla6: Vale
-# [17:27, 2/1/2021] Joel - Instalation: sense indicar port
 
 ###############  POSTGRESQL  ###############
 

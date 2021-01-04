@@ -1,4 +1,4 @@
-module goApp_events
+module goApp
 
 go 1.15
 

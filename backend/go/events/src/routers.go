@@ -3,7 +3,7 @@ package events
 import (
 	"fmt"
 	"errors"
-	"goApp_events/common"
+	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
