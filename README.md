@@ -375,6 +375,8 @@ Grafana es una herramienta para visualizar datos de serie temporales. A partir d
 
 En el siguiente punto vamos a configurar traefik para que proporcione metricas de nuestros microservicios en go a prometheus y que grafana los monitorice. Vamos a empezar configurando traefik para que genere metricas que podamos utilizar.
 
+## Traefik
+
 Le añadimos por cli los siguientes comandos al docker-compose, el servicio traefik:
 
 - Para habilitar las metricas de prometheus en traefik
@@ -389,6 +391,8 @@ Le añadimos por cli los siguientes comandos al docker-compose, el servicio trae
 El servicio de docker-compose debe de quedar asi finalmente:
 
 ![alt text](./img/41.png)
+
+## Prometheus
 
 Vamos a añadir el servicio de prometheus al archivo docker-compose.yml
 ``` yml
@@ -448,6 +452,8 @@ prometheus:
 El servicio de docker-compose debe de quedar asi finalmente:
 
 ![alt text](./img/42.png)
+
+## Grafana
 
 Finalmente añadimos el servicio de grafana para monitorizar las metricas.
 ``` yml
