@@ -369,3 +369,186 @@ Comprobamos que los microservicios con las extensiones funcionan
 
 # Prometheus y Grafena con Traefik
 
+Prometheus es un sistema de monitoreo de código abierto basado en métricas. Recopila datos de servicios y hosts mediante el envío de solicitudes HTTP en puntos finales de métricas. Luego, almacena los resultados en una base de datos de series de tiempo y los pone a disposición para análisis y alertas.
+
+Grafana es una herramienta para visualizar datos de serie temporales. A partir de una serie de datos recolectados obtendremos un panorama gráfico de la situación de una empresa u organización. 
+
+En el siguiente punto vamos a configurar traefik para que proporcione metricas de nuestros microservicios en go a prometheus y que grafana los monitorice. Vamos a empezar configurando traefik para que genere metricas que podamos utilizar.
+
+Le añadimos por cli los siguientes comandos al docker-compose, el servicio traefik:
+
+- Para habilitar las metricas de prometheus en traefik
+    ``` yml
+    - "--metrics.prometheus=true"
+    ```
+- Buckets para métricas de latencia predeterminadas.
+    ``` yml
+    - "--metrics.prometheus.buckets=0.100000, 0.300000, 1.200000, 5.000000"
+    ```
+
+El servicio de docker-compose debe de quedar asi finalmente:
+
+![alt text](./img/41.png)
+
+Vamos a añadir el servicio de prometheus al archivo docker-compose.yml
+``` yml
+prometheus:
+```
+- Partiremos de una imagen de prometheus version 2.20.1
+    ``` yml
+    image: prom/prometheus:v2.20.1
+    ```
+- Le asignamos el nombre de prometheus_container al servicio
+    ``` yml
+    container_name: prometheus_container
+    ```
+- Establecemos los puertos de la maquina real y del contenedor
+    ``` yml
+    ports:
+        - 9090:9090
+    ```
+- Copiamos la configuracion de prometheus por medio de volumes y le decimos donde se encuentra
+    ``` yml
+    volumes:
+        - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command: 
+        - "--config.file=/etc/prometheus/prometheus.yml"
+    ```
+    - Esta es la configuracion del archivo prometheus.yml
+        ``` yml
+        global:
+            scrape_interval: 5s
+            evaluation_interval: 30s
+        scrape_configs:
+            - job_name: "testAngular-Laravel-Go"
+        static_configs:
+            - targets: ["traefik:8080"]
+        ```
+- Lo asignamos a la red que hemos creado para la practica
+    ``` yml
+    networks:
+        servidor_network:
+    ```
+- Le añadimos dependencias
+    ``` yml
+    depends_on: 
+        - users
+        - discotecas
+        - events
+    ```
+- Y las etiquetas que utilizara traefik para identificar a prometheus
+    ``` yml
+    labels:
+        traefik.backend: prometheus
+        traefik.docker.network: servidor_network
+        traefik.frontend.rule: Host:prometheus.localhost
+        traefik.port: 9090
+    ```
+    
+El servicio de docker-compose debe de quedar asi finalmente:
+
+![alt text](./img/42.png)
+
+Finalmente añadimos el servicio de grafena para monitorizar las metricas.
+``` yml
+prometheus:
+```
+- Partiremos de la version 7.1.5 de grafena
+    ``` yml
+    image: grafana/grafana:7.1.5
+    ```
+- Llamaremos grafana_container al servicio
+    ``` yml
+    container_name: grafana_container
+    ```
+- Configuramos los puertos de maquina real y virtual
+    ``` yml
+    ports:
+        - "3500:3000"
+    ```
+- Añadimos la configuracion de grafana mediante volumes
+    ``` yml
+    volumes:
+        - './grafana.yml:/etc/grafana/provisioning/datasources/datasources.yml'
+        - 'grafana:/var/lib/grafana'
+    ```
+    - Esta es la configuracion del archivo grafana.yml
+        ``` yml
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            orgId: 1
+            url: prometheus_container:9090
+            basicAuth: false
+            isDefault: true
+            editable: true
+        ```
+- Creamos las variantes para acceder como anonymous, activarlo...
+    ``` yml
+    environment:
+        GF_INSTALL_PLUGINS: "grafana-clock-panel 1.0.1"
+        GF_AUTH_ANONYMOUS_ENABLED: "true"
+        GF_AUTH_DISABLE_LOGIN_FORM: "true"
+        GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+    ```
+- Creamos dependencias
+    ``` yml
+    depends_on: 
+        - prometheus
+    ```
+- Añadimos el servicio a la red que hemos creado para la practica
+    ``` yml
+    networks:
+        - servidor_network
+    ```
+    
+El servicio de docker-compose debe de quedar asi finalmente:
+
+![alt text](./img/43.png)
+
+Iniciamos el archivo docker-compose.yml y comprobamos si todo funciona correctamente
+``` sh
+sudo docker-compose up
+```
+
+![alt text](./img/44.png)
+![alt text](./img/45.png)
+![alt text](./img/46.png)
+![alt text](./img/47.png)
+
+Una vez en funcionamiento los contenedores vamos a ver si traefik nos proporciona metricas en http://0.0.0.0:8080/metrics
+
+![alt text](./img/48.png)
+
+Comprobamos que prometheus recibe las metricas de traefik en http://0.0.0.0:9090/targets
+
+![alt text](./img/49.png)
+
+Finalmente vamos a configurar grafena para monitorizar las metricas de traefik con prometheus
+
+- Abrimos la ruta http://0.0.0.0:3500
+ 
+![alt text](./img/50.png)
+
+- Creamos un dashboard nuevo
+
+![alt text](./img/51.png)
+
+- Añadimos un panel
+
+![alt text](./img/52.png)
+
+- Seleccionamos querys prometheus
+
+![alt text](./img/53.png)
+
+- Elegimos las metricas que queramos monitorizar
+
+![alt text](./img/54.png)
+
+
+El dashboard quedaria asi
+
+![alt text](./img/39.png)
