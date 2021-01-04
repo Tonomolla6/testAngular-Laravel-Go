@@ -367,7 +367,7 @@ Comprobamos que los microservicios con las extensiones funcionan
 
 ![alt text](./img/40.png)
 
-# Prometheus y Grafena con Traefik
+# Prometheus y grafana con Traefik
 
 Prometheus es un sistema de monitoreo de código abierto basado en métricas. Recopila datos de servicios y hosts mediante el envío de solicitudes HTTP en puntos finales de métricas. Luego, almacena los resultados en una base de datos de series de tiempo y los pone a disposición para análisis y alertas.
 
@@ -379,11 +379,11 @@ Le añadimos por cli los siguientes comandos al docker-compose, el servicio trae
 
 - Para habilitar las metricas de prometheus en traefik
     ``` yml
-    - "--metrics.prometheus=true"
+    "--metrics.prometheus=true"
     ```
 - Buckets para métricas de latencia predeterminadas.
     ``` yml
-    - "--metrics.prometheus.buckets=0.100000, 0.300000, 1.200000, 5.000000"
+    "--metrics.prometheus.buckets=0.100000, 0.300000, 1.200000, 5.000000"
     ```
 
 El servicio de docker-compose debe de quedar asi finalmente:
@@ -449,11 +449,11 @@ El servicio de docker-compose debe de quedar asi finalmente:
 
 ![alt text](./img/42.png)
 
-Finalmente añadimos el servicio de grafena para monitorizar las metricas.
+Finalmente añadimos el servicio de grafana para monitorizar las metricas.
 ``` yml
-prometheus:
+grafana:
 ```
-- Partiremos de la version 7.1.5 de grafena
+- Partiremos de la version 7.1.5 de grafana
     ``` yml
     image: grafana/grafana:7.1.5
     ```
@@ -526,7 +526,7 @@ Comprobamos que prometheus recibe las metricas de traefik en http://0.0.0.0:9090
 
 ![alt text](./img/49.png)
 
-Finalmente vamos a configurar grafena para monitorizar las metricas de traefik con prometheus
+Finalmente vamos a configurar grafana para monitorizar las metricas de traefik con prometheus
 
 - Abrimos la ruta http://0.0.0.0:3500
  
