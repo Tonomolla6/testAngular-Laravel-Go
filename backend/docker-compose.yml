@@ -46,6 +46,8 @@ services:
   #   networks:
   #     - servidor_network
 
+# MICROSERVICES
+
   discotecas:
     image: golang:1.15
     container_name: go_discotecas
@@ -101,6 +103,35 @@ services:
     networks:
       - servidor_network
 
+  events:
+    image: golang:1.15
+    container_name: go_events
+    working_dir: /go/src/goApp_events
+    volumes:
+      - ./go/events:/go/src/goApp_events
+    command: >
+      bash -c " rm -f go.mod || true
+      && rm -f go.sum || true
+      && go mod init goApp_events
+      && go mod tidy
+      && go get github.com/jinzhu/gorm
+      && go get github.com/pilu/fresh
+      && fresh "
+    expose:
+    - 8080
+    labels:
+      traefik.http.routers.events.rule: Host(`events.docker.localhost`)
+      traefik.enable: true
+      traefik.docker.network: servidor_network
+      traefik.port: 8080
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - servidor_network
+      
+#END MICROSERVICES 
+
   mysql:
     image: mysql:5.7
     container_name: mysql_container
@@ -139,8 +170,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       # - "traefik.port=8080"
     container_name: traefik
-    depends_on: 
-    - users
     restart: always
 
   grafana:
