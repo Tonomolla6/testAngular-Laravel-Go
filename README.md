@@ -252,7 +252,7 @@ Ahora vamos al servicio que hemos creado en el punto anterior en el archivo micr
 
 Hay un label que si que vamos a tener que poner en cada microservicio en el archivo docker-compose.yml por que es diferente
 
-- Es para definir la ruta de acceso a este microservicio, en este caso será events.docker.localhost 
+- Es para definir la ruta de acceso a este microservicio, en este caso será discotecas.docker.localhost 
 ![alt text](./img/35.png)
 
 Repetimos el proceso anterior en cada uno de los microservicios que tengamos en nuestra app, en mi caso tengo “events”, “discotecas” y “users”, y quedaria de la siguiente manera
