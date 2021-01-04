@@ -344,9 +344,9 @@ discotecas:
         file: microservices-go.yml
         service: microservices
 ```
-- El nombre del contenedor lo llamaremos go_discotecas
+- El nombre del contenedor lo llamaremos go_discotecas_container
     ``` yml
-    container_name: go_discotecas
+    container_name: go_discotecas_container
     ```
 - Tendrá un volumen asociado a la carpeta events que será goApp
   ./go/events:/go/src/goApp
