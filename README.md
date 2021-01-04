@@ -230,7 +230,7 @@ Repetimos el proceso anterior en cada uno de los microservicios que tengamos en 
 
 Evidentemente, cada microservicio será lanzado por el puerto 8080, que definimos en cada main.go de cada microservicio para que traefik se encargue de asignar un puerto.
 
-```
+``` sh
 r.Run(“:8080”)
 ```
 
@@ -239,7 +239,7 @@ r.Run(“:8080”)
 
 Una vez completados todos los pasos, procedemos a lanzar los contenedores de nuestro .yml con
 
-```
+``` sh
 $ sudo docker compose up
 ```
 
@@ -252,7 +252,7 @@ $ sudo docker compose up
 
 Una vez lanzados nuestros contenedores, accedemos al dashboard de traefik en el puerto 8080
 
-```
+``` sh
 localhost:8080
 ```
 
@@ -270,7 +270,7 @@ Como podemos ver, todos nuestros servicios funcionan correctamente, y si hacemos
 
 Como podemos comprobar, para acceder a este microservicio tendremos que acceder a 
 
-```
+``` sh
 Host(`events.docker.localhost`)
 ```
 
