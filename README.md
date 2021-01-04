@@ -181,10 +181,10 @@ _Traefik es un proxy inverso y un balanceador HTTP y TCP escrito en GO que ofrec
 _Además integra una completa UI que nos da información sobre todo lo que ofrece que veremos más adelante_
  
  
-##Configuración
+## Configuración
 Creamos una carpeta llamada traefik con un archivo llamado acme.json dentro
 
-![alt text](./img/16.png)
+![alt text](./img/19.png) 
 
 - Partiremos de una imagen de traefik:v2.3
 - Ejecutará los comandos reflejados en la imagen de abajo para su correcto funcionamiento
@@ -211,22 +211,22 @@ Ahora, tenemos que ir a los microservicios que hemos creado antes en nuestro .ym
 - La tercera opcion será para definir la network compartida, que es servidor_network 
 - La cuarta opción definimos el puerto asociado a traefik, por el cual partirán todos los microservicios, en este caso el puerto 8080
 
-![alt text](./img/19.png)
+![alt text](./img/20.png)
 
 Repetimos el proceso anterior en cada uno de los microservicios que tengamos en nuestra app, en mi caso tengo “events”, “discotecas” y “users”, y quedaria de la siguiente manera
 
 ### Discotecas:
 
-![alt text](./img/20.png)
+![alt text](./img/21.png)
 
 
 ### Users:
 
-![alt text](./img/21.png)
+![alt text](./img/22.png)
 
 ### Events:
 
-![alt text](./img/22.png)
+![alt text](./img/23.png)
 
 ## Puertos
 
@@ -236,7 +236,7 @@ Evidentemente, cada microservicio será lanzado por el puerto 8080, que definimo
 r.Run(“:8080”)
 ```
 
-![alt text](./img/23.png)
+![alt text](./img/24.png)
 
 
 Una vez completados todos los pasos, procedemos a lanzar los contenedores de nuestro .yml con
@@ -245,8 +245,8 @@ Una vez completados todos los pasos, procedemos a lanzar los contenedores de nue
 $ sudo docker compose up
 ```
 
-![alt text](./img/24.png)
 ![alt text](./img/25.png)
+![alt text](./img/16.png)
 
 
 
