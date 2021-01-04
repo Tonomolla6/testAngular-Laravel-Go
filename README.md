@@ -558,3 +558,10 @@ Finalmente vamos a configurar grafana para monitorizar las metricas de traefik c
 El dashboard quedaria asi
 
 ![alt text](./img/39.png)
+
+
+Esta practica esta realizada por:
+
+https://github.com/tonomolla6
+
+https://github.com/j-maestre
