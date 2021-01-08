@@ -16,33 +16,41 @@ export class ApiService {
       private formatErrors(error: any) {
         return  throwError(error.error);
       }
-      
 
-      //ENDPOINTS para backend a continuacion
-      get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-        return this.http.get(`${environment.api_url}${path}`, { params })
-          .pipe(catchError(this.formatErrors));
-      }
-    
-      put(path: string, body: Object = {}): Observable<any> {
-        return this.http.put(
-          `${environment.api_url}${path}`,
-          JSON.stringify(body)
+      // ENDPOINTS 
+      // Users
+      usersPost(path: string, body: Object = {}): Observable<any> {
+        console.log(JSON.stringify(body));
+        return this.http.post(
+          `${environment.api_go_users}${path}`,body
         ).pipe(catchError(this.formatErrors));
       }
+
+      usersGet(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+        return this.http.get(`${environment.api_go_users}${path}`, { params })
+          .pipe(catchError(this.formatErrors));
+      }
+
+      // Discotecas
+      discotecasGet(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+        return this.http.get(`${environment.api_go_discotecas}${path}`, { params })
+          .pipe(catchError(this.formatErrors));
+      }
+
+      // Events
     
-      post(path: string, body: Object = {}): Observable<any> {
-        return this.http.post(
-          `${environment.api_url}${path}`,
+
+      // Other
+      put(path: string, body: Object = {}): Observable<any> {
+        return this.http.put(
+          `${environment.api_go_users}${path}`,
           JSON.stringify(body)
         ).pipe(catchError(this.formatErrors));
       }
     
       delete(path: Observable<any>) {                //Originalmente estaba asi: delete(path): Observable<any>
         return this.http.delete(                     //Pero no pilla el tipo de path al ser tipado y salta error
-          `${environment.api_url}${path}`
+          `${environment.api_go_users}${path}`
         ).pipe(catchError(this.formatErrors));
       }
-
-
 }

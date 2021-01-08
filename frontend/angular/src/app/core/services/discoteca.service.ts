@@ -13,14 +13,14 @@ export class DiscotecasService {
       // Aqui es donde viene para ejecutar la query
       query(): Observable<{discotecas: Discoteca[]}> {
 
-        return this.apiService.get('/discotecas/').pipe(map(data => {
+        return this.apiService.discotecasGet('/discotecas/').pipe(map(data => {
           return data;
         }));
       }
 
       //Details
       get(id: Observable<Discoteca>) {
-        return this.apiService.get('/discotecas/' + id)
+        return this.apiService.discotecasGet('/discotecas/' + id)
           .pipe(map(data => data.discoteca));
       }
 

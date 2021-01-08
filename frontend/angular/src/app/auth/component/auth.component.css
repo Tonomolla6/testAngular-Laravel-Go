@@ -2,13 +2,13 @@
     height: calc(100vh - 210px);
 }
 
-.auth-page .singin {
+.auth-page .signin {
     height: 100%;
     display: flex;
     position: relative;
 }
 
-.auth-page .singin .form {
+.auth-page .signin .form {
     background-color: var(--color-primary);
     position: relative;
     width: 45vw;
@@ -18,7 +18,7 @@
     flex-direction: column;
 }
 
-.auth-page .singin .figure {
+.auth-page .signin .figure {
     width: 0;
     height: 0;
     border-top: calc(100vh - 210px) solid var(--color-primary);
@@ -34,7 +34,7 @@
     width: 600px;
 }
 
-.auth-page .singin .slider {
+.auth-page .signin .slider {
     background-image: url('/assets/img/login.png');
     /* background-image: url('/frontend/angular/src/'); */
     width: 55vw;
@@ -42,7 +42,7 @@
     /* position: absolute; */
 }
 
-.auth-page .singin form {
+.auth-page .signin form {
     display: flex;
     font-family: var(--font-primary);
     flex-direction: column;
@@ -51,18 +51,18 @@
     margin: 15px 0px 40px 0px;
 }
 
-.auth-page .singin form label {
+.auth-page .signin form label {
     font-size: 30px;
 }
 
-.auth-page .singin form input {
+.auth-page .signin form input {
     font-size: 20px;
     width: 80%;
     padding: 10px;
     margin-bottom: 10px;
 }
 
-.auth-page .singin form .button {
+.auth-page .signin form .button {
     font-size: 35px;
     margin-top: 35px;
     width: 140px;
@@ -75,12 +75,12 @@
     border: none;
 }
 
-.auth-page .singin form .button:hover {
+.auth-page .signin form .button:hover {
     color: white;
 }
 
 
-/* .auth-page .singin .form {
+/* .auth-page .signin .form {
     background-color: var(--color-primary);
     width: 50vw;
 } */

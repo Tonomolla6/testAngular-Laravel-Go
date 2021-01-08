@@ -4,8 +4,12 @@
 
 export const environment = {
   production: false,
-  // api_url: 'https://conduit.productionready.io/api'
-  api_url: 'http://localhost:3000/api'
+  // laravel
+  api_laravel: 'http://localhost:3000/api',
+  // go
+  api_go_users: 'http://users.docker.localhost/api',
+  api_go_discotecas: 'http://discotecas.docker.localhost/api',
+  api_go_events: 'http://events.docker.localhost/api'
 };
 
 /*

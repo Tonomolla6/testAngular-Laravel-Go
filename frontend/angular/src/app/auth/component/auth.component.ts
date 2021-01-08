@@ -29,9 +29,8 @@ export class AuthComponent implements OnInit {
     console.log("NG on init auth component")
     this.route.url.subscribe(data => {
       // Coger la url para ver si muestras un formulario o otro.
-      debugger;
       this.authType = data[data.length - 1].path;
-      if (this.authType === 'register') {
+      if (this.authType === 'signin') {
         this.authForm.addControl('username', new FormControl());
       }
     });
@@ -41,8 +40,8 @@ export class AuthComponent implements OnInit {
     // Ejecutamos el servicio de usuario para hacer login
     console.log("Submit form auth component");
     const credentials = this.authForm.value;
-    debugger;
 
+    console.log(credentials);
     this.userService.attemptAuth(this.authType, credentials)
     .subscribe(
       data => this.router.navigateByUrl('/')
