@@ -1,11 +1,14 @@
 package users
 
 import (
+	
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	
 )
+//"strings" "fmt"
 
 //Register o Login
 func UsersRegister(router *gin.RouterGroup) {
@@ -112,7 +115,25 @@ func UsersLogin(c *gin.Context) {
 		return
 	}
 	UpdateContextUserModel(c, userModel.ID)  //Esto se guarda al tio que se ha logueado
+
+
+
+	
+
+
+	//save userModel in redis
+	client := common.NewClient()
 	serializer := UserSerializer{c}
+
+	err_redis := common.SaveUser(serializer.Response().Email, serializer.Response().Token, client)
+	if err_redis != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err_redis.Error()})
+		return
+	}
+
+
+
+	
 	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
 }
 

@@ -2,8 +2,10 @@ package common
 
 import (
 	"github.com/go-redis/redis/v8"
-    "context"
+	"context"
+	
 )
+//"fmt"
 var ctx = context.Background()
 
 //S_Users :  Struct of the redis package
@@ -24,12 +26,13 @@ func NewClient() *redis.Client {
 }
 
 
-err := rdb.Set(ctx, "key", "value", 0).Err()
-if err != nil {
-	panic(err)
-}
+// err := rdb.Set(ctx, "key", "value", 0).Err()
+// if err != nil {
+// 	panic(err)
+// }
 
 func SaveUser(key string, value string, client *redis.Client) error {
+
 	err := client.Set(ctx, key, value, 0).Err()
 	if err != nil {
 		return err
