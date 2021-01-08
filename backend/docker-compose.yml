@@ -59,6 +59,19 @@ services:
     depends_on:
       - mysql
       - redis
+  
+  profile:
+    extends:
+      file: microservices-go.yml
+      service: microservices
+    container_name: go_profile_container
+    volumes:
+      - ./go/profile:/go/src/goApp
+    labels:
+      traefik.http.routers.events.rule: Host(`profile.docker.localhost`)
+    depends_on:
+      - mysql
+      - redis
 # END MICROSERVICES 
 
 # MYSQL

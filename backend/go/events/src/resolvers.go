@@ -15,7 +15,7 @@ func CreateEvent(data interface{}) error{
 }
 
 //Get all Events
-func GetAllEvents(data interface{}) error{ //Aqui no está pillando bien el name y la discoteca_id
+func GetAllEvents(data interface{}) error{
 	db:=common.GetDB();
 	err:=db.Find(data).Error
 

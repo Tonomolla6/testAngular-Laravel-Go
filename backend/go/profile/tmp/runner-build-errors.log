@@ -1,0 +1,3 @@
+# goApp/src
+src/routers.go:98:11: discoteca.Company undefined (type Profile has no field or method Company)
+src/routers.go:98:34: newDiscoteca.Company undefined (type Profile has no field or method Company)
