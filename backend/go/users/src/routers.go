@@ -1,11 +1,14 @@
 package users
 
 import (
+	"fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	
 )
+//"strings" "fmt"
 
 //Register o Login
 func UsersRegister(router *gin.RouterGroup) {
@@ -74,18 +77,21 @@ func ProfileUnfollow(c *gin.Context) {
 
 //REGISTER
 func UsersRegistration(c *gin.Context) {
-	// fmt.Println("USER REGISTRATION");
 	userModelValidator := NewUserModelValidator()  //Esto es lo que valida sintactica y semanticamente en validators.go
+	
 	if err := userModelValidator.Bind(c); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
 		return
 	}
 
+	userModelValidator.userModel.Type = "client";
 	if err := SaveOne(&userModelValidator.userModel); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
 		return
 	}
+
 	c.Set("my_user_model", userModelValidator.userModel)
+
 	serializer := UserSerializer{c}
 	c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
 }
@@ -112,7 +118,17 @@ func UsersLogin(c *gin.Context) {
 		return
 	}
 	UpdateContextUserModel(c, userModel.ID)  //Esto se guarda al tio que se ha logueado
+
+	//save userModel in redis
+	client := common.NewClient()
 	serializer := UserSerializer{c}
+
+	err_redis := common.SaveUser(serializer.Response().Email, serializer.Response().Token, client)
+	if err_redis != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err_redis.Error()})
+		return
+	}
+
 	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
 }
 

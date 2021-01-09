@@ -67,27 +67,3 @@ func DbURL(dbConfig *DBConfig) string {
 func GetDB() *gorm.DB {
 	return DB
 }
-
-
-
-
-// This function will create a temporarily database for running testing cases
-// func TestDBInit() *gorm.DB {
-// 	test_db, err := gorm.Open("sqlite3", "./../gorm_test.db")
-// 	if err != nil {
-// 		fmt.Println("db err: ", err)
-// 	}
-// 	test_db.DB().SetMaxIdleConns(3)
-// 	test_db.LogMode(true)
-// 	DB = test_db
-// 	return DB
-// }
-
-// Delete the database after running testing cases.
-// func TestDBFree(test_db *gorm.DB) error {
-// 	test_db.Close()
-// 	err := os.Remove("./../gorm_test.db")
-// 	return err
-// }
-
-

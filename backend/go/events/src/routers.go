@@ -13,7 +13,7 @@ import (
 
 func EventsRegister(router *gin.RouterGroup) {
 	router.POST("/", EventCreate)
-	// router.PUT("/:id", EventUpdate)
+	router.PUT("/:id", EventUpdate)
 	router.DELETE("/:id", EventDelete)
 }
 
@@ -85,34 +85,34 @@ func EventById(c *gin.Context) {
 
 //UPDATE event
 
-// func EventUpdate(c *gin.Context){
-// 	var event Events
-// 	var newEvent Events
-// 	c.BindJSON(&newEvent);  //Aqui en teoria está la event que le hemos pasado por postman
+func EventUpdate(c *gin.Context){
+	var event Events
+	var newEvent Events
+	c.BindJSON(&newEvent);  //Aqui en teoria está la event que le hemos pasado por postman
 
-// 	id := c.Params.ByName("id")
-// 	err := GetEventById(&event, id) //Este es la event que he pillao con ese id, ¿para que? para comprobar que existe ese id
+	fmt.Println("Dentro del update")
+	id := c.Params.ByName("id")
+	err := GetEventById(&event, id) //Este es la event que he pillao con ese id, ¿para que? para comprobar que existe ese id
 
-// 	event.Name = newEvent.Name
-// 	event.Company = newEvent.Company
-// 	event.Events = newEvent.Events
+	event.Name = newEvent.Name
+	event.Discoteca_id = newEvent.Discoteca_id
 
 
-// 	if err != nil { 
-// 		c.JSON(http.StatusNotFound, "NOT FOUND")
-// 	}else{ 
-// 		c.BindJSON(&event)
-// 		err = UpdateEvent(&event)//&event  Aqui hay que meterle la event nueva, con el c.BingJSON pero no me hace el json de la nueva
-// 		if err != nil {
-// 			c.JSON(http.StatusOK, "Not found")
-// 			c.AbortWithStatus(http.StatusNotFound)
-// 		} else {
-// 			c.JSON(http.StatusOK, gin.H{"event": event})
-// 			return
-// 		}
-// 	}
+	if err != nil { 
+		c.JSON(http.StatusNotFound, "NOT FOUND")
+	}else{ 
+		c.BindJSON(&event)
+		err = UpdateEvent(&event)//&event  Aqui hay que meterle el event nuevo, con el c.BingJSON pero no me hace el json de la nueva
+		if err != nil {
+			c.JSON(http.StatusOK, "Not found")
+			c.AbortWithStatus(http.StatusNotFound)
+		} else {
+			c.JSON(http.StatusOK, gin.H{"event": event})
+			return
+		}
+	}
 
-// }
+}
 
 
 //DELETE event

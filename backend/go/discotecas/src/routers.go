@@ -96,7 +96,7 @@ func DiscotecaUpdate(c *gin.Context){
 
 	discoteca.Name = newDiscoteca.Name
 	discoteca.Company = newDiscoteca.Company
-	discoteca.Events = newDiscoteca.Events
+	// discoteca.Events = newDiscoteca.Events
 
 
 	if err != nil { 
