@@ -25,12 +25,6 @@ func NewClient() *redis.Client {
 	return rdb 
 }
 
-
-// err := rdb.Set(ctx, "key", "value", 0).Err()
-// if err != nil {
-// 	panic(err)
-// }
-
 func SaveUser(key string, value string, client *redis.Client) error {
 
 	err := client.Set(ctx, key, value, 0).Err()

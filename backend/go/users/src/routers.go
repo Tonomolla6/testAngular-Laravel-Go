@@ -1,7 +1,7 @@
 package users
 
 import (
-	
+	"fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
@@ -77,19 +77,44 @@ func ProfileUnfollow(c *gin.Context) {
 
 //REGISTER
 func UsersRegistration(c *gin.Context) {
-	// fmt.Println("USER REGISTRATION");
+	fmt.Println("USER REGISTRATION//////////////////////7");
+	// fmt.Println(c)
 	userModelValidator := NewUserModelValidator()  //Esto es lo que valida sintactica y semanticamente en validators.go
+	
+	// fmt.Println(userModelValidator.Bind(c))
 	if err := userModelValidator.Bind(c); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewValidatorError(err))
 		return
 	}
 
+	fmt.Println(userModelValidator.userModel.Type)
+	userModelValidator.userModel.Type = "client";
+	fmt.Println(userModelValidator.userModel.Type)
+
 	if err := SaveOne(&userModelValidator.userModel); err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
 		return
 	}
+	fmt.Println("EN EL REGISTER4-------")
+	fmt.Println(userModelValidator.userModel.Type)
+	// userModelValidator.userModel.Type = "client"
+	fmt.Println(userModelValidator.userModel.Type)
+
+	fmt.Println("-----------")
+	fmt.Println(userModelValidator.userModel)
+
+	
+
 	c.Set("my_user_model", userModelValidator.userModel)
+
+	fmt.Println("CCCCCCCCCC")
+	fmt.Println()
+
+
 	serializer := UserSerializer{c}
+
+	fmt.Println("Serializer response")
+	fmt.Println(serializer.Response())
 	c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
 }
 
@@ -116,11 +141,6 @@ func UsersLogin(c *gin.Context) {
 	}
 	UpdateContextUserModel(c, userModel.ID)  //Esto se guarda al tio que se ha logueado
 
-
-
-	
-
-
 	//save userModel in redis
 	client := common.NewClient()
 	serializer := UserSerializer{c}
@@ -131,9 +151,6 @@ func UsersLogin(c *gin.Context) {
 		return
 	}
 
-
-
-	
 	c.JSON(http.StatusOK, gin.H{"user": serializer.Response()})
 }
 
