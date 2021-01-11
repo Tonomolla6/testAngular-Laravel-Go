@@ -15,10 +15,10 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 	router.POST("/", DiscotecaCreate)
 	router.PUT("/:id", DiscotecaUpdate)
 	router.DELETE("/:id", DiscotecaDelete)
-	router.POST("/:id/favorite", DiscotecaFavorite)
-	// router.DELETE("/:slug/favorite", DiscotecaUnfavorite)
-	// router.POST("/:slug/comments", DiscotecaCommentCreate)
-	// router.DELETE("/:slug/comments/:id", DiscotecaCommentDelete)
+	// router.POST("/:id/favorite", DiscotecaFavorite)
+	// router.DELETE("/:id/favorite", DiscotecaUnfavorite)
+	// router.POST("/:id/comments", DiscotecaCommentCreate)
+	// router.DELETE("/:id/comments/:id", DiscotecaCommentDelete)
 }
 
 func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
@@ -27,7 +27,7 @@ func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
 	
 }
 
-// router.GET("/:slug/comments", DiscotecaCommentList)
+// router.GET("/:id/comments", DiscotecaCommentList)
 
 func DiscotecaCreate(c *gin.Context){
 	var discoteca Discotecas
@@ -132,6 +132,18 @@ func DiscotecaDelete(c *gin.Context){
 }
 
 
+//////Favorite
 
-
-
+func DiscotecaFavorite(c *gin.Context) {
+	id := c.Param("id")
+	discotecaModel, err := GetDiscotecaById(&DiscotecaModel{Id: id})
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
+		return
+	}
+	myUserModel := c.MustGet("my_user_model").(users.UserModel)
+	err = discotecaModel.favoriteBy(GetDiscotecaUserModel(myUserModel))
+	serializer := DiscotecaSerializer{c, discotecaModel}
+	// c.JSON(http.StatusOK, gin.H{"discoteca": serializer.Response()})
+	c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+}
