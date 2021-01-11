@@ -1,3 +1,0 @@
-# goApp/src
-src/routers.go:146:6: discotecaModel declared but not used
-src/routers.go:153:2: myUserModel declared but not used
