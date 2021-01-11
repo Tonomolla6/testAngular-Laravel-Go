@@ -6,7 +6,9 @@ import (
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	
+	"encoding/json"
+	"bytes"
+	"io/ioutil"
 )
 //"strings" "fmt"
 
@@ -90,8 +92,43 @@ func UsersRegistration(c *gin.Context) {
 		return
 	}
 
-	c.Set("my_user_model", userModelValidator.userModel)
+	//Crear profile
 
+	fmt.Println("ID DEL USER CREADO")
+	fmt.Println(userModelValidator.userModel.ID)
+
+	id := userModelValidator.userModel.ID;
+	requestBody, err := json.Marshal(map[string]uint{
+		"user_id": id,
+	})
+
+	if err!=nil{
+		fmt.Println("ERROR MARSHAL")
+	}
+
+	resp, err := http.Post("http://profile.docker.localhost/api/profile","application/json",bytes.NewBuffer(requestBody))
+
+	if err !=nil{
+		fmt.Println("ERROR MARSHAL2")
+	}
+
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+
+	if err!=nil{
+		fmt.Println("ERROR MARSHAL3")
+	}
+
+	fmt.Println(string(body))
+	// prueba := json.RawMessage(`{"user_id": `+userModelValidator.userModel.ID+`}`)
+
+
+	//Fin crear profile
+
+
+
+	c.Set("my_user_model", userModelValidator.userModel)
 	serializer := UserSerializer{c}
 	c.JSON(http.StatusCreated, gin.H{"user": serializer.Response()})
 }

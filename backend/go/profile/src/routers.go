@@ -1,7 +1,7 @@
 package profile
 
 import (
-
+	"fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
@@ -9,106 +9,101 @@ import (
 	
 )
 // "strconv" para los coments
-//fmt para debug
+//"fmt" para debug
 
 
-func DiscotecasRegister(router *gin.RouterGroup) {
-	router.POST("/", DiscotecaCreate)
-	router.PUT("/:id", DiscotecaUpdate)
-	router.DELETE("/:id", DiscotecaDelete)
-	// router.POST("/:slug/favorite", DiscotecaFavorite)
-	// router.DELETE("/:slug/favorite", DiscotecaUnfavorite)
-	// router.POST("/:slug/comments", DiscotecaCommentCreate)
-	// router.DELETE("/:slug/comments/:id", DiscotecaCommentDelete)
+func ProfilesRegister(router *gin.RouterGroup) {
+	router.POST("/", ProfileCreate)
+	router.PUT("/:id", ProfileUpdate)
+	router.DELETE("/:id", ProfileDelete)
 }
 
-func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
-	router.GET("/", DiscotecaList)
-	router.GET("/:id", DiscotecaById)  
+func ProfilesAnonymousRegister(router *gin.RouterGroup) {
+	router.GET("/", ProfileList)
+	router.GET("/:id", ProfileById)  
 	
 }
 
-// router.GET("/:slug/comments", DiscotecaCommentList)
+//CREATE
+func ProfileCreate(c *gin.Context){
+	fmt.Println("DENTRO DE CREATE PROFILE")
+	var profile Profile
+	c.BindJSON(&profile);
 
-func DiscotecaCreate(c *gin.Context){
-	var discoteca Profile
-	c.BindJSON(&discoteca);
-
-	
-	err:=CreateDiscoteca(&discoteca)
+	err:=CreateProfile(&profile)
 
 	if err !=nil{
 		c.AbortWithStatus(http.StatusNotFound)
 	}else{
-		c.JSON(http.StatusOK, gin.H{"discoteca":discoteca})
+		c.JSON(http.StatusOK, gin.H{"profile":profile})
 		return
 	}
 }
 
 
 //List Profile
-func DiscotecaList(c *gin.Context) {
-	var discoteca []Profile
+func ProfileList(c *gin.Context) {
+	var profile []Profile
 
-	//Busca las profile y mete el resultado en la var discoteca
-	err := GetAllDiscotecas(&discoteca)
+	//Busca las profile y mete el resultado en la var profile
+	err := GetAllProfiles(&profile)
 	
 	if err != nil {
 		c.JSON(http.StatusOK, "Not found")
 		c.AbortWithStatus(http.StatusNotFound)
 	}else{
-		// c.JSON(http.StatusOK, discoteca)
-		// serializer := DiscotecasSerializer
-		// c.JSON(http.StatusOK, gin.H{"profile":discotecaModel})
-		c.JSON(http.StatusOK, gin.H{"profile": discoteca})
+		// c.JSON(http.StatusOK, profile)
+		// serializer := ProfilesSerializer
+		// c.JSON(http.StatusOK, gin.H{"profile":profileModel})
+		c.JSON(http.StatusOK, gin.H{"profile": profile})
 	}
 }
 
 ///////// Find ONE
-func DiscotecaById(c *gin.Context) {
+func ProfileById(c *gin.Context) {
 	id := c.Params.ByName("id")	
 
-	var discoteca Profile
-	err := GetDiscotecaById(&discoteca, id)
+	var profile Profile
+	err := GetProfileById(&profile, id)
 	
 	if err != nil {
-		c.JSON(http.StatusOK, "Discoteca Not Found")
+		c.JSON(http.StatusOK, "Profile Not Found")
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}else{
-		c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+		c.JSON(http.StatusOK, gin.H{"profile": profile})
 		return
 	}
-	// serializer := DiscotecaSerializer{c, discotecaModel}     //Serializer para enviarlo a angular?
-	// c.JSON(http.StatusOK, gin.H{"discoteca": serializer.Response()})
+	// serializer := ProfileSerializer{c, profileModel}     //Serializer para enviarlo a angular?
+	// c.JSON(http.StatusOK, gin.H{"profile": serializer.Response()})
 }
 ////////
 
-//UPDATE discoteca
+//UPDATE profile
 
-func DiscotecaUpdate(c *gin.Context){
-	var discoteca Profile
-	var newDiscoteca Profile
-	c.BindJSON(&newDiscoteca);  //Aqui en teoria está la discoteca que le hemos pasado por postman
+func ProfileUpdate(c *gin.Context){
+	var profile Profile
+	var newProfile Profile
+	c.BindJSON(&newProfile);  //Aqui en teoria está la profile que le hemos pasado por postman
 
 	id := c.Params.ByName("id")
-	err := GetDiscotecaById(&discoteca, id) //Este es la discoteca que he pillao con ese id, ¿para que? para comprobar que existe ese id
+	err := GetProfileById(&profile, id) //Este es la profile que he pillao con ese id, ¿para que? para comprobar que existe ese id
 
-	discoteca.Name = newDiscoteca.Name
-	discoteca.Company = newDiscoteca.Company
-	// discoteca.Events = newDiscoteca.Events
+	// profile.Name = newProfile.Name
+	// profile.Company = newProfile.Company
+	// profile.Events = newProfile.Events
 
 
 	if err != nil { 
 		c.JSON(http.StatusNotFound, "NOT FOUND")
 	}else{ 
-		c.BindJSON(&discoteca)
-		err = UpdateDiscoteca(&discoteca)//&discoteca  Aqui hay que meterle la discoteca nueva, con el c.BingJSON pero no me hace el json de la nueva
+		c.BindJSON(&profile)
+		err = UpdateProfile(&profile)//&profile  Aqui hay que meterle la profile nueva, con el c.BingJSON pero no me hace el json de la nueva
 		if err != nil {
 			c.JSON(http.StatusOK, "Not found")
 			c.AbortWithStatus(http.StatusNotFound)
 		} else {
-			c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+			c.JSON(http.StatusOK, gin.H{"profile": profile})
 			return
 		}
 	}
@@ -116,19 +111,19 @@ func DiscotecaUpdate(c *gin.Context){
 }
 
 
-//DELETE discoteca
-func DiscotecaDelete(c *gin.Context){
-	var discoteca Profile
+//DELETE profile
+func ProfileDelete(c *gin.Context){
+	var profile Profile
 	id := c.Params.ByName("id")
 
-	err := DeleteDiscoteca(&discoteca, id)
+	err := DeleteProfile(&profile, id)
 
 	if err != nil{
 		c.JSON(http.StatusNotFound, common.NewError("profile", errors.New("Invalid id")))
 		return
 	} 
 
-	c.JSON(http.StatusOK, gin.H{"discoteca": "Delete Discoteca"})
+	c.JSON(http.StatusOK, gin.H{"profile": "Delete Profile"})
 
 }
 
