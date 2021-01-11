@@ -1,7 +1,7 @@
 package discotecas
 
 import (
-
+	"fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
@@ -15,7 +15,7 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 	router.POST("/", DiscotecaCreate)
 	router.PUT("/:id", DiscotecaUpdate)
 	router.DELETE("/:id", DiscotecaDelete)
-	// router.POST("/:id/favorite", DiscotecaFavorite)
+	router.POST("/:id/favorite", DiscotecaFavorite)
 	// router.DELETE("/:id/favorite", DiscotecaUnfavorite)
 	// router.POST("/:id/comments", DiscotecaCommentCreate)
 	// router.DELETE("/:id/comments/:id", DiscotecaCommentDelete)
@@ -135,15 +135,26 @@ func DiscotecaDelete(c *gin.Context){
 //////Favorite
 
 func DiscotecaFavorite(c *gin.Context) {
-	id := c.Param("id")
-	discotecaModel, err := GetDiscotecaById(&DiscotecaModel{Id: id})
+	fmt.Println("Dentro de router favavsdvorite");
+	// fmt.Println(c.Params.ByName("id"))
+	id := c.Params.ByName("id")
+
+	fmt.Println("Antes del get")
+
+	var discoteca Discotecas
+	// err := GetDiscotecaById(&discoteca, id)
+	var discotecaModel Discotecas
+	err := GetDiscotecaById(&discoteca, id)
 	if err != nil {
 		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
 		return
 	}
-	myUserModel := c.MustGet("my_user_model").(users.UserModel)
-	err = discotecaModel.favoriteBy(GetDiscotecaUserModel(myUserModel))
-	serializer := DiscotecaSerializer{c, discotecaModel}
-	// c.JSON(http.StatusOK, gin.H{"discoteca": serializer.Response()})
-	c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+	fmt.Println("debuggeeer 1")
+	myUserModel := c.MustGet("my_user_model").(UserModel)
+	fmt.Println("debugger 2")
+	// fmt.Println(UserModel)
+	// err = discotecaModel.favoriteBy(GetDiscotecaUserModel(myUserModel))
+	// serializer := DiscotecaSerializer{c, discotecaModel}
+	// // c.JSON(http.StatusOK, gin.H{"discoteca": serializer.Response()})
+	// c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
 }

@@ -23,6 +23,7 @@ func GetAllDiscotecas(data interface{}) error{
 }
 //GET ONE discoteca by ID
 func GetDiscotecaById(data, id interface{}) error {
+	// discotecaModel Discotecas
 	db := common.GetDB()
 	err := db.Where("id = ?", id).First(data).Error
 	return err
