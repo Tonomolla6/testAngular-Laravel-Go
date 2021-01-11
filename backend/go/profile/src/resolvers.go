@@ -6,8 +6,8 @@ import (
 
 )
 
-//Create discoteca
-func CreateDiscoteca(data interface{}) error{
+//Create profile
+func CreateProfile(data interface{}) error{
 	fmt.Println("CREATEEEEEEEE")
 	fmt.Println(data)
 	db:=common.GetDB();
@@ -16,20 +16,20 @@ func CreateDiscoteca(data interface{}) error{
 }
 
 //Get all Profile
-func GetAllDiscotecas(data interface{}) error{
+func GetAllProfiles(data interface{}) error{
 	db:=common.GetDB();
 	err:=db.Find(data).Error
 	return err;
 }
-//GET ONE discoteca by ID
-func GetDiscotecaById(data, id interface{}) error {
+//GET ONE profile by ID
+func GetProfileById(data, id interface{}) error {
 	db := common.GetDB()
 	err := db.Where("id = ?", id).First(data).Error
 	return err
 }
 
-//UPDATE discoteca
-func UpdateDiscoteca(data interface{}) error{
+//UPDATE profile
+func UpdateProfile(data interface{}) error{
 	fmt.Println("RESOLVER UPDATE");
 	fmt.Println(data)
 	db := common.GetDB()
@@ -44,7 +44,7 @@ func UpdateDiscoteca(data interface{}) error{
 // }
 
 //DELETE
-func DeleteDiscoteca(data, id interface{}) error {
+func DeleteProfile(data, id interface{}) error {
 	db := common.GetDB()
 	err := db.Where("id = ?", id).Delete(data).Error
 	return err

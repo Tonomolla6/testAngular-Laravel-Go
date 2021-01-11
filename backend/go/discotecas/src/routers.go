@@ -6,7 +6,6 @@ import (
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	
 )
 // "strconv" para los coments
 //fmt para debug
@@ -16,7 +15,7 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 	router.POST("/", DiscotecaCreate)
 	router.PUT("/:id", DiscotecaUpdate)
 	router.DELETE("/:id", DiscotecaDelete)
-	// router.POST("/:slug/favorite", DiscotecaFavorite)
+	router.POST("/:id/favorite", DiscotecaFavorite)
 	// router.DELETE("/:slug/favorite", DiscotecaUnfavorite)
 	// router.POST("/:slug/comments", DiscotecaCommentCreate)
 	// router.DELETE("/:slug/comments/:id", DiscotecaCommentDelete)

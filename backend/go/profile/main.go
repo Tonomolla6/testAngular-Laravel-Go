@@ -29,8 +29,8 @@ func main() {
 	v1 := r.Group("/api")
 	
 	
-	profile.DiscotecasAnonymousRegister(v1.Group("/profile"))
-	profile.DiscotecasRegister(v1.Group("/profile"))
+	profile.ProfilesAnonymousRegister(v1.Group("/profile"))
+	profile.ProfilesRegister(v1.Group("/profile"))
 
 	fmt.Printf("0.0.0.0:3000")
 	r.Run(":8080")//Cambiar al 8080 para traefik // listen and serve on 0.0.0.0:8080 by default
