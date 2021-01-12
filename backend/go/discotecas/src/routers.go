@@ -6,9 +6,10 @@ import (
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"encoding/json"
 )
 
-//"fmt"
+//"fmt"  "io/ioutil"  
 // "strconv" para los coments
 //fmt para debug
 
@@ -156,11 +157,23 @@ func DiscotecaFavorite(c *gin.Context) {
 	fmt.Println(discoteca)
 
 	client := common.NewClient()
-	var user = common.GetUser("email", client)
+	var email = common.GetUser("email", client)
 	fmt.Println("email del USER que ha dado like")
-	fmt.Println(user)
+	fmt.Println(email)
+
+	//Hay que irse a http://users.docker.localhost/api/user/logued para pillar al user que esta logueado
 
 
+	res, err := http.NewRequest("GET", "http://users.docker.localhost/api/user/logued",nil)
+	// body, err := ioutil.ReadAll(req.Body)	
+	// fmt.Println(body)
+	decoder := json.NewDecoder(res.Body)
+	var data UserModel
+	err = decoder.Decode(&data)
+	fmt.Println("USEEEEERERRRR--------")
+	// user_decode := json.NewDecoder(req)
+	fmt.Println(data)
+	
 	
 
 

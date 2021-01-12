@@ -41,6 +41,7 @@ func GetLoguedUser (c *gin.Context) {
 		c.JSON(http.StatusNotFound, common.NewError("profile", errors.New("Invalid email")))
 		return
 	}
+	// return userModel
 	profileSerializer := ProfileSerializer{c,userModel}
 	c.JSON(http.StatusOK, gin.H{"profile": profileSerializer.Response()})
 }
