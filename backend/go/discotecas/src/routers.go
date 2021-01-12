@@ -6,12 +6,15 @@ import (
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"encoding/json"
+	"io/ioutil"
+	
 )
 
-//"fmt"  "io/ioutil"  
+//"fmt"    "encoding/json"  
 // "strconv" para los coments
-//fmt para debug
+//	"io" "strings"
+//	
+
 
 
 func DiscotecasRegister(router *gin.RouterGroup) {
@@ -161,21 +164,31 @@ func DiscotecaFavorite(c *gin.Context) {
 	fmt.Println("email del USER que ha dado like")
 	fmt.Println(email)
 
-	//Hay que irse a http://users.docker.localhost/api/user/logued para pillar al user que esta logueado
+	var email_a_piñon = "admin"
 
 
-	res, err := http.NewRequest("GET", "http://users.docker.localhost/api/user/logued",nil)
-	// body, err := ioutil.ReadAll(req.Body)	
-	// fmt.Println(body)
-	decoder := json.NewDecoder(res.Body)
-	var data UserModel
-	err = decoder.Decode(&data)
-	fmt.Println("USEEEEERERRRR--------")
-	// user_decode := json.NewDecoder(req)
-	fmt.Println(data)
-	
-	
+	//Fetch request
+	//https://api.github.com/users/j-maestre/followers
+	// resp, err := http.Get("http://users.docker.localhost/api/user/logued")
+    // if err != nil {
+    //     print(err)
+    // }
+    // defer resp.Body.Close()
+    // body, err := ioutil.ReadAll(resp.Body)
+    // if err != nil {
+    //     print(err)
+    // }
+	// fmt.Print(string(body))
+	//End fetch request
 
 
 	// c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
 }
+
+
+
+// func queryParams(w http.ResponseWriter, r *http.Request) {
+//     for k, v := range r.URL.Query() {
+//         fmt.Printf("%s: %s\n", k, v)
+//     }
+// }

@@ -32,7 +32,8 @@ func ProfileRegister(router *gin.RouterGroup) {
 	router.DELETE("/:username/follow", ProfileUnfollow)
 }
 
-func GetLoguedUser (c *gin.Context) {
+func GetLoguedUser(c *gin.Context){
+	fmt.Println("--------------------------------------------------------------------------------------")
 	client := common.NewClient()
 	email :=  common.GetUser("email", client)
 
@@ -43,7 +44,10 @@ func GetLoguedUser (c *gin.Context) {
 	}
 	// return userModel
 	profileSerializer := ProfileSerializer{c,userModel}
-	c.JSON(http.StatusOK, gin.H{"profile": profileSerializer.Response()})
+	// c.JSON(http.StatusOK, gin.H{"profile": profileSerializer.Response()})
+
+	// fmt.Println("GET LOGUED USER",profileSerializer.Response())
+	c.JSON(0,gin.H{"RESPUESTA":profileSerializer.Response()})
 }
 
 func ProfileRetrieve(c *gin.Context) {

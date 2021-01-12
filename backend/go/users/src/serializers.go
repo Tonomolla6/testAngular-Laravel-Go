@@ -18,8 +18,8 @@ type ProfileResponse struct {
 	Email     string  `json:"email"`
 	Bio       string  `json:"bio"`
 	Image     *string `json:"image"`
-	Following bool    `json:"following"`
-	Prueba    string
+	Token    string  `json:"token"`
+	Type 	 string  `json:"type"`
 }
 
 // Put your response logic including wrap the userModel here. 
@@ -31,7 +31,8 @@ func (self *ProfileSerializer) Response() ProfileResponse {
 		Email:     self.Email,
 		Bio:       self.Bio,
 		Image:     self.Image,
-		Following: myUserModel.isFollowing(self.UserModel),
+		Type:      self.Type,
+		Token:     common.GenToken(myUserModel.ID),
 	}
 	return profile
 }
