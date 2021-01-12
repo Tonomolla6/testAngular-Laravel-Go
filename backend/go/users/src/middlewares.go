@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
 	"goApp/common"
@@ -34,6 +35,8 @@ var MyAuth2Extractor = &request.MultiExtractor{
 
 // A helper to write user_id and user_model to the context
 func UpdateContextUserModel(c *gin.Context, my_user_id uint) {
+	fmt.Println("DEntro del context User Model")
+	fmt.Println(my_user_id)
 	var myUserModel UserModel
 	if my_user_id != 0 {
 		db := common.GetDB()

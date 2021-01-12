@@ -22,6 +22,7 @@ func UsersRegister(router *gin.RouterGroup) {
 func UserRegister(router *gin.RouterGroup) {
 	router.GET("/", UserRetrieve)
 	router.PUT("/", UserUpdate)
+	router.GET("/logued", GetLoguedUser)
 }
 
 //GETUSER, Follow o Unfollow
@@ -29,6 +30,19 @@ func ProfileRegister(router *gin.RouterGroup) {
 	router.GET("/:username", ProfileRetrieve)
 	router.POST("/:username/follow", ProfileFollow)
 	router.DELETE("/:username/follow", ProfileUnfollow)
+}
+
+func GetLoguedUser (c *gin.Context) {
+	client := common.NewClient()
+	email :=  common.GetUser("email", client)
+
+	userModel, err := FindOneUser(&UserModel{Email: email})
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.NewError("profile", errors.New("Invalid email")))
+		return
+	}
+	profileSerializer := ProfileSerializer{c,userModel}
+	c.JSON(http.StatusOK, gin.H{"profile": profileSerializer.Response()})
 }
 
 func ProfileRetrieve(c *gin.Context) {
@@ -156,7 +170,8 @@ func UsersLogin(c *gin.Context) {
 		return
 	}
 	UpdateContextUserModel(c, userModel.ID)  //Esto se guarda al tio que se ha logueado
-
+	fmt.Println("CONTEX USER IDDDDDD")
+	fmt.Println(c.MustGet("my_user_id"))
 	//save userModel in redis
 	client := common.NewClient()
 	serializer := UserSerializer{c}

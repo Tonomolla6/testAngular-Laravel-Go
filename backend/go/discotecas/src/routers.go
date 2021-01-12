@@ -152,17 +152,15 @@ func DiscotecaFavorite(c *gin.Context) {
 		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
 		return
 	}
-	fmt.Println("debuggeeer 1")
+	fmt.Println("DISCOTECA TO FAV")
 	fmt.Println(discoteca)
 
+	client := common.NewClient()
+	var user = common.GetUser("email", client)
+	fmt.Println("email del USER que ha dado like")
+	fmt.Println(user)
 
-	// // myUserModel := c.MustGet("my_user_model").(UserModel)
-	// fmt.Println("debugger 2")
 
-	// client := common.NewClient()
-	// email := GetUser(client)
-	// fmt.Println("EMAIAAAALLL")
-	// fmt.Println(email)
 	
 
 
