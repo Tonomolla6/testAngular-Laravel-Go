@@ -42,6 +42,8 @@ export class AuthComponent implements OnInit {
     const credentials = this.authForm.value;
 
     console.log(credentials);
+
+    localStorage.setItem('email',credentials.email)
     this.userService.attemptAuth(this.authType, credentials)
     .subscribe(
       data => this.router.navigateByUrl('/')

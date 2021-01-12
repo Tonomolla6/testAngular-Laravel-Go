@@ -1,7 +1,7 @@
 package discotecas
 
 import (
-	
+	"fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
@@ -137,21 +137,25 @@ func DiscotecaDelete(c *gin.Context){
 //////Favorite
 
 func DiscotecaFavorite(c *gin.Context) {
-	// fmt.Println("Dentro de router favavsdvorite");
-	// // fmt.Println(c.Params.ByName("id"))
-	// id := c.Params.ByName("id")
+	fmt.Println("Dentro de router favavsdvorite");
+	// fmt.Println(c.Params.ByName("id"))
+	id := c.Params.ByName("id")
 
-	// fmt.Println("Antes del get")
+	fmt.Println("Antes del get")
 
-	// var discoteca Discotecas
-	// // err := GetDiscotecaById(&discoteca, id)
-	// // var discotecaModel Discotecas
+	// var email = "xema_test@gmail.com"
+	var discoteca Discotecas
 	// err := GetDiscotecaById(&discoteca, id)
-	// if err != nil {
-	// 	c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
-	// 	return
-	// }
-	// fmt.Println("debuggeeer 1")
+	// var discotecaModel Discotecas
+	err := GetDiscotecaById(&discoteca, id)//Discoteca a la que le damos like
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
+		return
+	}
+	fmt.Println("debuggeeer 1")
+	fmt.Println(discoteca)
+
+
 	// // myUserModel := c.MustGet("my_user_model").(UserModel)
 	// fmt.Println("debugger 2")
 

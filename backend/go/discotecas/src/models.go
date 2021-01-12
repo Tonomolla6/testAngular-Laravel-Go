@@ -1,6 +1,6 @@
 package discotecas
 import (
-	
+	"github.com/jinzhu/gorm"
 	
 )
 // "fmt"
@@ -15,6 +15,7 @@ type Discotecas struct {
 	Name        string   `json:"name"`
 	Company     string   `json:"company"`
 }
+
 // type DiscotecaUserModel struct {
 // 	gorm.Model
 // 	UserModel        UserModel
@@ -24,13 +25,13 @@ type Discotecas struct {
 // }
 
 
-// type FavoriteModel struct {
-// 	gorm.Model
-// 	Favorite     Discotecas
-// 	FavoriteID   uint
-// 	FavoriteBy   DiscotecaUserModel
-// 	FavoriteByID uint
-// }
+type FavoriteModel struct {
+	gorm.Model
+	Favorite     Discotecas
+	FavoriteID   uint
+	FavoriteBy   UserModel
+	FavoriteByID uint
+}
 
 type UserModel struct {
 	ID           uint    `gorm:"primary_key"`
