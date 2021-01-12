@@ -38,37 +38,37 @@ class TestResult implements Countable
     protected $passed = [];
 
     /**
-     * @var TestFailure[]
+     * @var array
      */
     protected $errors = [];
 
     /**
-     * @var TestFailure[]
+     * @var array
      */
     protected $failures = [];
 
     /**
-     * @var TestFailure[]
+     * @var array
      */
     protected $warnings = [];
 
     /**
-     * @var TestFailure[]
+     * @var array
      */
     protected $notImplemented = [];
 
     /**
-     * @var TestFailure[]
+     * @var array
      */
     protected $risky = [];
 
     /**
-     * @var TestFailure[]
+     * @var array
      */
     protected $skipped = [];
 
     /**
-     * @var TestListener[]
+     * @var array
      */
     protected $listeners = [];
 
@@ -180,11 +180,6 @@ class TestResult implements Countable
     protected $lastTestFailed = false;
 
     /**
-     * @var int
-     */
-    private $defaultTimeLimit = 0;
-
-    /**
      * @var bool
      */
     private $stopOnDefect = false;
@@ -197,12 +192,6 @@ class TestResult implements Countable
     public static function isAnyCoverageRequired(TestCase $test)
     {
         $annotations = $test->getAnnotations();
-
-        // If there is a @coversNothing annotation on the test method then code
-        // coverage data does not need to be collected
-        if (isset($annotations['method']['coversNothing'])) {
-            return false;
-        }
 
         // If any methods have covers, coverage must me generated
         if (isset($annotations['method']['covers'])) {
@@ -427,7 +416,7 @@ class TestResult implements Countable
                 'size'   => \PHPUnit\Util\Test::getSize(
                     $class,
                     $test->getName(false)
-                ),
+                )
             ];
 
             $this->time += $time;
@@ -467,9 +456,7 @@ class TestResult implements Countable
     }
 
     /**
-     * Returns an array of TestFailure objects for the risky tests
-     *
-     * @return TestFailure[]
+     * Returns an Enumeration for the risky tests.
      */
     public function risky(): array
     {
@@ -477,9 +464,7 @@ class TestResult implements Countable
     }
 
     /**
-     * Returns an array of TestFailure objects for the incomplete tests
-     *
-     * @return TestFailure[]
+     * Returns an Enumeration for the incomplete tests.
      */
     public function notImplemented(): array
     {
@@ -503,9 +488,7 @@ class TestResult implements Countable
     }
 
     /**
-     * Returns an array of TestFailure objects for the skipped tests
-     *
-     * @return TestFailure[]
+     * Returns an Enumeration for the skipped tests.
      */
     public function skipped(): array
     {
@@ -521,9 +504,7 @@ class TestResult implements Countable
     }
 
     /**
-     * Returns an array of TestFailure objects for the errors
-     *
-     * @return TestFailure[]
+     * Returns an Enumeration for the errors.
      */
     public function errors(): array
     {
@@ -539,9 +520,7 @@ class TestResult implements Countable
     }
 
     /**
-     * Returns an array of TestFailure objects for the failures
-     *
-     * @return TestFailure[]
+     * Returns an Enumeration for the failures.
      */
     public function failures(): array
     {
@@ -557,9 +536,7 @@ class TestResult implements Countable
     }
 
     /**
-     * Returns an array of TestFailure objects for the warnings
-     *
-     * @return TestFailure[]
+     * Returns an Enumeration for the warnings.
      */
     public function warnings(): array
     {
@@ -662,8 +639,8 @@ class TestResult implements Countable
 
         try {
             if (!$test instanceof WarningTestCase &&
+                $test->getSize() != \PHPUnit\Util\Test::UNKNOWN &&
                 $this->enforceTimeLimit &&
-                ($this->defaultTimeLimit || $test->getSize() != \PHPUnit\Util\Test::UNKNOWN) &&
                 \extension_loaded('pcntl') && \class_exists(Invoker::class)) {
                 switch ($test->getSize()) {
                     case \PHPUnit\Util\Test::SMALL:
@@ -678,11 +655,6 @@ class TestResult implements Countable
 
                     case \PHPUnit\Util\Test::LARGE:
                         $_timeout = $this->timeoutForLargeTests;
-
-                        break;
-
-                    case \PHPUnit\Util\Test::UNKNOWN:
-                        $_timeout = $this->defaultTimeLimit;
 
                         break;
                 }
@@ -863,16 +835,13 @@ class TestResult implements Countable
             if ($name && $reflected->hasMethod($name)) {
                 $reflected = $reflected->getMethod($name);
             }
-
             $this->addFailure(
                 $test,
-                new RiskyTestError(
-                    \sprintf(
-                        "This test did not perform any assertions\n\n%s:%d",
-                        $reflected->getFileName(),
-                        $reflected->getStartLine()
-                    )
-                ),
+                new RiskyTestError(\sprintf(
+                    "This test did not perform any assertions\n\n%s:%d",
+                    $reflected->getFileName(),
+                    $reflected->getStartLine()
+                )),
                 $time
             );
         } elseif ($this->beStrictAboutTestsThatDoNotTestAnything &&
@@ -880,12 +849,10 @@ class TestResult implements Countable
             $test->getNumAssertions() > 0) {
             $this->addFailure(
                 $test,
-                new RiskyTestError(
-                    \sprintf(
-                        'This test is annotated with "@doesNotPerformAssertions" but performed %d assertions',
-                        $test->getNumAssertions()
-                    )
-                ),
+                new RiskyTestError(\sprintf(
+                    'This test is annotated with "@doesNotPerformAssertions" but performed %d assertions',
+                    $test->getNumAssertions()
+                )),
                 $time
             );
         } elseif ($this->beStrictAboutOutputDuringTests && $test->hasOutput()) {
@@ -1091,20 +1058,7 @@ class TestResult implements Countable
      */
     public function wasSuccessful(): bool
     {
-        return $this->wasSuccessfulIgnoringWarnings() && empty($this->warnings);
-    }
-
-    public function wasSuccessfulIgnoringWarnings(): bool
-    {
-        return empty($this->errors) && empty($this->failures);
-    }
-
-    /**
-     * Sets the default timeout for tests
-     */
-    public function setDefaultTimeLimit(int $timeout): void
-    {
-        $this->defaultTimeLimit = $timeout;
+        return empty($this->errors) && empty($this->failures) && empty($this->warnings);
     }
 
     /**

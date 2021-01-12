@@ -1,7 +1,6 @@
 package users
 
 import (
-	"fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"

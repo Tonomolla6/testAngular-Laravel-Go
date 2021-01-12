@@ -80,7 +80,7 @@ class Application extends SymfonyApplication implements ApplicationContract
             $input = $input ?: new ArgvInput
         );
 
-        $this->events->dispatch(
+        $this->events->fire(
             new Events\CommandStarting(
                 $commandName, $input, $output = $output ?: new ConsoleOutput
             )
@@ -88,7 +88,7 @@ class Application extends SymfonyApplication implements ApplicationContract
 
         $exitCode = parent::run($input, $output);
 
-        $this->events->dispatch(
+        $this->events->fire(
             new Events\CommandFinished($commandName, $input, $output, $exitCode)
         );
 
