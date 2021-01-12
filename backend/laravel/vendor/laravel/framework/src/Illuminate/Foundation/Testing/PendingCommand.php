@@ -135,16 +135,14 @@ class PendingCommand
         try {
             $exitCode = $this->app[Kernel::class]->call($this->command, $this->parameters);
         } catch (NoMatchingExpectationException $e) {
-            if ($e->getMethodName() === 'askQuestion') {
+            if ($e->getMethodName() == 'askQuestion') {
                 $this->test->fail('Unexpected question "'.$e->getActualArguments()[0]->getQuestion().'" was asked.');
             }
-
-            throw $e;
         }
 
         if ($this->expectedExitCode !== null) {
-            $this->test->assertEquals(
-                $this->expectedExitCode, $exitCode,
+            $this->test->assertTrue(
+                $exitCode == $this->expectedExitCode,
                 "Expected status code {$this->expectedExitCode} but received {$exitCode}."
             );
         }

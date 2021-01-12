@@ -43,10 +43,6 @@ class MySqlGrammar extends Grammar
      */
     public function compileSelect(Builder $query)
     {
-        if ($query->unions && $query->aggregate) {
-            return $this->compileUnionAggregate($query);
-        }
-
         $sql = parent::compileSelect($query);
 
         if ($query->unions) {
@@ -78,7 +74,7 @@ class MySqlGrammar extends Grammar
      */
     protected function compileJsonLength($column, $operator, $value)
     {
-        [$field, $path] = $this->wrapJsonFieldAndPath($column);
+        list($field, $path) = $this->wrapJsonFieldAndPath($column);
 
         return 'json_length('.$field.$path.') '.$operator.' '.$value;
     }
@@ -198,7 +194,7 @@ class MySqlGrammar extends Grammar
      */
     protected function compileJsonUpdateColumn($key, JsonExpression $value)
     {
-        [$field, $path] = $this->wrapJsonFieldAndPath($key);
+        list($field, $path) = $this->wrapJsonFieldAndPath($key);
 
         return "{$field} = json_set({$field}{$path}, {$value->getValue()})";
     }

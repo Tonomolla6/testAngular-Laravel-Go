@@ -17,8 +17,6 @@ use PHPUnit\Framework\MockObject\Matcher\Invocation;
  * MockBuilder.
  *
  * @method InvocationMocker method($constraint)
- *
- * @deprecated Use PHPUnit\Framework\MockObject\MockObject instead
  */
 interface PHPUnit_Framework_MockObject_MockObject /*extends Verifiable*/
 {
@@ -38,7 +36,7 @@ interface PHPUnit_Framework_MockObject_MockObject /*extends Verifiable*/
      *
      * @throws ExpectationFailedException
      */
-    public function __phpunit_verify(bool $unsetInvocationMocker = true);
+    public function __phpunit_verify();
 
     /**
      * @return bool

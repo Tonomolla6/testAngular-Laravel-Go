@@ -126,7 +126,7 @@ class SqlServerGrammar extends Grammar
      */
     protected function compileJsonContains($column, $value)
     {
-        [$field, $path] = $this->wrapJsonFieldAndPath($column);
+        list($field, $path) = $this->wrapJsonFieldAndPath($column);
 
         return $value.' in (select [value] from openjson('.$field.$path.'))';
     }
@@ -152,7 +152,7 @@ class SqlServerGrammar extends Grammar
      */
     protected function compileJsonLength($column, $operator, $value)
     {
-        [$field, $path] = $this->wrapJsonFieldAndPath($column);
+        list($field, $path) = $this->wrapJsonFieldAndPath($column);
 
         return '(select count(*) from openjson('.$field.$path.')) '.$operator.' '.$value;
     }
@@ -349,7 +349,7 @@ class SqlServerGrammar extends Grammar
      */
     public function compileUpdate(Builder $query, $values)
     {
-        [$table, $alias] = $this->parseUpdateTable($query->from);
+        list($table, $alias) = $this->parseUpdateTable($query->from);
 
         // Each one of the columns in the update statements needs to be wrapped in the
         // keyword identifiers, also a place-holder needs to be created for each of
@@ -413,6 +413,16 @@ class SqlServerGrammar extends Grammar
         return array_values(
             array_merge($values, $bindings['join'], Arr::flatten($bindingsWithoutJoin))
         );
+    }
+
+    /**
+     * Determine if the grammar supports savepoints.
+     *
+     * @return bool
+     */
+    public function supportsSavepoints()
+    {
+        return true;
     }
 
     /**
@@ -481,11 +491,7 @@ class SqlServerGrammar extends Grammar
      */
     public function wrapTable($table)
     {
-        if (! $this->isExpression($table)) {
-            return $this->wrapTableValuedFunction(parent::wrapTable($table));
-        }
-
-        return $this->getValue($table);
+        return $this->wrapTableValuedFunction(parent::wrapTable($table));
     }
 
     /**

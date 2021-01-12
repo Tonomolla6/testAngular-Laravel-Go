@@ -17,12 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/student', 'ApiController@create');
+Route::post('users/register', 'UserController@register');
+Route::post('users/login', 'UserController@login');
 
-Route::get('/students', 'ApiController@show');
-
-Route::get('/student/{id}', 'ApiController@showStudent');
-
-Route::put('/student/{id}', 'ApiController@updateStudent');
-
-Route::delete('/student/{id}', 'ApiController@deleteStudent');
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::get('user', 'UserController@getAuthenticatedUser');
+});

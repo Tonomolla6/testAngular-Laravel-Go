@@ -1,51 +1,46 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Laravel with JWT Authentication
+
+Basically this is a starter kit for you to integrate Laravel with JWT Authentication
+
+## Quick Start
+
+- Clone this repo or download it's release archive and extract it somewhere
+- You may delete .git folder if you get this code via git clone
+- Run composer install
+- Configure your .env file for authenticating via database
+- Run docker-compose build
+- Run docker-compose up -d
+- Run the following command to populate database tables.
+
+	```bash
+	$ docker-compose exec php php artisan migrate
+	```
+
+- Visit `localhost:9007`
+
+> **Note:**
+- You can now use:
+
+- ```POST /api/register``` –> Create user 
+
+    ```json
+    {
+    	"name" : "Test User ",
+    	"email" : "test@gmail.com",
+    	"password" : "secret",
+    	"password_confirmation" : "secret"
+    
+    }
+
+     ```
+     
+     
+- ```POST /api/authenticate``` –> with email and password, obtain a JWT token
+
+      
+
+- ```GET /api/user``` –> Get user info
 
 
-## Laravel Simple API CRUD and follow below instruction
 
-## Installation Instruction
-
-- Clone the Repo.
-- Run 'composer install'
-- Run 'cd apicrud'
-- Run 'cp .env.example .env' and change database information
-- Run 'php artisan migrate'
-
-## Insert Data
-
-- Insert student data into database using postman.
-
-- Method: POST, URL: http://127.0.0.1:8000/api/student
-
-<img src="https://github.com/Shobuj718/apicrud/blob/master/public/image/insert%20data.PNG">
-
-## Show All Data
-
-- Show all student data from database using postman .
-
-- Method: GET, URL: http://127.0.0.1:8000/api/students
-
-<img src="https://github.com/Shobuj718/apicrud/blob/master/public/image/show%20all%20data.PNG">
-
-## Show Single Data
-
-- Show Single student data from database using postman .
-- Method: GET, URL: http://127.0.0.1:8000/api/student/1
-
-<img src="https://github.com/Shobuj718/apicrud/blob/master/public/image/show%20single%20data.PNG">
-
-## Update Student Data
-
-- Update Student data into database using postman .
-
-- Method: PUT, URL: http://127.0.0.1:8000/api/student/1?fname=yourfirstname&lname=yourlastname&email=youremail&password=anypassword
-
-<img src="https://github.com/Shobuj718/apicrud/blob/master/public/image/updata%20data.PNG">
-
-## Delete Student Data
-
-- Delete Student data into database using postman .
-
-- Method: DELETE, URL: http://127.0.0.1:8000/api/student/1
-
-<img src="https://github.com/Shobuj718/apicrud/blob/master/public/image/delete%20data.PNG">
+And remember, JWT requires you to provide the token as a header.

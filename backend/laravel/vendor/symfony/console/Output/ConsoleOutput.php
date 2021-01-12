@@ -30,7 +30,7 @@ use Symfony\Component\Console\Formatter\OutputFormatterInterface;
 class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
 {
     private $stderr;
-    private $consoleSectionOutputs = [];
+    private $consoleSectionOutputs = array();
 
     /**
      * @param int                           $verbosity The verbosity level (one of the VERBOSITY constants in OutputInterface)
@@ -125,14 +125,16 @@ class ConsoleOutput extends StreamOutput implements ConsoleOutputInterface
     /**
      * Checks if current executing environment is IBM iSeries (OS400), which
      * doesn't properly convert character-encodings between ASCII to EBCDIC.
+     *
+     * @return bool
      */
-    private function isRunningOS400(): bool
+    private function isRunningOS400()
     {
-        $checks = [
+        $checks = array(
             \function_exists('php_uname') ? php_uname('s') : '',
             getenv('OSTYPE'),
-            \PHP_OS,
-        ];
+            PHP_OS,
+        );
 
         return false !== stripos(implode(';', $checks), 'OS400');
     }

@@ -15,6 +15,7 @@ use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\ExceptionWrapper;
 use PHPUnit\Framework\SelfDescribing;
 use PHPUnit\Framework\Test;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestFailure;
 use PHPUnit\Framework\TestListener;
 use PHPUnit\Framework\TestSuite;
@@ -45,7 +46,7 @@ class JUnit extends Printer implements TestListener
     /**
      * @var bool
      */
-    protected $reportRiskyTests = false;
+    protected $reportUselessTests = false;
 
     /**
      * @var bool
@@ -104,7 +105,7 @@ class JUnit extends Printer implements TestListener
      *
      * @throws \PHPUnit\Framework\Exception
      */
-    public function __construct($out = null, bool $reportRiskyTests = false)
+    public function __construct($out = null, bool $reportUselessTests = false)
     {
         $this->document               = new DOMDocument('1.0', 'UTF-8');
         $this->document->formatOutput = true;
@@ -114,7 +115,7 @@ class JUnit extends Printer implements TestListener
 
         parent::__construct($out);
 
-        $this->reportRiskyTests = $reportRiskyTests;
+        $this->reportUselessTests = $reportUselessTests;
     }
 
     /**
@@ -175,7 +176,7 @@ class JUnit extends Printer implements TestListener
      */
     public function addRiskyTest(Test $test, \Throwable $t, float $time): void
     {
-        if (!$this->reportRiskyTests || $this->currentTestCase === null) {
+        if (!$this->reportUselessTests || $this->currentTestCase === null) {
             return;
         }
 
@@ -286,29 +287,24 @@ class JUnit extends Printer implements TestListener
      * A test started.
      *
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws ReflectionException
      */
     public function startTest(Test $test): void
     {
-        $usesDataprovider = false;
-
-        if (\method_exists($test, 'usesDataProvider')) {
-            $usesDataprovider = $test->usesDataProvider();
-        }
-
         $testCase = $this->document->createElement('testcase');
         $testCase->setAttribute('name', $test->getName());
 
-        $class      = new ReflectionClass($test);
-        $methodName = $test->getName(!$usesDataprovider);
+        if ($test instanceof TestCase) {
+            $class      = new ReflectionClass($test);
+            $methodName = $test->getName(!$test->usesDataProvider());
 
-        if ($class->hasMethod($methodName)) {
-            $method = $class->getMethod($methodName);
+            if ($class->hasMethod($methodName)) {
+                $method = $class->getMethod($methodName);
 
-            $testCase->setAttribute('class', $class->getName());
-            $testCase->setAttribute('classname', \str_replace('\\', '.', $class->getName()));
-            $testCase->setAttribute('file', $class->getFileName());
-            $testCase->setAttribute('line', $method->getStartLine());
+                $testCase->setAttribute('class', $class->getName());
+                $testCase->setAttribute('classname', \str_replace('\\', '.', $class->getName()));
+                $testCase->setAttribute('file', $class->getFileName());
+                $testCase->setAttribute('line', $method->getStartLine());
+            }
         }
 
         $this->currentTestCase = $testCase;
@@ -319,18 +315,15 @@ class JUnit extends Printer implements TestListener
      */
     public function endTest(Test $test, float $time): void
     {
-        $numAssertions = 0;
-
-        if (\method_exists($test, 'getNumAssertions')) {
+        if ($test instanceof TestCase) {
             $numAssertions = $test->getNumAssertions();
+            $this->testSuiteAssertions[$this->testSuiteLevel] += $numAssertions;
+
+            $this->currentTestCase->setAttribute(
+                'assertions',
+                $numAssertions
+            );
         }
-
-        $this->testSuiteAssertions[$this->testSuiteLevel] += $numAssertions;
-
-        $this->currentTestCase->setAttribute(
-            'assertions',
-            $numAssertions
-        );
 
         $this->currentTestCase->setAttribute(
             'time',
@@ -344,16 +337,10 @@ class JUnit extends Printer implements TestListener
         $this->testSuiteTests[$this->testSuiteLevel]++;
         $this->testSuiteTimes[$this->testSuiteLevel] += $time;
 
-        $testOutput = '';
-
-        if (\method_exists($test, 'hasOutput') && \method_exists($test, 'getActualOutput')) {
-            $testOutput = $test->hasOutput() ? $test->getActualOutput() : '';
-        }
-
-        if (!empty($testOutput)) {
+        if (\method_exists($test, 'hasOutput') && $test->hasOutput()) {
             $systemOut = $this->document->createElement(
                 'system-out',
-                Xml::prepareString($testOutput)
+                Xml::prepareString($test->getActualOutput())
             );
 
             $this->currentTestCase->appendChild($systemOut);

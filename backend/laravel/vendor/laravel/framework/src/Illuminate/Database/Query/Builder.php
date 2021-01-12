@@ -235,7 +235,7 @@ class Builder
      */
     public function selectSub($query, $as)
     {
-        [$query, $bindings] = $this->createSub($query);
+        list($query, $bindings) = $this->createSub($query);
 
         return $this->selectRaw(
             '('.$query.') as '.$this->grammar->wrap($as), $bindings
@@ -271,7 +271,7 @@ class Builder
      */
     public function fromSub($query, $as)
     {
-        [$query, $bindings] = $this->createSub($query);
+        list($query, $bindings) = $this->createSub($query);
 
         return $this->fromRaw('('.$query.') as '.$this->grammar->wrap($as), $bindings);
     }
@@ -382,7 +382,7 @@ class Builder
      */
     public function join($table, $first, $operator = null, $second = null, $type = 'inner', $where = false)
     {
-        $join = $this->newJoinClause($this, $type, $table);
+        $join = new JoinClause($this, $type, $table);
 
         // If the first "column" of the join is really a Closure instance the developer
         // is trying to build a join with a complex "on" clause containing more than
@@ -440,7 +440,7 @@ class Builder
      */
     public function joinSub($query, $as, $first, $operator = null, $second = null, $type = 'inner', $where = false)
     {
-        [$query, $bindings] = $this->createSub($query);
+        list($query, $bindings) = $this->createSub($query);
 
         $expression = '('.$query.') as '.$this->grammar->wrap($as);
 
@@ -467,7 +467,7 @@ class Builder
      * Add a "join where" clause to the query.
      *
      * @param  string  $table
-     * @param  \Closure|string  $first
+     * @param  string  $first
      * @param  string  $operator
      * @param  string  $second
      * @return \Illuminate\Database\Query\Builder|static
@@ -482,7 +482,7 @@ class Builder
      *
      * @param  \Closure|\Illuminate\Database\Query\Builder|string $query
      * @param  string  $as
-     * @param  \Closure|string  $first
+     * @param  string  $first
      * @param  string|null  $operator
      * @param  string|null  $second
      * @return \Illuminate\Database\Query\Builder|static
@@ -510,7 +510,7 @@ class Builder
      * Add a "right join where" clause to the query.
      *
      * @param  string  $table
-     * @param  \Closure|string  $first
+     * @param  string  $first
      * @param  string  $operator
      * @param  string  $second
      * @return \Illuminate\Database\Query\Builder|static
@@ -525,7 +525,7 @@ class Builder
      *
      * @param  \Closure|\Illuminate\Database\Query\Builder|string $query
      * @param  string  $as
-     * @param  \Closure|string  $first
+     * @param  string  $first
      * @param  string|null  $operator
      * @param  string|null  $second
      * @return \Illuminate\Database\Query\Builder|static
@@ -550,22 +550,9 @@ class Builder
             return $this->join($table, $first, $operator, $second, 'cross');
         }
 
-        $this->joins[] = $this->newJoinClause($this, 'cross', $table);
+        $this->joins[] = new JoinClause($this, 'cross', $table);
 
         return $this;
-    }
-
-    /**
-     * Get a new join clause.
-     *
-     * @param  \Illuminate\Database\Query\Builder $parentQuery
-     * @param  string  $type
-     * @param  string  $table
-     * @return \Illuminate\Database\Query\JoinClause
-     */
-    protected function newJoinClause(self $parentQuery, $type, $table)
-    {
-        return new JoinClause($parentQuery, $type, $table);
     }
 
     /**
@@ -605,7 +592,7 @@ class Builder
         // Here we will make some assumptions about the operator. If only 2 values are
         // passed to the method, we will assume that the operator is an equals sign
         // and keep going. Otherwise, we'll require the operator to be passed in.
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -620,7 +607,7 @@ class Builder
         // assume that the developer is just short-cutting the '=' operators and
         // we will set the operators to '=' and set the values appropriately.
         if ($this->invalidOperator($operator)) {
-            [$value, $operator] = [$operator, '='];
+            list($value, $operator) = [$operator, '='];
         }
 
         // If the value is a Closure, it means the developer is performing an entire
@@ -739,7 +726,7 @@ class Builder
      */
     public function orWhere($column, $operator = null, $value = null)
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -768,7 +755,7 @@ class Builder
         // assume that the developer is just short-cutting the '=' operators and
         // we will set the operators to '=' and set the values appropriately.
         if ($this->invalidOperator($operator)) {
-            [$second, $operator] = [$operator, '='];
+            list($second, $operator) = [$operator, '='];
         }
 
         // Finally, we will add this where clause into this array of clauses that we
@@ -870,7 +857,11 @@ class Builder
         // Finally we'll add a binding for each values unless that value is an expression
         // in which case we will just skip over it since it will be the query as a raw
         // string and not as a parameterized place-holder to be replaced by the PDO.
-        $this->addBinding($this->cleanBindings($values), 'where');
+        foreach ($values as $value) {
+            if (! $value instanceof Expression) {
+                $this->addBinding($value, 'where');
+            }
+        }
 
         return $this;
     }
@@ -955,45 +946,6 @@ class Builder
         $this->addBinding($query->getBindings(), 'where');
 
         return $this;
-    }
-
-    /**
-     * Add a "where in raw" clause for integer values to the query.
-     *
-     * @param  string  $column
-     * @param  \Illuminate\Contracts\Support\Arrayable|array  $values
-     * @param  string  $boolean
-     * @param  bool  $not
-     * @return $this
-     */
-    public function whereIntegerInRaw($column, $values, $boolean = 'and', $not = false)
-    {
-        $type = $not ? 'NotInRaw' : 'InRaw';
-
-        if ($values instanceof Arrayable) {
-            $values = $values->toArray();
-        }
-
-        foreach ($values as &$value) {
-            $value = (int) $value;
-        }
-
-        $this->wheres[] = compact('type', 'column', 'values', 'boolean');
-
-        return $this;
-    }
-
-    /**
-     * Add a "where not in raw" clause for integer values to the query.
-     *
-     * @param  string  $column
-     * @param  \Illuminate\Contracts\Support\Arrayable|array  $values
-     * @param  string  $boolean
-     * @return $this
-     */
-    public function whereIntegerNotInRaw($column, $values, $boolean = 'and')
-    {
-        return $this->whereIntegerInRaw($column, $values, $boolean, true);
     }
 
     /**
@@ -1115,7 +1067,7 @@ class Builder
      */
     public function whereDate($column, $operator, $value = null, $boolean = 'and')
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1136,7 +1088,7 @@ class Builder
      */
     public function orWhereDate($column, $operator, $value = null)
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1154,7 +1106,7 @@ class Builder
      */
     public function whereTime($column, $operator, $value = null, $boolean = 'and')
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1175,7 +1127,7 @@ class Builder
      */
     public function orWhereTime($column, $operator, $value = null)
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1193,7 +1145,7 @@ class Builder
      */
     public function whereDay($column, $operator, $value = null, $boolean = 'and')
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1214,7 +1166,7 @@ class Builder
      */
     public function orWhereDay($column, $operator, $value = null)
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1232,7 +1184,7 @@ class Builder
      */
     public function whereMonth($column, $operator, $value = null, $boolean = 'and')
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1253,7 +1205,7 @@ class Builder
      */
     public function orWhereMonth($column, $operator, $value = null)
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1271,7 +1223,7 @@ class Builder
      */
     public function whereYear($column, $operator, $value = null, $boolean = 'and')
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1292,7 +1244,7 @@ class Builder
      */
     public function orWhereYear($column, $operator, $value = null)
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1574,7 +1526,7 @@ class Builder
     {
         $type = 'JsonLength';
 
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1597,7 +1549,7 @@ class Builder
      */
     public function orWhereJsonLength($column, $operator, $value = null)
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1700,7 +1652,7 @@ class Builder
         // Here we will make some assumptions about the operator. If only 2 values are
         // passed to the method, we will assume that the operator is an equals sign
         // and keep going. Otherwise, we'll require the operator to be passed in.
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
@@ -1708,7 +1660,7 @@ class Builder
         // assume that the developer is just short-cutting the '=' operators and
         // we will set the operators to '=' and set the values appropriately.
         if ($this->invalidOperator($operator)) {
-            [$value, $operator] = [$operator, '='];
+            list($value, $operator) = [$operator, '='];
         }
 
         $this->havings[] = compact('type', 'column', 'operator', 'value', 'boolean');
@@ -1730,31 +1682,11 @@ class Builder
      */
     public function orHaving($column, $operator = null, $value = null)
     {
-        [$value, $operator] = $this->prepareValueAndOperator(
+        list($value, $operator) = $this->prepareValueAndOperator(
             $value, $operator, func_num_args() === 2
         );
 
         return $this->having($column, $operator, $value, 'or');
-    }
-
-    /**
-     * Add a "having between " clause to the query.
-     *
-     * @param  string  $column
-     * @param  array  $values
-     * @param  string  $boolean
-     * @param  bool  $not
-     * @return \Illuminate\Database\Query\Builder|static
-     */
-    public function havingBetween($column, array $values, $boolean = 'and', $not = false)
-    {
-        $type = 'between';
-
-        $this->havings[] = compact('type', 'column', 'values', 'boolean', 'not');
-
-        $this->addBinding($this->cleanBindings($values), 'having');
-
-        return $this;
     }
 
     /**
@@ -1799,7 +1731,7 @@ class Builder
     {
         $this->{$this->unions ? 'unionOrders' : 'orders'}[] = [
             'column' => $column,
-            'direction' => strtolower($direction) === 'asc' ? 'asc' : 'desc',
+            'direction' => strtolower($direction) == 'asc' ? 'asc' : 'desc',
         ];
 
         return $this;
@@ -2174,10 +2106,8 @@ class Builder
      */
     protected function runPaginationCountQuery($columns = ['*'])
     {
-        $without = $this->unions ? ['orders', 'limit', 'offset'] : ['columns', 'orders', 'limit', 'offset'];
-
-        return $this->cloneWithout($without)
-                    ->cloneWithoutBindings($this->unions ? ['order'] : ['select', 'order'])
+        return $this->cloneWithout(['columns', 'orders', 'limit', 'offset'])
+                    ->cloneWithoutBindings(['select', 'order'])
                     ->setAggregate('count', $this->withoutSelectAliases($columns))
                     ->get()->all();
     }
@@ -2490,8 +2420,8 @@ class Builder
      */
     public function aggregate($function, $columns = ['*'])
     {
-        $results = $this->cloneWithout($this->unions ? [] : ['columns'])
-                        ->cloneWithoutBindings($this->unions ? [] : ['select'])
+        $results = $this->cloneWithout(['columns'])
+                        ->cloneWithoutBindings(['select'])
                         ->setAggregate($function, $columns)
                         ->get($columns);
 
@@ -2615,7 +2545,7 @@ class Builder
     /**
      * Insert a new record and get the value of the primary key.
      *
-     * @param  array  $values
+     * @param  array   $values
      * @param  string|null  $sequence
      * @return int
      */
@@ -2626,23 +2556,6 @@ class Builder
         $values = $this->cleanBindings($values);
 
         return $this->processor->processInsertGetId($this, $sql, $values, $sequence);
-    }
-
-    /**
-     * Insert new records into the table using a subquery.
-     *
-     * @param  array  $columns
-     * @param  \Closure|\Illuminate\Database\Query\Builder|string  $query
-     * @return bool
-     */
-    public function insertUsing(array $columns, $query)
-    {
-        [$sql, $bindings] = $this->createSub($query);
-
-        return $this->connection->insert(
-            $this->grammar->compileInsertUsing($this, $columns, $sql),
-            $this->cleanBindings($bindings)
-        );
     }
 
     /**
@@ -2681,7 +2594,7 @@ class Builder
      *
      * @param  string  $column
      * @param  float|int  $amount
-     * @param  array  $extra
+     * @param  array   $extra
      * @return int
      */
     public function increment($column, $amount = 1, array $extra = [])
@@ -2702,7 +2615,7 @@ class Builder
      *
      * @param  string  $column
      * @param  float|int  $amount
-     * @param  array  $extra
+     * @param  array   $extra
      * @return int
      */
     public function decrement($column, $amount = 1, array $extra = [])

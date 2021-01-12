@@ -5,7 +5,6 @@ namespace Illuminate\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\View\Engines\EngineResolver;
@@ -14,8 +13,7 @@ use Illuminate\Contracts\View\Factory as FactoryContract;
 
 class Factory implements FactoryContract
 {
-    use Macroable,
-        Concerns\ManagesComponents,
+    use Concerns\ManagesComponents,
         Concerns\ManagesEvents,
         Concerns\ManagesLayouts,
         Concerns\ManagesLoops,
