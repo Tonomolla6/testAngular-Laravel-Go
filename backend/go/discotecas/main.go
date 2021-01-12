@@ -28,8 +28,10 @@ func main() {
 	MakeRoutes(r)
 	v1 := r.Group("/api")
 	
-	
+	v1.Use(discotecas.AuthMiddleware(false))
 	discotecas.DiscotecasAnonymousRegister(v1.Group("/discotecas"))
+
+	v1.Use(discotecas.AuthMiddleware(true))
 	discotecas.DiscotecasRegister(v1.Group("/discotecas"))
 
 	fmt.Printf("0.0.0.0:3000")

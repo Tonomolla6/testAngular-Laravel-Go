@@ -1,7 +1,7 @@
 package discotecas
 import (
 	"github.com/jinzhu/gorm"
-	
+	"goApp/common"
 )
 // "fmt"
 	// "github.com/jinzhu/gorm"
@@ -45,8 +45,12 @@ type UserModel struct {
 
 
 
-
-
+func FindOneUser(condition interface{}) (UserModel, error) {
+	db := common.GetDB()
+	var model UserModel
+	err := db.Where(condition).First(&model).Error
+	return model, err
+}
 
 
 

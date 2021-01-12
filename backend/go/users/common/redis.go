@@ -26,9 +26,9 @@ func NewClient() *redis.Client {
 	return rdb 
 }
 
-func SaveUser(email string, value string, client *redis.Client) error {
+func SaveUser(email string, token string, client *redis.Client) error {
 	
-	err := client.Set(ctx,"email", email, 0).Err()
+	err := client.Set(ctx,"token", token, 0).Err()
 
 	if err != nil {
 		return err

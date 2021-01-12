@@ -13,7 +13,7 @@ import (
 // Strips 'TOKEN ' prefix from token string
 func stripBearerPrefixFromTokenString(tok string) (string, error) {
 	// Should be a bearer token
-	if len(tok) > 5 && strings.ToUpper(tok[0:6]) == "TOKEN " {
+	if len(tok) > 5 && strings.ToUpper(tok[0:7]) == "BEARER " {
 		return tok[6:], nil
 	}
 	return tok, nil
@@ -48,6 +48,8 @@ func UpdateContextUserModel(c *gin.Context, my_user_id uint) {
 
 // You can custom middlewares yourself as the doc: https://github.com/gin-gonic/gin#custom-middleware
 //  r.Use(AuthMiddleware(true))
+
+//Esto CREO desencripta el token
 func AuthMiddleware(auto401 bool) gin.HandlerFunc { //Authmidelware true or false
 	return func(c *gin.Context) {
 		UpdateContextUserModel(c, 0)

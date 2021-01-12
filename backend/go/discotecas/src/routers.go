@@ -6,14 +6,14 @@ import (
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"io/ioutil"
 	
 )
 
 //"fmt"    "encoding/json"  
 // "strconv" para los coments
 //	"io" "strings"
-//	
+//	"net/http"
+//	"io/ioutil"
 
 
 
@@ -160,12 +160,28 @@ func DiscotecaFavorite(c *gin.Context) {
 	fmt.Println(discoteca)
 
 	client := common.NewClient()
-	var email = common.GetUser("email", client)
-	fmt.Println("email del USER que ha dado like")
-	fmt.Println(email)
+	var token = common.GetUser("token", client)
+	fmt.Println("token del USER que ha dado like")
+	fmt.Println(token)
 
-	var email_a_piñon = "admin"
+	// var email_a_pinon = "admin"
 
+	// var user UserModel
+	// token_decoded, err2 := stripBearerPrefixFromTokenString(token)
+	fmt.Println("TOKEN DECODED--------")
+
+	// if err2 != nil{
+	// 	fmt.Println("EEROR token decoded")
+	// }
+	// fmt.Println(token_decoded)
+
+	prueba := DecriptToken(token)
+	fmt.Println("PRUEBAAAAAAAa")
+	fmt.Println(prueba)
+	// fmt.Println("USER DESENCRIPTED ----------------------------")
+	// fmt.Println(user)
+	// fmt.Println(err2)
+	// userModel, err := FindOneUser(&UserModel{Email: email})
 
 	//Fetch request
 	//https://api.github.com/users/j-maestre/followers
