@@ -17,9 +17,6 @@ func Migrate(db *gorm.DB) {
 
 	db.AutoMigrate(&discotecas.Discotecas{})
 	discotecas.AutoMigrate()
-	// db.AutoMigrate(&favorites.FavoriteModel{})
-	
-	// AutoMigrate();
 
 }
 

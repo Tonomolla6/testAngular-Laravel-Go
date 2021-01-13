@@ -17,14 +17,6 @@ type Discotecas struct {
 	Company     string   `json:"company"`
 }
 
-// type DiscotecaUserModel struct {
-// 	gorm.Model
-// 	UserModel        UserModel
-// 	UserModelID      uint
-// 	DiscotecaModels  []Discotecas  `gorm:"ForeignKey:AuthorID"`
-// 	FavoriteModels   []FavoriteModel `gorm:"ForeignKey:FavoriteByID"`
-// }
-
 
 type FavoriteModel struct {
 	gorm.Model
@@ -59,6 +51,8 @@ func FindOneUser(condition interface{}) (UserModel, error) {
 	return model, err
 }
 
+
+//LIKE
 func favoriteBy(user UserModel, discoteca Discotecas) error {
 	fmt.Println("FAvorite de: ",user," A la discoteca: ", discoteca)
 	db := common.GetDB()
@@ -70,66 +64,28 @@ func favoriteBy(user UserModel, discoteca Discotecas) error {
 	return err
 }
 
+//FAVORITE BY
+func (discoteca Discotecas) isFavoriteBy(user UserModel) bool {
+	db := common.GetDB()
+	var favorite FavoriteModel
+	db.Where(FavoriteModel{
+		FavoriteID:   discoteca.Id,
+		FavoriteByID: user.ID,
+	}).First(&favorite)
+	return favorite.ID != 0
+}
 
 
+//UNLIKE
+func unFavoriteBy(user UserModel, discoteca Discotecas) error {
+	fmt.Println("DENTRO del UNNLIKE")
+	db := common.GetDB()
+	err := db.Where(FavoriteModel{
+		FavoriteID:   discoteca.Id,
+		FavoriteByID: user.ID,
+	}).Delete(FavoriteModel{}).Error
+	// fmt.Println(err)
+	return err
+}
 
 
-
-
-
-// func AutoMigrate() {
-// 	db := common.GetDB()
-
-// 	db.AutoMigrate(&DiscotecaUserModel{})
-// 	db.AutoMigrate(&FavoriteModel{})
-// }
-
-
-/////////////////////
-// func GetDiscotecaUserModel(userModel UserModel) DiscotecaUserModel {
-// 	fmt.Println("DENTRO DEL GETDISCOUSERMODEL")
-// 	var discotecaUserModel DiscotecaUserModel
-// 	if userModel.ID == 0 {
-// 		return discotecaUserModel
-// 	}
-// 	db := common.GetDB()
-// 	db.Where(&DiscotecaUserModel{
-// 		UserModelID: userModel.ID,
-// 	}).FirstOrCreate(&discotecaUserModel)
-// 	discotecaUserModel.UserModel = userModel
-// 	return discotecaUserModel
-// }
-// ////////////////////
-// func (discoteca Discotecas) favoritesCount() uint {
-// 	db := common.GetDB()
-// 	var count uint
-// 	db.Model(&FavoriteModel{}).Where(FavoriteModel{
-// 		FavoriteID: discoteca.Id,
-// 	}).Count(&count)
-// 	return count
-// }
-
-// //////////////////////7
-
-// func (discoteca Discotecas) isFavoriteBy(user DiscotecaUserModel) bool {
-// 	db := common.GetDB()
-// 	var favorite FavoriteModel
-// 	db.Where(FavoriteModel{
-// 		FavoriteID:   discoteca.Id,
-// 		FavoriteByID: user.ID,
-// 	}).First(&favorite)
-// 	return favorite.ID != 0
-// }
-
-// //////////////////////
-
-// func (discoteca Discotecas) favoriteBy(user DiscotecaUserModel) error {
-// 	fmt.Println("DENTRO DEL FAVORITE BY")
-// 	db := common.GetDB()
-// 	var favorite FavoriteModel
-// 	err := db.FirstOrCreate(&favorite, &FavoriteModel{
-// 		FavoriteID:   discoteca.Id,
-// 		FavoriteByID: user.ID,
-// 	}).Error
-// 	return err
-// }

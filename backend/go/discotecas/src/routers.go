@@ -22,6 +22,7 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 	router.PUT("/:id", DiscotecaUpdate)
 	router.DELETE("/:id", DiscotecaDelete)
 	router.POST("/:id/favorite", DiscotecaFavorite)
+	router.POST("/:id/unfavorite", DiscotecaUnFavorite)
 	// router.DELETE("/:id/favorite", DiscotecaUnfavorite)
 	// router.POST("/:id/comments", DiscotecaCommentCreate)
 	// router.DELETE("/:id/comments/:id", DiscotecaCommentDelete)
@@ -139,47 +140,50 @@ func DiscotecaDelete(c *gin.Context){
 
 
 //////Favorite
-
-func DiscotecaFavorite(c *gin.Context) {
-	fmt.Println("Dentro de router favavsdvorite");
-	// fmt.Println(c.Params.ByName("id"))
+func DiscotecaFavorite(c *gin.Context){
 	id := c.Params.ByName("id")
 
-	fmt.Println("Antes del get")
-
-	// var email = "xema_test@gmail.com"
 	var discoteca Discotecas
-	// err := GetDiscotecaById(&discoteca, id)
-	// var discotecaModel Discotecas
 	err := GetDiscotecaById(&discoteca, id)//Discoteca a la que le damos like
+
 	if err != nil {
 		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
 		return
 	}
 
+	myUserModel := c.MustGet("my_user_model").(UserModel) //Usuario que da like
 
-	// client := common.NewClient()
-	// var token = common.GetUser("token", client)
-
-
-	myUserModel := c.MustGet("my_user_model").(UserModel)
-	fmt.Println("ojo al my user model")
-	fmt.Println(myUserModel) //Modelo del Usuario que ha dado like
-	fmt.Println(discoteca)   //Discoteca a la que le quiere dar like
 
 	err2 := favoriteBy(myUserModel,discoteca)
+	if err2 != nil{
+		fmt.Println("ERROR like: ",err2)
+	}
 
-	fmt.Println("ERR2: ", err2)
 
-
-
-	c.JSON(http.StatusOK, gin.H{"user": myUserModel})
+	c.JSON(http.StatusOK, gin.H{ "User":myUserModel,"Disco":discoteca})
 }
 
+//UNFAVORITE
+func DiscotecaUnFavorite(c *gin.Context){
+	fmt.Println("Dentro del UNFAVORITE-------------")
+	id := c.Params.ByName("id")
+
+	var discoteca Discotecas
+	err := GetDiscotecaById(&discoteca, id)//Discoteca a la que le damos like
+
+	if err != nil {
+		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
+		return
+	}
+
+	myUserModel := c.MustGet("my_user_model").(UserModel) //Usuario que da like
 
 
-// func queryParams(w http.ResponseWriter, r *http.Request) {
-//     for k, v := range r.URL.Query() {
-//         fmt.Printf("%s: %s\n", k, v)
-//     }
-// }
+	err2 := unFavoriteBy(myUserModel,discoteca)
+	if err2 != nil{
+		fmt.Println("ERROR like: ",err2)
+	}
+
+
+	c.JSON(http.StatusOK, gin.H{ "User":myUserModel,"Disco":discoteca})
+}
