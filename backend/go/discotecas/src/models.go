@@ -5,11 +5,10 @@ import (
 	"fmt"
 )
 // "fmt"
-	// "github.com/jinzhu/gorm"
-	// 
-	// "goApp/common"
+// "github.com/jinzhu/gorm"
+// "goApp/common"
 //"fmt"   "errors"  "github.com/gin-gonic/gin"   "net/http"
-//"goApp/jinzhu/gorm"
+
 
 type Discotecas struct {
 	Id          uint
@@ -64,18 +63,6 @@ func favoriteBy(user UserModel, discoteca Discotecas) error {
 	return err
 }
 
-//FAVORITE BY
-func (discoteca Discotecas) isFavoriteBy(user UserModel) bool {
-	db := common.GetDB()
-	var favorite FavoriteModel
-	db.Where(FavoriteModel{
-		FavoriteID:   discoteca.Id,
-		FavoriteByID: user.ID,
-	}).First(&favorite)
-	return favorite.ID != 0
-}
-
-
 //UNLIKE
 func unFavoriteBy(user UserModel, discoteca Discotecas) error {
 	fmt.Println("DENTRO del UNNLIKE")
@@ -86,6 +73,17 @@ func unFavoriteBy(user UserModel, discoteca Discotecas) error {
 	}).Delete(FavoriteModel{}).Error
 	// fmt.Println(err)
 	return err
+}
+
+//Is favorited
+func (discoteca Discotecas) isFavoriteBy(user UserModel) bool {
+	db := common.GetDB()
+	var favorite FavoriteModel
+	db.Where(FavoriteModel{
+		FavoriteID:   discoteca.Id,
+		FavoriteByID: user.ID,
+	}).First(&favorite)
+	return favorite.ID != 0
 }
 
 
