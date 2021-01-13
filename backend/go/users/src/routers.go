@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
@@ -180,7 +181,7 @@ func UsersLogin(c *gin.Context) {
 	client := common.NewClient()
 	serializer := UserSerializer{c}
 
-	err_redis := common.SaveUser(serializer.Response().Email, serializer.Response().Token, client)
+	err_redis := common.SaveUser(serializer.Response().Email, serializer.Response().Bearer, client)
 	if err_redis != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err_redis.Error()})
 		return

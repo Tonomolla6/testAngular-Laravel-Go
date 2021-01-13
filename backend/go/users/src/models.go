@@ -48,7 +48,7 @@ func AutoMigrate() {
 	db.AutoMigrate(&FollowModel{})
 }
 
-// What's bcrypt? https://en.wikipedia.org/wiki/Bcrypt
+// What's bcrypt? https://en.wikipedia.org/wiki/Bcrypt 
 // Golang bcrypt doc: https://godoc.org/golang.org/x/crypto/bcrypt
 // You can change the value in bcrypt.DefaultCost to adjust the security index.
 // 	err := userModel.setPassword("password0")

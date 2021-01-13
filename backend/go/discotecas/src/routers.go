@@ -156,49 +156,24 @@ func DiscotecaFavorite(c *gin.Context) {
 		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
 		return
 	}
-	fmt.Println("DISCOTECA TO FAV")
-	fmt.Println(discoteca)
-
-	client := common.NewClient()
-	var token = common.GetUser("token", client)
-	fmt.Println("token del USER que ha dado like")
-	fmt.Println(token)
-
-	// var email_a_pinon = "admin"
-
-	// var user UserModel
-	// token_decoded, err2 := stripBearerPrefixFromTokenString(token)
-	fmt.Println("TOKEN DECODED--------")
-
-	// if err2 != nil{
-	// 	fmt.Println("EEROR token decoded")
-	// }
-	// fmt.Println(token_decoded)
-
-	prueba := DecriptToken(token)
-	fmt.Println("PRUEBAAAAAAAa")
-	fmt.Println(prueba)
-	// fmt.Println("USER DESENCRIPTED ----------------------------")
-	// fmt.Println(user)
-	// fmt.Println(err2)
-	// userModel, err := FindOneUser(&UserModel{Email: email})
-
-	//Fetch request
-	//https://api.github.com/users/j-maestre/followers
-	// resp, err := http.Get("http://users.docker.localhost/api/user/logued")
-    // if err != nil {
-    //     print(err)
-    // }
-    // defer resp.Body.Close()
-    // body, err := ioutil.ReadAll(resp.Body)
-    // if err != nil {
-    //     print(err)
-    // }
-	// fmt.Print(string(body))
-	//End fetch request
 
 
-	// c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+	// client := common.NewClient()
+	// var token = common.GetUser("token", client)
+
+
+	myUserModel := c.MustGet("my_user_model").(UserModel)
+	fmt.Println("ojo al my user model")
+	fmt.Println(myUserModel) //Modelo del Usuario que ha dado like
+	fmt.Println(discoteca)   //Discoteca a la que le quiere dar like
+
+	err2 := favoriteBy(myUserModel,discoteca)
+
+	fmt.Println("ERR2: ", err2)
+
+
+
+	c.JSON(http.StatusOK, gin.H{"user": myUserModel})
 }
 
 

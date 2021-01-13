@@ -2,6 +2,7 @@ package discotecas
 import (
 	"github.com/jinzhu/gorm"
 	"goApp/common"
+	"fmt"
 )
 // "fmt"
 	// "github.com/jinzhu/gorm"
@@ -43,13 +44,30 @@ type UserModel struct {
 	Type		 string	 `gorm:"column:type;" default:'client'`
 }
 
+func AutoMigrate() {
+	db := common.GetDB()
+	db.AutoMigrate(&FavoriteModel{})
+}
 
 
+
+//De momento no hace falta esta funcion porque pillo el usuario de myUserModel
 func FindOneUser(condition interface{}) (UserModel, error) {
 	db := common.GetDB()
 	var model UserModel
 	err := db.Where(condition).First(&model).Error
 	return model, err
+}
+
+func favoriteBy(user UserModel, discoteca Discotecas) error {
+	fmt.Println("FAvorite de: ",user," A la discoteca: ", discoteca)
+	db := common.GetDB()
+	var favorite FavoriteModel
+	err := db.FirstOrCreate(&favorite, &FavoriteModel{
+		FavoriteID:   discoteca.Id,
+		FavoriteByID: user.ID,
+	}).Error
+	return err
 }
 
 

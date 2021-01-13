@@ -18,8 +18,8 @@ type ProfileResponse struct {
 	Email     string  `json:"email"`
 	Bio       string  `json:"bio"`
 	Image     *string `json:"image"`
-	Token    string  `json:"token"`
-	Type 	 string  `json:"type"`
+	Bearer    string  `json:"Bearer"`
+	Type 	  string  `json:"type"`
 }
 
 // Put your response logic including wrap the userModel here. 
@@ -32,7 +32,7 @@ func (self *ProfileSerializer) Response() ProfileResponse {
 		Bio:       self.Bio,
 		Image:     self.Image,
 		Type:      self.Type,
-		Token:     common.GenToken(myUserModel.ID),
+		Bearer:     common.GenToken(myUserModel.ID),
 	}
 	return profile
 }
@@ -46,7 +46,7 @@ type UserResponse struct {
 	Email    string  `json:"email"`
 	Bio      string  `json:"bio"`
 	Image    *string `json:"image"`
-	Token    string  `json:"token"`
+	Bearer   string  `json:"Bearer"`
 	Type 	 string  `json:"type"`
 }
 
@@ -57,7 +57,7 @@ func (self *UserSerializer) Response() UserResponse {
 		Email:    myUserModel.Email,
 		Bio:      myUserModel.Bio,
 		Image:    myUserModel.Image,
-		Token:    common.GenToken(myUserModel.ID),  //Aqui crea el token en una funcion de common/utils
+		Bearer:   common.GenToken(myUserModel.ID),  //Aqui crea el token en una funcion de common/utils
 		Type:     myUserModel.Type,
 	}
 	return user

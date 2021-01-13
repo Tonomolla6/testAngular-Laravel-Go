@@ -14,12 +14,18 @@ import (
 // Strips 'TOKEN ' prefix from token string
 func stripBearerPrefixFromTokenString(tok string) (string, error) {
 	// Should be a bearer token
-	if len(tok) > 5 && strings.ToUpper(tok[0:7]) == "BEARER " {
-		return tok[6:], nil
+	fmt.Println("BEARERr2: ",tok)
+	fmt.Println("len: ", len(tok))
+	fmt.Println("strings: ",strings.ToUpper(tok[0:7]))
+	if len(tok) > 6 && strings.ToUpper(tok[0:7]) == "BEARER " {
+		return tok[7:], nil
+	}else{
+		fmt.Println("ELSE")
 	}
+	fmt.Println("TOK DESPUES: ",tok)
 	return tok, nil
 }
-
+ 
 //CREAR FUNCION QUE RECIBA EL TOKEN Y LO DECRIPTE
 func DecriptToken(tok string) string{
 	secret := common.NBSecretPassword
@@ -70,12 +76,12 @@ func UpdateContextUserModel(c *gin.Context, my_user_id uint) {
 //  r.Use(AuthMiddleware(true))
 
 //ESTO DECODIFICA EL TOKEN POR AUTORITATION en postman DEL HEADER en angular
-func AuthMiddleware(auto401 bool) gin.HandlerFunc { //Authmidelware true or false
+func AuthMiddleware(auto401 bool) gin.HandlerFunc { //Authmidelware true or false desde el main.go
 	fmt.Println("Dentro del authmidelware")
 	return func(c *gin.Context) {
 		UpdateContextUserModel(c, 0)
 		token, err := request.ParseFromRequest(c.Request, MyAuth2Extractor, func(token *jwt.Token) (interface{}, error) {
-			b := ([]byte(common.NBSecretPassword))
+			b := ([]byte(common.NBSecretPassword)) //Aqui está el secret
 			return b, nil
 		})
 		if err != nil {
