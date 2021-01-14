@@ -8,8 +8,6 @@ import (
 
 //Create discoteca
 func CreateDiscoteca(data interface{}) error{
-	fmt.Println("CREATE DISCOTECA")
-	fmt.Println(data)
 	db:=common.GetDB();
 	err:=db.Create(data).Error
 	return err
@@ -18,12 +16,11 @@ func CreateDiscoteca(data interface{}) error{
 //Get all Discotecas
 func GetAllDiscotecas(data interface{}) error{
 	db:=common.GetDB();
-	err:=db.Find(data).Error
+	err := db.Order("views desc").Find(data).Error
 	return err;
 }
 //GET ONE discoteca by ID
 func GetDiscotecaById(data, id interface{}) error {
-	// discotecaModel Discotecas
 	db := common.GetDB()
 	err := db.Where("id = ?", id).First(data).Error
 	return err
