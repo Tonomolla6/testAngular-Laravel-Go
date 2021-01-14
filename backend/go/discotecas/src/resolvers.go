@@ -8,7 +8,7 @@ import (
 
 //Create discoteca
 func CreateDiscoteca(data interface{}) error{
-	fmt.Println("CREATEEEEEEEE")
+	fmt.Println("CREATE DISCOTECA")
 	fmt.Println(data)
 	db:=common.GetDB();
 	err:=db.Create(data).Error
@@ -38,15 +38,10 @@ func UpdateDiscoteca(data interface{}) error{
 	return err
 }
 
-// func (model *ArticleModel) Update(data interface{}) error {
-// 	db := common.GetDB()
-// 	err := db.Model(model).Update(data).Error
-// 	return err
-// }
-
 //DELETE
 func DeleteDiscoteca(data, id interface{}) error {
 	db := common.GetDB()
 	err := db.Where("id = ?", id).Delete(data).Error
 	return err
 }
+

@@ -40,7 +40,6 @@ func DiscotecaCreate(c *gin.Context){
 	var discoteca Discotecas
 	c.BindJSON(&discoteca);
 
-	
 	err:=CreateDiscoteca(&discoteca)
 
 	if err !=nil{
@@ -82,11 +81,18 @@ func DiscotecaById(c *gin.Context) {
 		c.AbortWithStatus(http.StatusNotFound)
 		return
 	}else{
-		c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
-		return
+		err := VisitDisco(discoteca)
+		if err != nil{
+			c.JSON(http.StatusOK, "Discoteca Visit Fail")
+			c.AbortWithStatus(http.StatusNotFound)
+			return
+		}else{
+			discoteca.Views ++;
+			c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+			return
+		}
+		
 	}
-	// serializer := DiscotecaSerializer{c, discotecaModel}     //Serializer para enviarlo a angular?
-	// c.JSON(http.StatusOK, gin.H{"discoteca": serializer.Response()})
 }
 ////////
 

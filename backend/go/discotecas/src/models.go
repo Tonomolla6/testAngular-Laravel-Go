@@ -14,6 +14,7 @@ type Discotecas struct {
 	Id          uint
 	Name        string   `json:"name"`
 	Company     string   `json:"company"`
+	Views		int      `json:"views"`
 }
 
 
@@ -86,4 +87,10 @@ func (discoteca Discotecas) isFavoriteBy(user UserModel) bool {
 	return favorite.ID != 0
 }
 
+func VisitDisco(discoteca Discotecas) error{
+	db := common.GetDB()
+	discoteca.Views ++;
+	err := db.Save(discoteca).Error
 
+	return err
+}

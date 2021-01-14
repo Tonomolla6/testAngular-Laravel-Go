@@ -116,8 +116,8 @@ func UsersRegistration(c *gin.Context) {
 
 	//Crear profile
 
-	fmt.Println("ID DEL USER CREADO")
-	fmt.Println(userModelValidator.userModel.ID)
+	// fmt.Println("ID DEL USER CREADO")
+	// fmt.Println(userModelValidator.userModel.ID)
 
 	id := userModelValidator.userModel.ID;
 	requestBody, err := json.Marshal(map[string]uint{
@@ -175,8 +175,6 @@ func UsersLogin(c *gin.Context) {
 		return
 	}
 	UpdateContextUserModel(c, userModel.ID)  //Esto se guarda al tio que se ha logueado
-	fmt.Println("CONTEX USER IDDDDDD")
-	fmt.Println(c.MustGet("my_user_id"))
 	//save userModel in redis
 	client := common.NewClient()
 	serializer := UserSerializer{c}
