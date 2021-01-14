@@ -24,6 +24,11 @@ export class DiscotecasService {
           .pipe(map(data => data.discoteca));
       }
 
+      //Favorite
+      favorite(id: Observable<Discoteca>) {
+        return this.apiService.discotecasGet('/discotecas/' + id + '/favorite')
+          .pipe(map(data => data.discoteca));
+      }
 
 
       
