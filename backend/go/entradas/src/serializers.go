@@ -26,12 +26,12 @@ package entradas
 
 
 // func (s *EntradasSerializer) Response() Entradas {
-// 	myUserModel := s.C.MustGet("my_user_model").(UserModel)
+// 	myUser := s.C.MustGet("my_user_model").(User)
 // 	response := Entradas {
 // 		Id:          s.Id,
 // 		Name:        s.Name
 // 		Company:     s.Company
-// 		// Favorite:    s.isFavoriteBy(GetEntradasUserModel(myUserModel)),
+// 		// Favorite:    s.isFavoriteBy(GetEntradasUser(myUser)),
 // 		Views:	     s.Views,
 // 	}
 	

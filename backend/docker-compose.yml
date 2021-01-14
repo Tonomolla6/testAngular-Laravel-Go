@@ -35,18 +35,18 @@ services:
       - redis
 
 
-  # entradas:
-  #   extends:
-  #     file: microservices-go.yml
-  #     service: microservices
-  #   container_name: go_entradas_container
-  #   volumes:
-  #     - ./go/entradas:/go/src/goApp
-  #   labels:
-  #     traefik.http.routers.discotecas.rule: Host(`entradas.docker.localhost`)
-  #   depends_on:
-  #     - mysql
-  #     - redis
+  entradas:
+    extends:
+      file: microservices-go.yml
+      service: microservices
+    container_name: go_entradas_container
+    volumes:
+      - ./go/entradas:/go/src/goApp
+    labels:
+      traefik.http.routers.entradas.rule: Host(`entradas.docker.localhost`)
+    depends_on:
+      - mysql
+      - redis
 
   users:
     extends:
