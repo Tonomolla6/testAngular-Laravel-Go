@@ -40,3 +40,50 @@ curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
 sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt sources.list.d/pgadmin4.list && apt update'
 
 sudo apt install pgadmin4
+
+
+Cosas que hemos hecho
+
+- Home, Shop Go: list/details
+    - Home en angular y go
+    -> FALTA EL SHOP
+
+- PanelAdmin Laravel: CRUD.
+    -> FALTA CREAR EL C DEL CRUD EN LARAVEL
+    -> FALTA QUE ANGULAR ENVIE LAS PETICIONES
+
+- Login, register, JWT.
+    - Laravel: Login y register
+    - Go: Login y register
+
+- Login_admin.
+    -> LOGIN EN LARAVEL SOLO SI ES ADMINISTRADOR
+
+- microservices.
+    - Entradas, Discotecas, Events, Users y Profiles.
+
+- Relationships Go/Laravel.
+    -> Laravel: Falta las relations ships
+    - Go: M - M, Users - Favoritos
+
+- Home/Shop Go: users més populars, articles més comprats, ... PanelAdmin Laravel: dashboard amb estadístiques.
+    - Go: discotecas mas visitadas, 
+    -> FALTA DISCOTECAS MAS POPULARES, EVENTOS CON MAS VENTAS
+    -> FALTA DASHBOARD CON ESTADISTICAS DE REDIS.
+
+- Readme.
+    -> FALTA EMPEZAR A HACERLO
+
+
+Improvements:
+- Angular Redux (ngrx): list/details shop o CRUD PanelAdmin.
+- seed_Go/Laravel.
+- Toastr Angular.
+- validate register BE Go.
+- Transformers, serializers, requests, validators.
+- Nivells de seguretat Login_admin en Laravel.
+- middleware admin_guard Angular.
+- Nivells de seguretat microservices middleware_auth.
+- Relationships Go/Laravel: traits, emitters, related, association, ...
+slug, author, tags, pager, favorites, follow, comments, buys, ...
+- L'admin puga fer compres.
