@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,13 +13,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// USERS 
+    // MIDDLEWARE
+    Route::group(['middleware' => ['jwt.verify']], function() {
+        Route::get('user', 'Api\UserController@getAuthenticatedUser');
+    });
 
-Route::post('users/register', 'UserController@register');
-Route::post('users/login', 'UserController@login');
+    // POST
+    Route::post('users/register', 'Api\UserController@register');
+    Route::post('users/login', 'Api\UserController@login');
 
-Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('user', 'UserController@getAuthenticatedUser');
-});
+// COMPANIES
+    // POST
+    Route::post('company', 'Api\CompanyController@createCompany');
+
+    // GET
+    Route::get('companies', 'Api\CompanyController@getAllCompanies');
+    Route::get('company/{id}', 'Api\CompanyController@getCompany');
+    
+    // PUT
+    Route::put('company/{id}', 'Api\CompanyController@updateCompany');
+
+    // DELETE
+    Route::delete('company/{id}','Api\CompanyController@deleteCompany');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -15,8 +16,8 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
+        $credentials = $request->only('user.email', 'user.password');
+        $credentials = $credentials['user'];
 
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
@@ -47,7 +48,6 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
-
 
         return response()->json(compact('user'), 201);
     }
