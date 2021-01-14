@@ -18,8 +18,8 @@ import (
 var image_url = "https://golang.org/doc/gopher/frontpage.png"
 var test_db *gorm.DB
 
-func newUserModel() UserModel {
-	return UserModel{
+func newUserModel() User {
+	return User{
 		ID:           2,
 		Username:     "asd123!@#ASD",
 		Email:        "wzt@g.cn",
@@ -29,13 +29,13 @@ func newUserModel() UserModel {
 	}
 }
 
-func userModelMocker(n int) []UserModel {
+func userModelMocker(n int) []User {
 	var offset int
-	test_db.Model(&UserModel{}).Count(&offset)
-	var ret []UserModel
+	test_db.Model(&User{}).Count(&offset)
+	var ret []User
 	for i := offset + 1; i <= offset+n; i++ {
 		image := fmt.Sprintf("http://image/%v.jpg", i)
-		userModel := UserModel{
+		userModel := User{
 			Username: fmt.Sprintf("user%v", i),
 			Email:    fmt.Sprintf("user%v@linkedin.com", i),
 			Bio:      fmt.Sprintf("bio%v", i),
@@ -51,7 +51,7 @@ func userModelMocker(n int) []UserModel {
 func TestUserModel(t *testing.T) {
 	asserts := assert.New(t)
 
-	//Testing UserModel's password feature
+	//Testing User's password feature
 	userModel := newUserModel()
 	err := userModel.checkPassword("")
 	asserts.Error(err, "empty password should return err")
@@ -359,7 +359,7 @@ var unauthRequestTests = []struct {
 			common.TestDBFree(test_db)
 			test_db = common.TestDBInit()
 
-			test_db.AutoMigrate(&UserModel{})
+			test_db.AutoMigrate(&User{})
 			userModelMocker(3)
 			HeaderTokenMock(req, 2)
 		},

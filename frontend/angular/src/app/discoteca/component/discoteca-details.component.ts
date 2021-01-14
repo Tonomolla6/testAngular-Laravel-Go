@@ -35,5 +35,5 @@ export class DiscotecaDetailsComponent implements OnInit {
       );
   }
   //Aqui irá el delete, update, comments, favorited...
-  
+  //Aqui va el favoritos
 }
