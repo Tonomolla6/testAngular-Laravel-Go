@@ -3,6 +3,7 @@ export interface Discoteca {
     name: string;
     company: string;
     events: string[];
+    views: number;
     // createdAt: string;
     // updatedAt: string;
     // favorited: boolean;
