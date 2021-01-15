@@ -31,6 +31,12 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
+      //Login laravel
+      loginLaravel(path: String, body: Object = {}): Observable<any> {
+        return this.http.post(`${environment.api_laravel}${path}`, { body })
+          .pipe(catchError(this.formatErrors));
+      }
+
       // Discotecas
       discotecasGet(path: string, params: HttpParams = new HttpParams()): Observable<any> {
         return this.http.get(`${environment.api_go_discotecas}${path}`, { params })
