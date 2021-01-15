@@ -46,7 +46,10 @@ export class AuthComponent implements OnInit {
     localStorage.setItem('email',credentials.email)
     this.userService.attemptAuth(this.authType, credentials)
     .subscribe(
-      data => this.router.navigateByUrl('/')
+      // data => this.router.navigateByUrl('/')
+      (data) => {
+        this.router.navigateByUrl('/')
+      }
     );
   }
 }

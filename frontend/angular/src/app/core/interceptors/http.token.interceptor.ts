@@ -3,12 +3,12 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service'
 
-import { JwtService } from '../services';
+// import { JwtService } from '../services';
 
 @Injectable()
 export class HttpTokenInterceptor implements HttpInterceptor {
   constructor(
-    private jwtService: JwtService,
+    // private jwtService: JwtService,
     private userService: UserService
   ) { }
 
@@ -19,12 +19,12 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       'Username': 'application/json'
     };
     const user = this.userService.getCurrentUser();
-    const token = this.jwtService.getToken();
+    // const token = this.jwtService.getToken();
 
-    if (token) {
-      headersConfig['Authorization'] = `Bearer ${token}`;
-      headersConfig['Username'] = `${user.username}`;
-    }
+    // if (token) {
+      // headersConfig['Authorization'] = `Bearer ${token}`;
+      // headersConfig['Username'] = `${user.username}`;
+    // }
 
     const request = req.clone({ setHeaders: headersConfig });
     return next.handle(request);

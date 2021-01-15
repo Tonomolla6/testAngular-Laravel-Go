@@ -64,6 +64,31 @@ export class UserService {
     return this.apiService.usersPost('/users/' + route, {user: credentials})
       .pipe(map(
       data => {
+
+        console.log("User service----")
+        console.log(data)
+
+        if(data.user.type=="admin"){//Es administrador
+          console.log("ADMIN OLE LOS CARACOLES")
+          this.loginLaravel(credentials).subscribe(data =>{ console.log(data)});
+          console.log("Despues")
+        }else{//Es usuario normal
+          this.setAuth(data.user);
+        }
+        
+        
+
+        return data;
+      }
+    ));
+  }
+
+  //Login en laravel admin
+  loginLaravel(credentials:[]): Observable<User> {
+    // console.log("Login de laravel");
+    return this.apiService.loginLaravel('/users/login', {user: credentials})
+    .pipe(map(
+      data => {
         this.setAuth(data.user);
         return data;
       }
