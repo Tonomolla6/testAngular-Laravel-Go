@@ -17,7 +17,7 @@ type UserModelValidator struct { //RegEx
 		Bio      string `form:"bio" json:"bio" binding:"max=1024"`
 		Image    string `form:"image" json:"image" binding:"omitempty,url"`
 	} `json:"user"`
-	userModel UserModel `json:"-"`
+	userModel User `json:"-"`
 }
 
 // There are some difference when you create or update a model, you need to fill the DataModel before
@@ -49,7 +49,7 @@ func NewUserModelValidator() UserModelValidator {
 	return userModelValidator
 }
 
-func NewUserModelValidatorFillWith(userModel UserModel) UserModelValidator {
+func NewUserModelValidatorFillWith(userModel User) UserModelValidator {
 	userModelValidator := NewUserModelValidator()
 	userModelValidator.User.Username = userModel.Username
 	userModelValidator.User.Email = userModel.Email
@@ -67,7 +67,7 @@ type LoginValidator struct {
 		Email    string `form:"email" json:"email" email"`
 		Password string `form:"password"json:"password" min=8,max=255"`
 	} `json:"user"`
-	userModel UserModel `json:"-"`
+	userModel User `json:"-"`
 }
 
 func (self *LoginValidator) Bind(c *gin.Context) error {

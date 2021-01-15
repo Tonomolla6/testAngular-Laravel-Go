@@ -37,7 +37,7 @@ var MyAuth2Extractor = &request.MultiExtractor{
 func UpdateContextUserModel(c *gin.Context, my_user_id uint) {
 	fmt.Println("DEntro del context User Model")
 	fmt.Println(my_user_id)
-	var myUserModel UserModel
+	var myUserModel User
 	if my_user_id != 0 {
 		db := common.GetDB()
 		db.First(&myUserModel, my_user_id)

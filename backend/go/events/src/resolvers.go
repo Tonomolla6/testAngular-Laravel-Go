@@ -1,11 +1,10 @@
 package events
 
 import (
-	
+	"fmt"
 	"goApp/common"
 
 )
-//"fmt"
 
 //Create event
 func CreateEvent(data interface{}) error{
@@ -18,7 +17,6 @@ func CreateEvent(data interface{}) error{
 func GetAllEvents(data interface{}) error{
 	db:=common.GetDB();
 	err:=db.Find(data).Error
-
 	return err;
 }
 //GET ONE event by ID
@@ -30,7 +28,8 @@ func GetEventById(data, id interface{}) error {
 
 //UPDATE event
 func UpdateEvent(data interface{}) error{
-
+	fmt.Println("RESOLVER UPDATE");
+	fmt.Println(data)
 	db := common.GetDB()
 	err := db.Save(data).Error
 	return err
@@ -42,3 +41,4 @@ func DeleteEvent(data, id interface{}) error {
 	err := db.Where("id = ?", id).Delete(data).Error
 	return err
 }
+

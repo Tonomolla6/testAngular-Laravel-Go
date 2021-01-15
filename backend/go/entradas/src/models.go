@@ -1,7 +1,7 @@
 package entradas
 import (
 
-	"goApp/common"
+	// "goApp/common"
 	
 )
 // "fmt"
@@ -11,14 +11,13 @@ import (
 
 
 type Entradas struct {
-	Id          uint
-	Name        string   `json:"name"`
-	Company     string   `json:"company"`
-	Views		int      `json:"views"`
+	Id          uint	`gorm:"primary_key"`
+	Event       uint   	`json:"event"`
+	Price       int     `json:"price"`
 }
 
 
-type UserModel struct {
+type User struct {
 	ID           uint    `gorm:"primary_key"`
 	Username     string  `gorm:"column:username"`
 	Email        string  `gorm:"column:email; unique_index"`
@@ -30,10 +29,10 @@ type UserModel struct {
 
 
 
-//De momento no hace falta esta funcion porque pillo el usuario de myUserModel
-func FindOneUser(condition interface{}) (UserModel, error) {
-	db := common.GetDB()
-	var model UserModel
-	err := db.Where(condition).First(&model).Error
-	return model, err
-}
+//De momento no hace falta esta funcion porque pillo el usuario de myUser
+// func FindOneUser(condition interface{}) (User, error) {
+// 	db := common.GetDB()
+// 	var model User
+// 	err := db.Where(condition).First(&model).Error
+// 	return model, err
+// }

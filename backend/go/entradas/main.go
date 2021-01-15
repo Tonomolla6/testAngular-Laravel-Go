@@ -32,7 +32,7 @@ func main() {
 	v1.Use(entradas.AuthMiddleware(false))
 	entradas.EntradasAnonymousRegister(v1.Group("/entradas"))
 
-	v1.Use(entradas.AuthMiddleware(false))
+	v1.Use(entradas.AuthMiddleware(true))
 	entradas.EntradasRegister(v1.Group("/entradas"))
 
 	fmt.Printf("0.0.0.0:3000")

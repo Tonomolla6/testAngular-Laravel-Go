@@ -32,7 +32,15 @@ func SaveUser(email string, token string, client *redis.Client) error {
 
 	if err != nil {
 		return err
+	}else{
+		err2 := client.Set(ctx,"email", email, 0).Err()
+		
+		if err2 != nil{
+			return err2
+		}
 	}
+
+	
 	return nil
 }
 

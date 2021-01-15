@@ -1,20 +1,30 @@
 package events
 
 import (
-	"fmt"
+	// "fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	
 )
 
-//fmt para debug
+//"fmt"    "encoding/json"  
+// "strconv" para los coments
+//	"io" "strings"
+//	"net/http"
+//	"io/ioutil"
+
 
 
 func EventsRegister(router *gin.RouterGroup) {
 	router.POST("/", EventCreate)
 	router.PUT("/:id", EventUpdate)
 	router.DELETE("/:id", EventDelete)
+	
+	// router.DELETE("/:id/favorite", EventUnfavorite)
+	// router.POST("/:id/comments", EventCommentCreate)
+	// router.DELETE("/:id/comments/:id", EventCommentDelete)
 }
 
 func EventsAnonymousRegister(router *gin.RouterGroup) {
@@ -23,13 +33,12 @@ func EventsAnonymousRegister(router *gin.RouterGroup) {
 	
 }
 
-
+// router.GET("/:id/comments", EventCommentList)
 
 func EventCreate(c *gin.Context){
 	var event Events
 	c.BindJSON(&event);
 
-	
 	err:=CreateEvent(&event)
 
 	if err !=nil{
@@ -43,14 +52,10 @@ func EventCreate(c *gin.Context){
 
 //List Events
 func EventList(c *gin.Context) {
-	fmt.Println("Dentro de EVENT LIST");
 	var event []Events
 
-	//Busca los events y mete el resultado en la var event
+	//Busca las events y mete el resultado en la var event
 	err := GetAllEvents(&event)
-
-	fmt.Println("EVENTS::::");
-	fmt.Println(event);
 	
 	if err != nil {
 		c.JSON(http.StatusOK, "Not found")
@@ -76,10 +81,8 @@ func EventById(c *gin.Context) {
 		return
 	}else{
 		c.JSON(http.StatusOK, gin.H{"event": event})
-		return
+			return
 	}
-	// serializer := EventSerializer{c, eventModel}     //Serializer para enviarlo a angular?
-	// c.JSON(http.StatusOK, gin.H{"event": serializer.Response()})
 }
 ////////
 
@@ -90,19 +93,19 @@ func EventUpdate(c *gin.Context){
 	var newEvent Events
 	c.BindJSON(&newEvent);  //Aqui en teoria está la event que le hemos pasado por postman
 
-	fmt.Println("Dentro del update")
 	id := c.Params.ByName("id")
 	err := GetEventById(&event, id) //Este es la event que he pillao con ese id, ¿para que? para comprobar que existe ese id
 
-	event.Name = newEvent.Name
-	event.Discoteca_id = newEvent.Discoteca_id
+	// event.Name = newEvent.Name
+	// event.Company = newEvent.Company
+	// event.Events = newEvent.Events
 
 
 	if err != nil { 
 		c.JSON(http.StatusNotFound, "NOT FOUND")
 	}else{ 
 		c.BindJSON(&event)
-		err = UpdateEvent(&event)//&event  Aqui hay que meterle el event nuevo, con el c.BingJSON pero no me hace el json de la nueva
+		err = UpdateEvent(&event)//&event  Aqui hay que meterle la event nueva, con el c.BingJSON pero no me hace el json de la nueva
 		if err != nil {
 			c.JSON(http.StatusOK, "Not found")
 			c.AbortWithStatus(http.StatusNotFound)
@@ -130,8 +133,3 @@ func EventDelete(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{"event": "Delete Event"})
 
 }
-
-
-
-
-

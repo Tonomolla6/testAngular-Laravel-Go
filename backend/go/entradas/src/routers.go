@@ -96,8 +96,8 @@ func EntradaUpdate(c *gin.Context){
 	id := c.Params.ByName("id")
 	err := GetEntradaById(&entrada, id) //Este es la entrada que he pillao con ese id, ¿para que? para comprobar que existe ese id
 
-	entrada.Name = newEntrada.Name
-	entrada.Company = newEntrada.Company
+	// entrada.Name = newEntrada.Name
+	// entrada.Company = newEntrada.Company
 	// entrada.Events = newEntrada.Events
 
 

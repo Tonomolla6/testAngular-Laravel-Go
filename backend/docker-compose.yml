@@ -43,7 +43,7 @@ services:
     volumes:
       - ./go/entradas:/go/src/goApp
     labels:
-      traefik.http.routers.discotecas.rule: Host(`entradas.docker.localhost`)
+      traefik.http.routers.entradas.rule: Host(`entradas.docker.localhost`)
     depends_on:
       - mysql
       - redis
@@ -69,7 +69,7 @@ services:
     volumes:
       - ./go/events:/go/src/goApp
     labels:
-      traefik.http.routers.events.rule: Host(`events.docker.localhost`)
+      traefik.http.routers.events2.rule: Host(`events.docker.localhost`)
     depends_on:
       - mysql
       - redis

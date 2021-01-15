@@ -31,7 +31,7 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
 	router.GET("/", DiscotecaList)
 	router.GET("/:id", DiscotecaById)  
-	
+	router.GET("/:id/liked", FavoritesCount)
 }
 
 // router.GET("/:id/comments", DiscotecaCommentList)
@@ -96,6 +96,37 @@ func DiscotecaById(c *gin.Context) {
 }
 ////////
 
+//Get favorites count of a discoteca
+func FavoritesCount(c *gin.Context) {  //Podemos pasarle bearer o no, si no lo pasamos es porque no está logueado entonces no marca si 
+	var discoteca Discotecas		   //le ha dado like o no. Si le pasamos bearer es que está logueado, entonces nos dirá si le ha dado
+	id := c.Params.ByName("id")		   //like o no le ha dado
+	
+
+	err := GetDiscotecaById(&discoteca, id)
+
+	if err != nil{//Discoteca no valida
+		c.JSON(http.StatusNotFound, "Discoteca Not found")
+	 	c.AbortWithStatus(http.StatusNotFound)
+	}else{
+
+		myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
+		count := favoritesCount(discoteca)
+
+		if len(myUserModel.Username) > 1{//Hay usuario logueado
+
+			//Ver si le ha dado like a la discoteca
+			liked := isFavoriteBy(discoteca,myUserModel)
+
+			//Devolvemos el total de likes y si le ha dado like el user
+			c.JSON(http.StatusOK, gin.H{"Total": count, "liked":liked})
+		
+		}else{//No hay usuario logueado, devolvemos el count de likes
+			c.JSON(http.StatusOK, gin.H{"Total": count})
+		}
+		
+	}
+}
+
 //UPDATE discoteca
 
 func DiscotecaUpdate(c *gin.Context){
@@ -104,7 +135,7 @@ func DiscotecaUpdate(c *gin.Context){
 	c.BindJSON(&newDiscoteca);  //Aqui en teoria está la discoteca que le hemos pasado por postman
 
 	id := c.Params.ByName("id")
-	err := GetDiscotecaById(&discoteca, id) //Este es la discoteca que he pillao con ese id, ¿para que? para comprobar que existe ese id
+	err := GetDiscotecaById(&discoteca, id) 
 
 	discoteca.Name = newDiscoteca.Name
 	discoteca.Company = newDiscoteca.Company
@@ -157,7 +188,7 @@ func DiscotecaFavorite(c *gin.Context){
 		return
 	}
 
-	myUserModel := c.MustGet("my_user_model").(UserModel) //Usuario que da like
+	myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
 
 
 	err2 := favoriteBy(myUserModel,discoteca)
@@ -182,7 +213,7 @@ func DiscotecaUnFavorite(c *gin.Context){
 		return
 	}
 
-	myUserModel := c.MustGet("my_user_model").(UserModel) //Usuario que da like
+	myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
 
 
 	err2 := unFavoriteBy(myUserModel,discoteca)
