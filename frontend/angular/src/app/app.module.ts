@@ -7,8 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 //Toastr
-import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { ToastrModule } from 'ngx-toastr';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Pagina principal
 import { HomeModule } from './home/home.module';
@@ -38,8 +38,8 @@ import { FooterComponent } from './component/layout/footer/footer.component';
     CoreModule,
     HttpClientModule,
     CommonModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    // BrowserAnimationsModule,
+    // ToastrModule.forRoot(),
   ],
   providers: [], //////////////////////////
   bootstrap: [AppComponent],

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 // import { CommonModule } from "@angular/common";
 
 
@@ -14,14 +14,14 @@ import { Discoteca } from '../../core';
 export class DiscotecaPreviewComponent implements OnInit{
   @Input() discoteca!: Discoteca;
 
-  constructor(private toastr: ToastrService) {}
+  // constructor(private toastr: ToastrService) {}
 
-  showSuccess() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
-  }
+  // showSuccess() {
+  //   this.toastr.success('Hello world!', 'Toastr fun!');
+  // }
   ngOnInit(){
     console.log("Discoteca page on init")
-    this.showSuccess()
+    // this.showSuccess()
 
   }
   

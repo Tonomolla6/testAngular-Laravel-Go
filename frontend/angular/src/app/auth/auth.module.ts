@@ -6,16 +6,16 @@ import { UserService } from '../core/services/user.service';
 import { JwtService } from '../core/services/jwt.service';
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AuthComponent],
   imports: [
     AuthRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ReactiveFormsModule
+    // BrowserAnimationsModule,
+    // ToastrModule.forRoot(),
   ],
   providers:[UserService,JwtService,FormBuilder]
   // bootstrap: [App],

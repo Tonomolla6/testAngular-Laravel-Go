@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {A11yModule} from '@angular/cdk/a11y';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from 'ngx-toastr';
 import { Injector } from '@angular/core';
 console.log("IMmport home")
 // console.log(ToastrService)
@@ -18,12 +18,12 @@ Injector
 export class HomeComponent implements OnInit {
 
   constructor(
-    private toastr: ToastrService,
+    // private toastr: ToastrService,
   ) { }
 
-  showSuccess() {
-    this.toastr.success('Hello world!', 'Toastr fun!');
-  }
+  // showSuccess() {
+    // this.toastr.success('Hello world!', 'Toastr fun!');
+  // }
 
   ngOnInit(): void {
     console.log("Home on init")
