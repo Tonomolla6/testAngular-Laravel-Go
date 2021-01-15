@@ -14,16 +14,17 @@
             <li>Events</li>
             <li>Contact</li>
         </ul>
-        <ul class="menu_login">
+
+        <ul *ngIf="!this.currentUser.username" class="menu_login">
             <li routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Login</li>
             <span>or</span>
             <li routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">signin</li>
         </ul>
 
-        <!-- <ul class="menu_loged">
-            <img class="logo_img" src="/frontend/angular/src/assets/img/profile.jpeg" alt="">
+        <ul *ngIf="this.currentUser.username" class="menu_loged">
+            <img class="logo_img" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/480px-NafSadh_Profile.jpg" alt="">
             <p>@tonomolla6</p>
             <i class="fas fa-angle-down"></i>
-        </ul> -->
+        </ul>
     </section>
 </nav>

@@ -74,14 +74,24 @@ Cosas que hemos hecho
 - Readme.
     -> FALTA EMPEZAR A HACERLO
 
+Improvents:
+    1. Collection en postman con todas las apis disponibles del backend (Exportadas en el repositorio de github)
+    2. Validacion de go y laravel en el register, contraseña mas de 6 digitos, correo valido...
+    3. Utilizacion de validaciones en crud de usuario y request en laravel
+    4. Serializers de go para formatear los datos de la base de datos.
+    5. Mejoras de seguridad admin, no se puede hacer sesion en laravel si no se ha iniciado sesion posteriormente en go
+    6. Middlewares de seguridad en laravel para la validacion de JWT
+    7.
+    8.
+    9.
 
-Improvements:
-- Angular Redux (ngrx): list/details shop o CRUD PanelAdmin.
+Faciles
 - seed_Go/Laravel.
 - Toastr Angular.
 - validate register BE Go.
-- Transformers, serializers, requests, validators.
-- Nivells de seguretat Login_admin en Laravel.
+
+Dificiles
+- Angular Redux (ngrx): list/details shop o CRUD PanelAdmin.
 - middleware admin_guard Angular.
 - Nivells de seguretat microservices middleware_auth.
 - Relationships Go/Laravel: traits, emitters, related, association, ...
