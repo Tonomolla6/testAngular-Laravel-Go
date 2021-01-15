@@ -97,20 +97,33 @@ func DiscotecaById(c *gin.Context) {
 ////////
 
 //Get favorites count of a discoteca
-func FavoritesCount(c *gin.Context) {
-	var discoteca Discotecas
-	id := c.Params.ByName("id")
+func FavoritesCount(c *gin.Context) {  //Podemos pasarle bearer o no, si no lo pasamos es porque no está logueado entonces no marca si 
+	var discoteca Discotecas		   //le ha dado like o no. Si le pasamos bearer es que está logueado, entonces nos dirá si le ha dado
+	id := c.Params.ByName("id")		   //like o no le ha dado
+	
 
-	err := GetDiscotecaById(&discoteca, id) 
+	err := GetDiscotecaById(&discoteca, id)
 
-	fmt.Println(err)
-
-	if err != nil{
-		c.JSON(http.StatusOK, "Not found")
+	if err != nil{//Discoteca no valida
+		c.JSON(http.StatusNotFound, "Discoteca Not found")
 	 	c.AbortWithStatus(http.StatusNotFound)
 	}else{
+
+		myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
 		count := favoritesCount(discoteca)
-		c.JSON(http.StatusOK, gin.H{"Total": count})
+
+		if len(myUserModel.Username) > 1{//Hay usuario logueado
+
+			//Ver si le ha dado like a la discoteca
+			liked := isFavoriteBy(discoteca,myUserModel)
+
+			//Devolvemos el total de likes y si le ha dado like el user
+			c.JSON(http.StatusOK, gin.H{"Total": count, "liked":liked})
+		
+		}else{//No hay usuario logueado, devolvemos el count de likes
+			c.JSON(http.StatusOK, gin.H{"Total": count})
+		}
+		
 	}
 }
 

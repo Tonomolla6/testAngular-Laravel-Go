@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DiscotecaPreviewComponent } from './discoteca-preview.component';
+import { ToastrService } from 'ngx-toastr';
 
 import {
   Discoteca,
@@ -24,14 +25,20 @@ export class DiscotecaComponent implements OnInit {
     private route:ActivatedRoute,
     private discotecasService:DiscotecasService,
     private router:Router,
+    private toastr: ToastrService,
 
   ) {}
+  showSuccess() {
+    this.toastr.success('Hello world!', 'Toastr fun!');
+  }
   
   ngOnInit(): void { //En el oninit solo va el retrieve, que es para coger las discotecas que tenemos (listDiscotecas)
     // Retreive the prefetched articles
       this.discotecasService.query().subscribe(data => { 
         this.results = data.discotecas;
       });
+      this.showSuccess()
+
   }
   //Aqui irá el delete, update, comments, favorited...
 }

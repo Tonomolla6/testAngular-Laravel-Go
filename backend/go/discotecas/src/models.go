@@ -77,7 +77,7 @@ func unFavoriteBy(user User, discoteca Discotecas) error {
 }
 
 //Is favorited
-func (discoteca Discotecas) isFavoriteBy(user User) bool {
+func isFavoriteBy(discoteca Discotecas,user User) bool {
 	db := common.GetDB()
 	var favorite FavoriteModel
 	db.Where(FavoriteModel{
