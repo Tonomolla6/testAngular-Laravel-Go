@@ -16,6 +16,7 @@ import (
 func Migrate(db *gorm.DB) {
 
 	db.AutoMigrate(&events.Events{})
+	// events.AutoMigrate()
 
 }
 
@@ -28,8 +29,10 @@ func main() {
 	MakeRoutes(r)
 	v1 := r.Group("/api")
 	
-	
+	v1.Use(events.AuthMiddleware(false))
 	events.EventsAnonymousRegister(v1.Group("/events"))
+
+	v1.Use(events.AuthMiddleware(false))
 	events.EventsRegister(v1.Group("/events"))
 
 	fmt.Printf("0.0.0.0:3000")

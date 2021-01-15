@@ -157,7 +157,7 @@ func DiscotecaFavorite(c *gin.Context){
 		return
 	}
 
-	myUserModel := c.MustGet("my_user_model").(UserModel) //Usuario que da like
+	myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
 
 
 	err2 := favoriteBy(myUserModel,discoteca)
@@ -182,7 +182,7 @@ func DiscotecaUnFavorite(c *gin.Context){
 		return
 	}
 
-	myUserModel := c.MustGet("my_user_model").(UserModel) //Usuario que da like
+	myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
 
 
 	err2 := unFavoriteBy(myUserModel,discoteca)

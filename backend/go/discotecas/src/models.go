@@ -22,11 +22,11 @@ type FavoriteModel struct {
 	gorm.Model
 	Favorite     Discotecas
 	FavoriteID   uint
-	FavoriteBy   UserModel
+	FavoriteBy   User
 	FavoriteByID uint
 }
 
-type UserModel struct {
+type User struct {
 	ID           uint    `gorm:"primary_key"`
 	Username     string  `gorm:"column:username"`
 	Email        string  `gorm:"column:email; unique_index"`
@@ -44,16 +44,16 @@ func AutoMigrate() {
 
 
 //De momento no hace falta esta funcion porque pillo el usuario de myUserModel
-func FindOneUser(condition interface{}) (UserModel, error) {
+func FindOneUser(condition interface{}) (User, error) {
 	db := common.GetDB()
-	var model UserModel
+	var model User
 	err := db.Where(condition).First(&model).Error
 	return model, err
 }
 
 
 //LIKE
-func favoriteBy(user UserModel, discoteca Discotecas) error {
+func favoriteBy(user User, discoteca Discotecas) error {
 	fmt.Println("FAvorite de: ",user," A la discoteca: ", discoteca)
 	db := common.GetDB()
 	var favorite FavoriteModel
@@ -65,7 +65,7 @@ func favoriteBy(user UserModel, discoteca Discotecas) error {
 }
 
 //UNLIKE
-func unFavoriteBy(user UserModel, discoteca Discotecas) error {
+func unFavoriteBy(user User, discoteca Discotecas) error {
 	fmt.Println("DENTRO del UNNLIKE")
 	db := common.GetDB()
 	err := db.Where(FavoriteModel{
@@ -77,7 +77,7 @@ func unFavoriteBy(user UserModel, discoteca Discotecas) error {
 }
 
 //Is favorited
-func (discoteca Discotecas) isFavoriteBy(user UserModel) bool {
+func (discoteca Discotecas) isFavoriteBy(user User) bool {
 	db := common.GetDB()
 	var favorite FavoriteModel
 	db.Where(FavoriteModel{
