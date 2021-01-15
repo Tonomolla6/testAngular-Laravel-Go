@@ -31,7 +31,7 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
 	router.GET("/", DiscotecaList)
 	router.GET("/:id", DiscotecaById)  
-	
+	router.GET("/:id/liked", FavoritesCount)
 }
 
 // router.GET("/:id/comments", DiscotecaCommentList)
@@ -96,6 +96,24 @@ func DiscotecaById(c *gin.Context) {
 }
 ////////
 
+//Get favorites count of a discoteca
+func FavoritesCount(c *gin.Context) {
+	var discoteca Discotecas
+	id := c.Params.ByName("id")
+
+	err := GetDiscotecaById(&discoteca, id) 
+
+	fmt.Println(err)
+
+	if err != nil{
+		c.JSON(http.StatusOK, "Not found")
+	 	c.AbortWithStatus(http.StatusNotFound)
+	}else{
+		count := favoritesCount(discoteca)
+		c.JSON(http.StatusOK, gin.H{"Total": count})
+	}
+}
+
 //UPDATE discoteca
 
 func DiscotecaUpdate(c *gin.Context){
@@ -104,7 +122,7 @@ func DiscotecaUpdate(c *gin.Context){
 	c.BindJSON(&newDiscoteca);  //Aqui en teoria está la discoteca que le hemos pasado por postman
 
 	id := c.Params.ByName("id")
-	err := GetDiscotecaById(&discoteca, id) //Este es la discoteca que he pillao con ese id, ¿para que? para comprobar que existe ese id
+	err := GetDiscotecaById(&discoteca, id) 
 
 	discoteca.Name = newDiscoteca.Name
 	discoteca.Company = newDiscoteca.Company

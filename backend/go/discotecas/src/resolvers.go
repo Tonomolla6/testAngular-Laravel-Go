@@ -25,6 +25,21 @@ func GetDiscotecaById(data, id interface{}) error {
 	err := db.Where("id = ?", id).First(data).Error
 	return err
 }
+//Get Discotecas By likes
+func GetDiscotecasLiked(data interface{}) error{
+	db:=common.GetDB();
+	err := db.Order("views desc").Find(data).Error
+	return err;
+}
+//Favorites count
+func favoritesCount(discoteca Discotecas) uint {
+	db := common.GetDB()
+	var count uint
+	db.Model(&FavoriteModel{}).Where(FavoriteModel{
+		FavoriteID: discoteca.Id,
+	}).Count(&count)
+	return count
+}
 
 //UPDATE discoteca
 func UpdateDiscoteca(data interface{}) error{

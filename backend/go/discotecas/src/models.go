@@ -87,6 +87,8 @@ func (discoteca Discotecas) isFavoriteBy(user User) bool {
 	return favorite.ID != 0
 }
 
+
+//Add visit
 func VisitDisco(discoteca Discotecas) error{
 	db := common.GetDB()
 	discoteca.Views ++;
