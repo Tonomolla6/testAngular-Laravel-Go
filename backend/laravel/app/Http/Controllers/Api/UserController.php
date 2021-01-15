@@ -18,7 +18,8 @@ class UserController extends Controller
     {
         $credentials = $request->only('user.email', 'user.password');
         $credentials = $credentials['user'];
-
+        $credentials["type"] = "admin";
+        
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 400);
@@ -47,6 +48,7 @@ class UserController extends Controller
             'username' => $request->get('username'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
+            'type' => "admin"
         ]);
 
         return response()->json(compact('user'), 201);

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
     // POST
     Route::post('users/register', 'Api\UserController@register');
-    Route::post('users/login', 'Api\UserController@login');
+    Route::post('users/login', 'Api\UserController@login')->middleware("cors");
 
 // COMPANIES
     // POST
@@ -36,3 +36,11 @@ use Illuminate\Support\Facades\Route;
 
     // DELETE
     Route::delete('company/{id}','Api\CompanyController@deleteCompany');
+
+// // DISCOTECAS
+//     // POST
+//     Route::post('discoteca', 'Api\DiscotecaController@createDsicoteca');
+
+// // EVENTS
+//     // POST
+//     Route::post('event', 'Api\EventController@createEvent');

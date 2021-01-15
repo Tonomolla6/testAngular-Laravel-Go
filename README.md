@@ -49,8 +49,7 @@ Cosas que hemos hecho
     -> FALTA EL SHOP
 
 - PanelAdmin Laravel: CRUD.
-    -> FALTA CREAR EL C DEL CRUD EN LARAVEL
-    -> FALTA QUE ANGULAR ENVIE LAS PETICIONES
+    - Crear companies asociadas al usuario
 
 - Login, register, JWT.
     - Laravel: Login y register
@@ -63,7 +62,7 @@ Cosas que hemos hecho
     - Entradas, Discotecas, Events, Users y Profiles.
 
 - Relationships Go/Laravel.
-    -> Laravel: Falta las relations ships
+    -> Laravel: Falta las relationsShips
     - Go: M - M, Users - Favoritos
 
 - Home/Shop Go: users més populars, articles més comprats, ... PanelAdmin Laravel: dashboard amb estadístiques.
