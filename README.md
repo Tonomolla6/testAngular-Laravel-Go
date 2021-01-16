@@ -56,7 +56,7 @@ Cosas que hemos hecho
     - Go: Login y register
 
 - Login_admin.
-    -> LOGIN EN LARAVEL SOLO SI ES ADMINISTRADOR
+    - LOGIN EN LARAVEL SOLO SI ES ADMINISTRADOR
 
 - microservices.
     - Entradas, Discotecas, Events, Users y Profiles.
