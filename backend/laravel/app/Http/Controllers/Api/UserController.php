@@ -63,6 +63,19 @@ class UserController extends Controller
         return response()->json(compact('user'), 201);
     }
 
+    public function getCompaniesFromUser($email) {
+        if (User::where('email', $email)->exists()) {
+          $user = User::where('email', $email)->get();
+          $companies = $user->load('companies')->first();
+
+          return response()->json($companies->companies, 200);
+        } else {
+          return response()->json([
+            "message" => "Company not found"
+          ], 404);
+        }
+      }
+
 
     public function getAuthenticatedUser()
     {

@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\Route;
     Route::post('users/register', 'Api\UserController@register');
     Route::post('users/login', 'Api\UserController@login')->middleware("cors");
 
+    // GET
+    Route::get('users/companies/{email}', 'Api\UserController@getCompaniesFromUser');
+
 // COMPANIES
     // POST
     Route::post('company', 'Api\CompanyController@createCompany');
@@ -30,7 +33,8 @@ use Illuminate\Support\Facades\Route;
     // GET
     Route::get('companies', 'Api\CompanyController@getAllCompanies');
     Route::get('company/{id}', 'Api\CompanyController@getCompany');
-    
+    Route::get('company/user/{id}', 'Api\CompanyController@getUserFromCompany');
+
     // PUT
     Route::put('company/{id}', 'Api\CompanyController@updateCompany');
 
