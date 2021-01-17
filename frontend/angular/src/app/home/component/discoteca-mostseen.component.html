@@ -1,0 +1,10 @@
+<div class="discotecas">
+    <h2>The most popular clubs</h2>
+    <hr>
+    <div class="discoteca" *ngFor="let discoteca of results">
+        <div class="image"></div>
+        <h3>{{ discoteca.name }}</h3>
+        <p>{{ discoteca.events }}</p>
+        <p>{{ discoteca.company }}</p>
+    </div>
+</div>
