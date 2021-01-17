@@ -30,6 +30,10 @@ func ProfileCreate(c *gin.Context){
 	var profile Profile
 	c.BindJSON(&profile);
 
+	myUserModel := c.MustGet("my_user_model").(User)
+	profile.User = myUserModel.ID;
+	profile.Username = myUserModel.Username;
+
 	err:=CreateProfile(&profile)
 
 	if err !=nil{
