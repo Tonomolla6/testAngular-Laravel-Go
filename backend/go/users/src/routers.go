@@ -37,6 +37,8 @@ func GetLoguedUser(c *gin.Context){
 	client := common.NewClient()
 	email :=  common.GetUser("email", client)
 
+	// token := c.Param("username")
+
 	userModel, err := FindOneUser(&User{Email: email})
 	if err != nil {
 		c.JSON(http.StatusNotFound, common.NewError("profile", errors.New("Invalid email")))
@@ -47,7 +49,7 @@ func GetLoguedUser(c *gin.Context){
 	// c.JSON(http.StatusOK, gin.H{"profile": profileSerializer.Response()})
 
 	// fmt.Println("GET LOGUED USER",profileSerializer.Response())
-	c.JSON(0,gin.H{"RESPUESTA":profileSerializer.Response()})
+	c.JSON(0,gin.H{"User":profileSerializer.Response()})
 }
 
 func ProfileRetrieve(c *gin.Context) {

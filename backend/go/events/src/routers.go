@@ -18,7 +18,7 @@ import (
 
 
 func EventsRegister(router *gin.RouterGroup) {
-	router.POST("/", EventCreate)
+	router.POST("/:disco", EventCreate)
 	router.PUT("/:id", EventUpdate)
 	router.DELETE("/:id", EventDelete)
 	
@@ -37,7 +37,11 @@ func EventsAnonymousRegister(router *gin.RouterGroup) {
 
 func EventCreate(c *gin.Context){
 	var event Events
+	disco := c.Params.ByName("disco")	
 	c.BindJSON(&event);
+
+	//Pillar el id de la discoteca
+
 
 	err:=CreateEvent(&event)
 

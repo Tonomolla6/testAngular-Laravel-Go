@@ -18,13 +18,13 @@ type ProfileResponse struct {
 	Email     string  `json:"email"`
 	Bio       string  `json:"bio"`
 	Image     *string `json:"image"`
-	Bearer    string  `json:"Bearer"`
+	// Bearer    string  `json:"Bearer"`
 	Type 	  string  `json:"type"`
 }
 
 // Put your response logic including wrap the userModel here. 
 func (self *ProfileSerializer) Response() ProfileResponse {
-	myUserModel := self.C.MustGet("my_user_model").(User)
+	// myUserModel := self.C.MustGet("my_user_model").(User)
 	profile := ProfileResponse{
 		ID:        self.ID,
 		Username:  self.Username,
@@ -32,7 +32,7 @@ func (self *ProfileSerializer) Response() ProfileResponse {
 		Bio:       self.Bio,
 		Image:     self.Image,
 		Type:      self.Type,
-		Bearer:     common.GenToken(myUserModel.ID),
+		// Bearer:    common.GenToken(myUserModel.ID),
 	}
 	return profile
 }

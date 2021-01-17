@@ -16,6 +16,20 @@ type Events struct {
 	Discoteca_id  uint     `json:"discoteca_id"`
 }
 
+type Discotecas struct {
+	Id          uint
+	Name        string   `json:"name"`
+	Views		int      `json:"views"`
+}
+
+type DiscoEventModel struct {
+	gorm.Model
+	Discoteca     Discotecas
+	DiscotecaID   uint
+	FavoriteBy   User
+	FavoriteByID uint
+}
+
 
 type User struct {
 	ID           uint    `gorm:"primary_key"`
