@@ -3408,6 +3408,7 @@ return array(
     'Tymon\\JWTAuth\\Validators\\PayloadValidator' => $vendorDir . '/tymon/jwt-auth/src/Validators/PayloadValidator.php',
     'Tymon\\JWTAuth\\Validators\\TokenValidator' => $vendorDir . '/tymon/jwt-auth/src/Validators/TokenValidator.php',
     'Tymon\\JWTAuth\\Validators\\Validator' => $vendorDir . '/tymon/jwt-auth/src/Validators/Validator.php',
+    'UserSeeder' => $baseDir . '/database/seeds/UserSeeder.php',
     'Webmozart\\Assert\\Assert' => $vendorDir . '/webmozart/assert/src/Assert.php',
     'Whoops\\Exception\\ErrorException' => $vendorDir . '/filp/whoops/src/Whoops/Exception/ErrorException.php',
     'Whoops\\Exception\\Formatter' => $vendorDir . '/filp/whoops/src/Whoops/Exception/Formatter.php',

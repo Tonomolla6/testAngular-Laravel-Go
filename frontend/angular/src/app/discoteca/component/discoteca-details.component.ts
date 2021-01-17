@@ -33,22 +33,30 @@ export class DiscotecaDetailsComponent implements OnInit {
 
         }
       );
+
+      // Get favorites
+      this.route.data.subscribe((data) => {
+        this.discoteca = data.discoteca;
+        // this.populateComments();
+
+      }
+    );
   }
 
-  onFavorite(id: number, favorited:boolean) {
+  onFavorite() {
     // this.article.favorited = favorited;
-    console.log("FAVORITOOOOO", id)
-    favorited=true;
+    console.log("FAVORITOOOOO", this.discoteca)
+    // favorited=true;
 
-    if (favorited) {
-      //Favorito
-      console.log("Vam os a favorite")
-      this.discotecasService.favorite(id);
-      // this.article.favoritesCount++;
-    } else {
-      //Delete favorito
-      // this.article.favoritesCount--;
-    }
+    // if (favorited) {
+    //   //Favorito
+    //   console.log("Vam os a favorite")
+    //   this.discotecasService.favorite(id);
+    //   // this.article.favoritesCount++;
+    // } else {
+    //   //Delete favorito
+    //   // this.article.favoritesCount--;
+    // }
   }
   //Aqui irá el delete, update, comments, favorited...
   //Aqui va el favoritos
