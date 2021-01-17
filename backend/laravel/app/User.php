@@ -16,9 +16,9 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'company'
+        'id', 'username', 'email', 'password', 'type'
     ];
-
+ 
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -27,6 +27,11 @@ class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function companies()
+    {
+        return $this->hasMany('App\Company');
+    }
 
     public function getJWTIdentifier()
     {

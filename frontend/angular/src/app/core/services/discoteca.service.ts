@@ -25,7 +25,7 @@ export class DiscotecasService {
       }
 
       //Favorite
-      favorite(id: Observable<Discoteca>) {
+      favorite(id: number) {  //id: Observable<Discoteca>
         return this.apiService.discotecasGet('/discotecas/' + id + '/favorite')
           .pipe(map(data => data.discoteca));
       }

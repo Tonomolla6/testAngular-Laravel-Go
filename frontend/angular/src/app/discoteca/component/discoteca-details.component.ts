@@ -29,10 +29,26 @@ export class DiscotecaDetailsComponent implements OnInit {
       //Details
       this.route.data.subscribe((data) => {
           this.discoteca = data.discoteca;
-
           // this.populateComments();
+
         }
       );
+  }
+
+  onFavorite(id: number, favorited:boolean) {
+    // this.article.favorited = favorited;
+    console.log("FAVORITOOOOO", id)
+    favorited=true;
+
+    if (favorited) {
+      //Favorito
+      console.log("Vam os a favorite")
+      this.discotecasService.favorite(id);
+      // this.article.favoritesCount++;
+    } else {
+      //Delete favorito
+      // this.article.favoritesCount--;
+    }
   }
   //Aqui irá el delete, update, comments, favorited...
   //Aqui va el favoritos

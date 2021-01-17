@@ -18,8 +18,17 @@ class UserController extends Controller
     {
         $credentials = $request->only('user.email', 'user.password');
         $credentials = $credentials['user'];
-        $credentials["type"] = "admin";
+
+        // Comprobamos si el usuario existe
+        if (!$user = User::where('email', $credentials['email'])->get())
+            return response()->json(['error' => 'invalid_credentials'], 400);
         
+
+        // // Comprobamos si el usuario es administrador
+        if ($user[0]['type'] != "admin")
+            return response()->json(['error' => 'invalid_credentials'], 400);
+
+        // Iniciamos sesión.
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid_credentials'], 400);
@@ -53,6 +62,19 @@ class UserController extends Controller
 
         return response()->json(compact('user'), 201);
     }
+
+    public function getCompaniesFromUser($email) {
+        if (User::where('email', $email)->exists()) {
+          $user = User::where('email', $email)->get();
+          $companies = $user->load('companies')->first();
+
+          return response()->json($companies->companies, 200);
+        } else {
+          return response()->json([
+            "message" => "Company not found"
+          ], 404);
+        }
+      }
 
 
     public function getAuthenticatedUser()
