@@ -80,7 +80,7 @@ Improvents:
     4. Serializers de go para formatear los datos de la base de datos.
     5. Mejoras de seguridad admin, no se puede hacer sesion en laravel si no se ha iniciado sesion posteriormente en go
     6. Middlewares de seguridad en laravel para la validacion de JWT
-    7.
+    7. Seeders de usuarios en Laravel.
     8.
     9.
 

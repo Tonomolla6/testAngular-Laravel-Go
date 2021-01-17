@@ -3,21 +3,31 @@
     <div class="discoteca-image"></div>
     <div class="page">
       <div class="aside">
-        <h2>Informacion</h2>
+        <h2>Popularidad</h2>        
         <hr style="height: 4px;" class="discoteca-bar">
+        
+        <button (click)="onFavorite()">Añadir a favoritos <i class="far fa-heart liked" id="favorite"></i></button>
+        <button class="favorited">Eliminar de favoritos <i class="fas fa-heart liked" id="favorite"></i></button>
+
+        <p>Visitas: {{ discoteca.views }}</p>
+        
         <br>
+        <br>
+            <h2>Eventos</h2>
+            <hr style="height: 4px;" class="discoteca-bar">
+
+            <p>{{ discoteca.events }}</p>
+
+            <h2>Compañia</h2>
+            <hr style="height: 4px;" class="discoteca-bar">
+
+            <p>{{ discoteca.company }}</p>
+
+        <h2>Ultimas noticias</h2>
+        <hr style="height: 4px;" class="discoteca-bar">
         <p>Sed vitae velit odio. Ut mauris tortor, sagittis quis rutrum accumsan, pulvinar eget dolor. </p>
         <br>
-        <ul>
-          <li>
-            <h3>Eventos</h3>
-            <p>{{ discoteca.events }}</p>
-          </li>
-          <li>
-            <h3>Companias</h3>
-            <p>{{ discoteca.company }}</p>
-          </li>
-        </ul>
+        
         
 
         
@@ -35,8 +45,6 @@
       </div>
     </div>
     
-    <p><i class="fas fa-eye"></i>{{ discoteca.views }}</p>
-    <i class="fas fa-heart liked" id="favorite"></i>
     <!-- <p>{{ discoteca.Id }}</p> -->
 </div>
 

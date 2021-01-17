@@ -64,6 +64,14 @@ class UserController extends Controller
     }
 
     public function getCompaniesFromUser($email) {
+        $auth = self::getAuthenticatedUser();
+
+        if ($auth->original["user"]->email != $email) {
+            return response()->json([
+                "message" => "User does not have permissions"
+              ], 404);
+        }
+
         if (User::where('email', $email)->exists()) {
           $user = User::where('email', $email)->get();
           $companies = $user->load('companies')->first();
@@ -77,7 +85,7 @@ class UserController extends Controller
       }
 
 
-    public function getAuthenticatedUser()
+    public static function getAuthenticatedUser()
     {
         try {
 

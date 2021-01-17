@@ -53,8 +53,31 @@ body {
     width: 30%;
 }
 
-.page p {
+.page .aside p {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.page .details p {
     font-size: 20px;
     margin-top: 30px;
-    
+}
+
+.page button {
+    background-color: white;
+    border: 2px solid var(--color-primary);
+    padding: 5px 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.page button:hover,
+.page button.favorited {
+    font-weight: bold;
+    background-color: var(--color-primary);    
+}
+
+.page ul {
+    margin-left: 20px;
 }
