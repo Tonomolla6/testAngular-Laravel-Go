@@ -14,13 +14,15 @@ import (
 
 func ProfilesRegister(router *gin.RouterGroup) {
 	router.POST("/", ProfileCreate)
+	router.GET("/user", ProfileById)  
 	router.PUT("/:id", ProfileUpdate)
 	router.DELETE("/:id", ProfileDelete)
+	
 }
 
 func ProfilesAnonymousRegister(router *gin.RouterGroup) {
 	router.GET("/", ProfileList)
-	router.GET("/:id", ProfileById)  
+	
 	
 }
 
@@ -65,10 +67,14 @@ func ProfileList(c *gin.Context) {
 
 ///////// Find ONE
 func ProfileById(c *gin.Context) {
-	id := c.Params.ByName("id")	
+	// id := c.Params.ByName("id")	
+	myUserModel := c.MustGet("my_user_model").(User)  //Id del usuario al que queremos buscar
+	
+	// id := User.Id
 
+	// id := 1
 	var profile Profile
-	err := GetProfileById(&profile, id)
+	err := GetProfileById(&profile, myUserModel.ID)
 	
 	if err != nil {
 		c.JSON(http.StatusOK, "Profile Not Found")

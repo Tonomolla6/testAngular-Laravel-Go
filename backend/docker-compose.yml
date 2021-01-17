@@ -60,6 +60,8 @@ services:
     depends_on:
       - mysql
       - redis
+    networks:
+      - servidor_network 
 
   events:
     extends:
@@ -86,6 +88,8 @@ services:
     depends_on:
       - mysql
       - redis
+    networks:
+      - servidor_network
 # END MICROSERVICES 
 
 # MYSQL
@@ -185,6 +189,8 @@ services:
 
 networks:
   servidor_network:
+  mynet:
+    driver: bridge
 
 volumes:
   grafana:
