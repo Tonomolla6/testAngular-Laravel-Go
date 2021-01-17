@@ -22,18 +22,22 @@
         </ul>
 
         <ul (click)="this.changeShow()" *ngIf="this.currentUser.username" class="menu_loged">
-            <img class="logo_img" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/480px-NafSadh_Profile.jpg" alt="">
-            <p>@tonomolla6</p>
+            <img class="logo_img" src="https://thispersondoesnotexist.com/image" alt="">
+            <p>{{currentUser.username}}</p>
             <i class="fas fa-angle-down"></i>
             <div *ngIf="this.show" class="dropable">
                 <ul>
-                    <li>
+                    <li routerLink="/profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                         <i class="fas fa-user"></i>
                         <p>Profile</p>
                     </li>
                     <li>
                         <i class="fas fa-shopping-cart"></i>
                         <p>Compras</p>
+                    </li>
+                    <li>
+                        <i class="fas fa-file-alt"></i>
+                        <p>Ventas</p>
                     </li>
                     <li routerLink="/discoteca/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                         <i class="fas fa-glass-cheers"></i>
@@ -42,6 +46,10 @@
                     <li>
                         <i class="fas fa-calendar-week"></i>
                         <p>Crear Evento</p>
+                    </li>
+                    <li>
+                        <i class="fas fa-building"></i>
+                        <p>Crear Compañia</p>
                     </li>
                     <li (click)="this.logOut()">
                         <i class="fas fa-sign-out-alt"></i>

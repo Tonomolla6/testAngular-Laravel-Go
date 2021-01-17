@@ -1,1 +1,21 @@
-<p>discoteca-create works!</p>
+<div class="discoteca_create">
+    <div class="discoteca_create_modal">
+        <h1>Create your disco</h1>
+        <hr class="discoteca_create_modal_bar">
+        <form [formGroup]="discoForm">
+            <label for="name">Name</label>
+            <input type="text" formControlName="name"/>
+
+            <label for="description">Description</label>
+            <textarea rows="3" cols="10" formControlName="description"></textarea>
+
+            <label for="cp">Postal Code</label>
+            <input type="number" formControlName="cp"/>
+
+            <label for="location">Location</label>
+            <input type="location" formControlName="location"/>
+
+            <button (click)="submitDisco()" class="button">Create</button>
+        </form>
+    </div>
+</div>

@@ -33,7 +33,7 @@ export class UserService {
     let token = this.jwtService.getToken();
     console.log("admin@gmail.com");
     if (token) {
-      this.apiService.usersCheckToken('/user/logued', token)
+      this.apiService.usersCheckToken('/user/logued')
       .subscribe(
         data => {
           data.User.Bearer = token;
