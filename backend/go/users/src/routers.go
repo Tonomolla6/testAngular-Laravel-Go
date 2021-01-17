@@ -32,13 +32,14 @@ func ProfileRegister(router *gin.RouterGroup) {
 	router.DELETE("/:username/follow", ProfileUnfollow)
 }
 
-func GetLoguedUser(c *gin.Context){
+func GetLoguedUser(c *gin.Context) {
 	fmt.Println("--------------------------------------------------------------------------------------")
 	client := common.NewClient()
 	email :=  common.GetUser("email", client)
 
-	// token := c.Param("username")
 
+	// prueba, err := request.ParseFromRequest(c.Request) 
+	// fmt.Println(prueba)
 	userModel, err := FindOneUser(&User{Email: email})
 	if err != nil {
 		c.JSON(http.StatusNotFound, common.NewError("profile", errors.New("Invalid email")))

@@ -1,16 +1,16 @@
 package events
 
 import (
-	// "fmt"
+	"fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	
+	"strconv"
 )
 
 //"fmt"    "encoding/json"  
-// "strconv" para los coments
+// para los coments
 //	"io" "strings"
 //	"net/http"
 //	"io/ioutil"
@@ -36,14 +36,19 @@ func EventsAnonymousRegister(router *gin.RouterGroup) {
 // router.GET("/:id/comments", EventCommentList)
 
 func EventCreate(c *gin.Context){
-	var event Events
-	disco := c.Params.ByName("disco")	
+	var event Events //Event que hemos creado
+	disco := c.Params.ByName("disco")	 //Id de la discoteca que queremos 
+	fmt.Println("Id discoteca: ",disco)
 	c.BindJSON(&event);
 
 	//Pillar el id de la discoteca
+	i, err := strconv.ParseUint(disco, 10, 64)
 
+	disco_id := uint(i)
 
-	err:=CreateEvent(&event)
+	err2 := CreateEventDisco(event, disco_id)
+
+	fmt.Println(err2)
 
 	if err !=nil{
 		c.AbortWithStatus(http.StatusNotFound)

@@ -1,10 +1,11 @@
 package events
 import (
-
-	// "goApp/common"
+	"fmt"
+	"goApp/common"
+	"github.com/jinzhu/gorm"
 	
 )
-// "fmt"
+
 // "github.com/jinzhu/gorm"
 // "goApp/common"
 //"fmt"   "errors"  "github.com/gin-gonic/gin"   "net/http"
@@ -13,7 +14,7 @@ import (
 type Events struct {
 	Id            uint
 	Name          string   `json:"name"`
-	Discoteca_id  uint     `json:"discoteca_id"`
+	// Discoteca_id  uint     `json:"discoteca_id"`
 }
 
 type Discotecas struct {
@@ -26,8 +27,8 @@ type DiscoEventModel struct {
 	gorm.Model
 	Discoteca     Discotecas
 	DiscotecaID   uint
-	FavoriteBy   User
-	FavoriteByID uint
+	Event         Events
+	EventID       uint
 }
 
 
@@ -41,7 +42,22 @@ type User struct {
 	Type		 string	 `gorm:"column:type;" default:'client'`
 }
 
+func AutoMigrate() {
+	db := common.GetDB()
+	db.AutoMigrate(&DiscoEventModel{})
+}
 
+func CreateEventDisco(event Events, discotecaId uint) error {
+	// fmt.Println("FAvorite de: ",user," A la discoteca: ", discoteca)
+	fmt.Println("Relacionamos el evento: ",event," a la discoteca: ",discotecaId)
+	db := common.GetDB()
+	var discoEvent DiscoEventModel
+	err := db.FirstOrCreate(&discoEvent, &DiscoEventModel{
+		DiscotecaID:   discotecaId,
+		EventID:  	   event.Id,
+	}).Error
+	return err
+}
 
 //De momento no hace falta esta funcion porque pillo el usuario de myUser
 // func FindOneUser(condition interface{}) (User, error) {
