@@ -16,6 +16,9 @@ import { HomeModule } from './home/home.module';
 // Discoteca
 import { DiscotecaModule } from './discoteca/discoteca.module';
 
+// Profile
+import { ProfileModule } from './profile/profile.module';
+
 // Login y register
 import { AuthModule } from './auth/auth.module';
 
@@ -35,6 +38,7 @@ import { FooterComponent } from './component/layout/footer/footer.component';
     HomeModule,
     AuthModule,
     DiscotecaModule,
+    ProfileModule,
     CoreModule,
     HttpClientModule,
     CommonModule,

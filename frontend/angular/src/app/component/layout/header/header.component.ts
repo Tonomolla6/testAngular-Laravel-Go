@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   ) {}
   currentUser!: User;
   show!: Boolean
+  
 
   ngOnInit() {
     this.show = false;
@@ -40,8 +41,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut() {
-    this.toastr.success("Sessión cerrada correctamente");
+    this.show = false;
     this.userService.purgeAuth();
+    this.toastr.success("Sessión cerrada correctamente");
     this.router.navigateByUrl('/');
   }
 }

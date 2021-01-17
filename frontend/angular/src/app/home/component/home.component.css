@@ -1,9 +1,27 @@
-.nav-link {
-    cursor:pointer;
-  }
+.banner {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-primary);
+}
+
+.banner h1 {
+  font-weight: bold;
+  font-size: 150px;
+}
+
+
+.banner p {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.home-page {
+  background-color: var(--color-primary);
+}
+
+.page {
   
-  .tag-pill{
-    cursor: pointer;
-  }
-  
- 
+}

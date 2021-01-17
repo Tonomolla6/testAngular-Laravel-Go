@@ -30,6 +30,11 @@ export class DiscotecasService {
           .pipe(map(data => data.discoteca));
       }
 
+      createDiscoteca(data = []) {
+        return this.apiService.discotecasPost('/discotecas', data)
+          .pipe(map(data => data.discoteca));
+      }
+
 
       
 }

@@ -1,0 +1,31 @@
+.discotecas {
+    background-color: white;
+    font-family: var(--font-primary);
+    width: 70vw;
+    margin: 0px 10vw;
+    padding: 50px;
+}
+
+.discotecas hr {
+    height: 5px;
+    background-color: var(--color-primary);
+    border: none;
+    width: 20%;
+    margin: 20px 0px;
+}
+
+.discoteca .image {
+    background-image: url("https://lh3.googleusercontent.com/4qZKk8cKMeqg4IuP1WfZq5sJUKhgi_uLMSClLpwibQ5CYn0hwwx2GAI-K2kWtOQyDPlN9NwK=w1080-h608-p-no-v0");
+    height: 500px;
+    width: 100%;
+}
+
+.discotecas h2 {
+    font-size: 50px;
+}
+
+.discoteca h3 {
+    color: black;
+    font-size: 70px;
+    text-align: center;
+}

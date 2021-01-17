@@ -1,0 +1,30 @@
+<div class="profile_create">
+    <div class="header">
+        <img class="icono" src="https://thispersondoesnotexist.com/image" alt="">
+    </div>
+    <div class="page">
+        <div class="modal">
+            <h1>Your Profile</h1>
+            <hr class="profile_create_modal_bar">
+            <form [formGroup]="profileForm">
+                <label for="name">Name</label>
+                <input type="text" formControlName="name"/>
+
+                <label for="surname">Surname</label>
+                <input type="text" formControlName="surname"/>
+
+                <label for="description">Description</label>
+                <textarea rows="5" cols="10" formControlName="description"></textarea>
+
+                <label for="bio">Bio</label>
+                <textarea rows="5" cols="10" formControlName="bio"></textarea>
+
+                <button (click)="submitProfile()" class="button">Update</button>
+            </form>
+        </div>
+
+        <div class="component">
+            <h1>Tus discotecas</h1>
+        </div>
+    </div>
+</div>

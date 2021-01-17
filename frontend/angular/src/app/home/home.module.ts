@@ -5,15 +5,16 @@ import { RouterModule } from '@angular/router';
 // Cosas nuestras
 import { HomeComponent } from './component/home.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { HomeSliderComponent } from './component/home-slider/home-slider.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DiscotecaMostseenComponent } from './component/discoteca-mostseen.component';
+
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   // Importa los modulos que necesita
   declarations: [
     HomeComponent,
-    HomeSliderComponent,
+    DiscotecaMostseenComponent
   ],
 
   // Componentes del modulo (home).

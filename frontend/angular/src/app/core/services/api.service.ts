@@ -10,7 +10,8 @@ import { catchError } from 'rxjs/operators';
 
 export class ApiService {
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private jwtService: JwtService
       ) {}
 
       private formatErrors(error: any) {
@@ -31,9 +32,9 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
-      usersCheckToken(path: string, token: String): Observable<any> {
+      usersCheckToken(path: string): Observable<any> {
         let headers = new HttpHeaders();
-        headers = headers.set('Authorization', 'Bearer ' + token);
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
 
         console.log("hola");
         return this.http.get(`${environment.api_go_users}${path}`,{headers})
@@ -53,8 +54,24 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
-      // Events
-    
+      discotecasPost(path: string, data: Object): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        let options = {headers: headers, params: data};
+        console.log(options)
+        return this.http.post(`${environment.api_go_discotecas}${path}`, options)
+        .pipe(catchError(this.formatErrors));
+      }
+
+      // Profile
+      getProfile(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        console.log(headers);
+        
+        return this.http.get(`${environment.api_go_profile}${path}`, { headers })
+          .pipe(catchError(this.formatErrors));
+      }
 
       // Other
       put(path: string, body: Object = {}): Observable<any> {

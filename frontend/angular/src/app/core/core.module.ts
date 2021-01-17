@@ -4,7 +4,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // import { HttpTokenInterceptor } from './interceptors/http.token.interceptor';
 import {
     ApiService,
-    DiscotecasService
+    DiscotecasService,
+    ProfileService
 
   } from './services';
 
@@ -15,7 +16,8 @@ import {
     providers: [
     //   { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
       ApiService,
-      DiscotecasService
+      DiscotecasService,
+      ProfileService
     ],
     declarations: []
   })
