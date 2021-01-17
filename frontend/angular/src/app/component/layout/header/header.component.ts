@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService, User } from '../../../core';
-import { CommonModule } from '@angular/common';  
-import { BrowserModule } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -14,10 +15,15 @@ export class HeaderComponent implements OnInit {
   // Declaramos el route para obtez url.
   constructor(
     private userService: UserService,
+    private toastr: ToastrService,
+    private router: Router
+
   ) {}
   currentUser!: User;
+  show!: Boolean
 
   ngOnInit() {
+    this.show = false;
     console.log("ng home init");
     // this.test = "test";
 
@@ -27,5 +33,15 @@ export class HeaderComponent implements OnInit {
         console.log(this.currentUser);
       }
     )
+  }
+
+  changeShow() {
+    this.show = this.show ? false : true;
+  }
+
+  logOut() {
+    this.toastr.success("Sessión cerrada correctamente");
+    this.userService.purgeAuth();
+    this.router.navigateByUrl('/');
   }
 }

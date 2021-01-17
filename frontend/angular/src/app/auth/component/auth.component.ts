@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +18,9 @@ export class AuthComponent implements OnInit {
       private route: ActivatedRoute, 
       private userService: UserService,
       private fb: FormBuilder,
-      private router: Router
+      private router: Router,
+      private toastr: ToastrService
+
     ) {
       this.authForm = this.fb.group({
         'email': ['', Validators.required],
@@ -47,9 +50,11 @@ export class AuthComponent implements OnInit {
     this.userService.attemptAuth(this.authType, credentials)
     .subscribe(
       // data => this.router.navigateByUrl('/')
-      (data) => {
-        this.router.navigateByUrl('/')
-      }
+      data => {
+        this.toastr.success("La operacion se ha relizado con exito");
+        this.router.navigateByUrl('/');
+      },
+      err => this.toastr.error(err.errors.login)
     );
   }
 }

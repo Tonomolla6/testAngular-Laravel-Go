@@ -35,6 +35,7 @@ export class ApiService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + token);
 
+        console.log("hola");
         return this.http.get(`${environment.api_go_users}${path}`,{headers})
           .pipe(catchError(this.formatErrors));
       }

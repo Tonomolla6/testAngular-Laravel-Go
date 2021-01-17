@@ -18,13 +18,37 @@
         <ul *ngIf="!this.currentUser.username" class="menu_login">
             <li routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Login</li>
             <span>or</span>
-            <li routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">signin</li>
-        </ul> -->
+            <li routerLink="/signin" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Signin</li>
+        </ul>
 
-        <ul *ngIf="this.currentUser.username" class="menu_loged">
+        <ul (click)="this.changeShow()" *ngIf="this.currentUser.username" class="menu_loged">
             <img class="logo_img" src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a1/NafSadh_Profile.jpg/480px-NafSadh_Profile.jpg" alt="">
             <p>@tonomolla6</p>
             <i class="fas fa-angle-down"></i>
+            <div *ngIf="this.show" class="dropable">
+                <ul>
+                    <li>
+                        <i class="fas fa-user"></i>
+                        <p>Profile</p>
+                    </li>
+                    <li>
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>Compras</p>
+                    </li>
+                    <li routerLink="/discoteca/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                        <i class="fas fa-glass-cheers"></i>
+                        <p>Crear Discoteca</p>
+                    </li>
+                    <li>
+                        <i class="fas fa-calendar-week"></i>
+                        <p>Crear Evento</p>
+                    </li>
+                    <li (click)="this.logOut()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <p>Cerrar sessión</p>
+                    </li>
+                </ul>
+            </div>
         </ul>
     </section>
 </nav>

@@ -31,11 +31,14 @@ export class UserService {
     console.log("populate");
 
     let token = this.jwtService.getToken();
-    console.log(token);
+    console.log("admin@gmail.com");
     if (token) {
       this.apiService.usersCheckToken('/user/logued', token)
       .subscribe(
-        data => this.setAuth(data.user),
+        data => {
+          data.User.Bearer = token;
+          this.setAuth(data.User);
+        },
         err => this.purgeAuth()
       );
     } else {
