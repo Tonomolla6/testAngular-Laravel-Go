@@ -138,7 +138,7 @@ func DiscotecaUpdate(c *gin.Context){
 	err := GetDiscotecaById(&discoteca, id) 
 
 	discoteca.Name = newDiscoteca.Name
-	discoteca.Company = newDiscoteca.Company
+	// discoteca.Company = newDiscoteca.Company
 	// discoteca.Events = newDiscoteca.Events
 
 
