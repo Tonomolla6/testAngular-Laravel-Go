@@ -28,10 +28,17 @@ export class UserService {
   // This runs once on application startup.
   populate() {
     // If JWT detected, attempt to get & store user's info
-    if (this.jwtService.getToken()) {
-      this.apiService.usersGet('/user/')
+    console.log("populate");
+
+    let token = this.jwtService.getToken();
+    console.log("admin@gmail.com");
+    if (token) {
+      this.apiService.usersCheckToken('/user/logued', token)
       .subscribe(
-        data => this.setAuth(data.user),
+        data => {
+          data.User.Bearer = token;
+          this.setAuth(data.User);
+        },
         err => this.purgeAuth()
       );
     } else {
@@ -41,8 +48,9 @@ export class UserService {
   }
 
   setAuth(user: User) {
+    console.log("setAuth");
     // Save JWT sent from server in localstorage
-    this.jwtService.saveToken(user.token);
+    this.jwtService.saveToken(user.Bearer);
     // Set current user data into observable
     this.currentUserSubject.next(user);
     // Set isAuthenticated to true
@@ -50,6 +58,7 @@ export class UserService {
   }
 
   purgeAuth() {
+    console.log("cerrando sesion");
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object

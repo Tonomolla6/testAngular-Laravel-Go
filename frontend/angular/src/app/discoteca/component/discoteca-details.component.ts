@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DiscotecaPreviewComponent } from './discoteca-preview.component';
+import { ToastrService } from 'ngx-toastr';
+
 
 import {
   Discoteca,
@@ -21,6 +23,8 @@ export class DiscotecaDetailsComponent implements OnInit {
     private route:ActivatedRoute,
     private discotecasService:DiscotecasService,
     private router:Router,
+    private toastr: ToastrService
+
 
   ) {}
   
@@ -45,6 +49,7 @@ export class DiscotecaDetailsComponent implements OnInit {
 
   onFavorite() {
     // this.article.favorited = favorited;
+    this.toastr.success("Hello, I'm the toastr message.")
     console.log("FAVORITOOOOO", this.discoteca)
     // favorited=true;
 

@@ -31,6 +31,15 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
+      usersCheckToken(path: string, token: String): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + token);
+
+        console.log("hola");
+        return this.http.get(`${environment.api_go_users}${path}`,{headers})
+          .pipe(catchError(this.formatErrors));
+      }
+
       //Login laravel
       loginLaravel(path: String, body: Object = {}): Observable<any> {
         console.log("PATH ",`${environment.api_laravel}${path}`)

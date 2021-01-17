@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DiscotecaPreviewComponent } from './discoteca-preview.component';
+
 // import { ToastrService } from 'ngx-toastr';
 
 import {
@@ -24,8 +25,7 @@ export class DiscotecaComponent implements OnInit {
   constructor(
     private route:ActivatedRoute,
     private discotecasService:DiscotecasService,
-    private router:Router,
-    // private toastr: ToastrService,
+    private router:Router
 
   ) {}
   // showSuccess() {

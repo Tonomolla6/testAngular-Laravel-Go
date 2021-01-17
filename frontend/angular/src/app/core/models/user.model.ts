@@ -1,7 +1,7 @@
 export interface User {
     id: string;
     username: string;
-    token: string;
+    Bearer: string;
     email: string;
     type:  string;
     address: string;

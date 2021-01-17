@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 
+import { DiscotecaCreateComponent } from './component/discoteca-create.component';
 import { DiscotecaComponent } from './component/discoteca.component';
 import { DiscotecaDetailsComponent } from './component/discoteca-details.component';
 import { DiscotecaPreviewComponent } from './component/discoteca-preview.component';
@@ -13,7 +14,8 @@ import { DiscotecaRoutingModule } from './discoteca-routing.module';
   declarations: [
     DiscotecaComponent,
     DiscotecaDetailsComponent,
-    DiscotecaPreviewComponent
+    DiscotecaPreviewComponent,
+    DiscotecaCreateComponent,
   ],
   imports: [
     DiscotecaRoutingModule,

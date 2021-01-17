@@ -61,6 +61,7 @@
 .browser .menu ul.menu_login {
     margin-left: 40px;
     margin-right: 40px;
+    position: relative;
 }
 
 .menu_loged {
@@ -68,7 +69,9 @@
     align-items: center;
     width: 255px;
     margin: 0px 29px;
+    cursor: pointer;
 }
+
 
 .menu_loged .logo_img {
     width: 60px;
@@ -79,4 +82,24 @@
 
 .menu_loged p {
     font-size: 30px;
+}
+
+.menu_loged .dropable {
+    position: absolute;
+    top: 95px;
+    background: var(--color-primary);
+    z-index: 1;
+    padding: 10px 30px;
+    right: -30px;
+}
+
+.menu_loged .dropable li {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+
+.menu_loged .dropable li i {
+    font-size: 45px;
 }
