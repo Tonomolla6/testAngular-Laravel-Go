@@ -33,7 +33,7 @@ export class ApiService {
 
       usersCheckToken(path: string, token: String): Observable<any> {
         let headers = new HttpHeaders();
-        headers = headers.set('Authorization', 'Bearer '+token);
+        headers = headers.set('Authorization', 'Bearer ' + token);
 
         return this.http.get(`${environment.api_go_users}${path}`,{headers})
           .pipe(catchError(this.formatErrors));
