@@ -26,6 +26,10 @@ type Events struct {
 type Discotecas struct {
 	Id          uint
 	Name        string   `json:"name"`
+	Description string   `json:description`
+	PostalCode  uint     `json:postal`
+	Location    string   `json:location`
+	User        uint     `json:user`
 	Views		int      `json:"views"`
 }
 

@@ -23,9 +23,6 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 	router.DELETE("/:id", DiscotecaDelete)
 	router.POST("/:id/favorite", DiscotecaFavorite)
 	router.POST("/:id/unfavorite", DiscotecaUnFavorite)
-	// router.DELETE("/:id/favorite", DiscotecaUnfavorite)
-	// router.POST("/:id/comments", DiscotecaCommentCreate)
-	// router.DELETE("/:id/comments/:id", DiscotecaCommentDelete)
 }
 
 func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
@@ -40,9 +37,14 @@ func DiscotecaCreate(c *gin.Context){
 	var discoteca Discotecas
 	c.BindJSON(&discoteca);
 
+	// fmt.Println("Discoteca a crear: ", discoteca.Name)
+	myUserModel := c.MustGet("my_user_model").(User)
+	discoteca.User = myUserModel.ID; 
+	// fmt.Println(myUserModel.ID)
+	
 	err:=CreateDiscoteca(&discoteca)
 
-	if err !=nil{
+	if err != nil{
 		c.AbortWithStatus(http.StatusNotFound)
 	}else{
 		c.JSON(http.StatusOK, gin.H{"discoteca":discoteca})
