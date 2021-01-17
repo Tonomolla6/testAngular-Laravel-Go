@@ -14,7 +14,13 @@ import (
 type Events struct {
 	Id            uint
 	Name          string   `json:"name"`
-	// Discoteca_id  uint     `json:"discoteca_id"`
+	Description   string   `json:description`
+	Start_date    string   `json:start_date`
+	Start_time    string   `json:start_time`
+	Entradas      uint     `json:entradas`
+	Entradas_sold uint 	   `json:entradas_sold`
+	Price 		  uint     `json:price`
+	Consumicion   bool     `json:consumicion`
 }
 
 type Discotecas struct {

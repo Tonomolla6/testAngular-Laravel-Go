@@ -6,12 +6,12 @@ import (
 
 )
 
-// //Create event
-// func CreateEvent(data interface{}) error{
-// 	db:=common.GetDB();
-// 	err:=db.Create(data).Error
-// 	return err
-// }
+//Create event
+func CreateEvent(data interface{}) error{
+	db:=common.GetDB();
+	err:=db.Create(data).Error
+	return err
+}
 
 //Get all Events
 func GetAllEvents(data interface{}) error{
