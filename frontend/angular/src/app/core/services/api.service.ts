@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable ,  throwError } from 'rxjs';
+import {Discoteca} from '../models/discoteca.model';
 
 import { JwtService } from './jwt.service'; 
 import { catchError } from 'rxjs/operators';
@@ -63,12 +64,33 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
-      discotecasPost(path: string, data: Object): Observable<any> {
+      discotecasPost(path: string, data: Discoteca): Observable<any> {
+        console.log("dataaaaaa api service");
+        console.log(data)
+        // console.log(this.jwtService.getToken())
+        // console.log(`${environment.api_go_discotecas}${path}`)
+
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
-        let options = {headers: headers, params: data};
+        headers = headers.set('Content-Type','application/json' );
+        headers = headers.set('Accept', 'application/json');
+        let options = {headers: headers}; //, params: data
+       
+
         console.log(options)
-        return this.http.post(`${environment.api_go_discotecas}${path}`, options)
+        console.log("DATA antes de enviar")
+        console.log(typeof(data))
+        // let discoteca : Discoteca ;
+        // discoteca = new Discoteca;
+        // discoteca.name="prueba";
+        
+        // console.log(discoteca)
+
+        // console.log("discoteca");
+        // console.log({discoteca})
+        console.log(options)
+        // console.log(`${environment.api_go_discotecas}${path}`)
+        return this.http.post<Object>(`${environment.api_go_discotecas}${path}`, data , options)
         .pipe(catchError(this.formatErrors));
       }
 
@@ -78,8 +100,14 @@ export class ApiService {
         console.log(path)
         console.log("Token user: ",this.jwtService.getToken())
         let prueba = "prueba";
+
+
+        // 'Content-Type': 'application/json',
+        // 'Accept': 'application/json',
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        
+
         let options = {headers: headers};
         console.log(options)
 

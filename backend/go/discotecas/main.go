@@ -41,6 +41,11 @@ func main() {
 
 func MakeRoutes(r *gin.Engine) {
 	cors := func(c *gin.Context) {
+
+		fmt.Println("CONSUlTA")
+		// c.Request.Method = "POST"
+		fmt.Println(c.Request.Method)
+
 		fmt.Printf("c.Request.Method \n")
 
 		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
@@ -50,6 +55,7 @@ func MakeRoutes(r *gin.Engine) {
 		c.Writer.Header().Set("Content-Type", "application/json")
 
 		if c.Request.Method == "OPTIONS" {
+			fmt.Println("OPTIONs??????????????")
 			c.AbortWithStatus(200)
 		}
 		c.Next()

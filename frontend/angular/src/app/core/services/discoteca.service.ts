@@ -31,8 +31,9 @@ export class DiscotecasService {
           .pipe(map(data => data.discoteca));
       }
 
-      createDiscoteca(data = []) {
-        console.log("creando discoteca")
+      createDiscoteca(data: Discoteca) {
+        console.log("creando discoteca, discoteca service")
+        console.log(data)
         return this.apiService.discotecasPost('/discotecas', data)
           .pipe(map(data => data.discoteca));
       }

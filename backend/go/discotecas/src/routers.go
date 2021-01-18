@@ -34,6 +34,7 @@ func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
 // router.GET("/:id/comments", DiscotecaCommentList)
 
 func DiscotecaCreate(c *gin.Context){
+	fmt.Println("Create discotecaaaa")
 	var discoteca Discotecas
 	c.BindJSON(&discoteca);
 
