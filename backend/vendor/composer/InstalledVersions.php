@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'a56b9b8e49a874ac059c7e813a8ab0789cc1ef53',
+    'reference' => '28bf3e5542d88a5cb5221672aa2779af8e4ed3a5',
     'name' => '__root__',
   ),
   'versions' => 
@@ -31,7 +31,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'a56b9b8e49a874ac059c7e813a8ab0789cc1ef53',
+      'reference' => '28bf3e5542d88a5cb5221672aa2779af8e4ed3a5',
+    ),
+    'asm89/stack-cors' => 
+    array (
+      'pretty_version' => 'v2.0.2',
+      'version' => '2.0.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8d8f88b3b3830916be94292c1fbce84433efb1aa',
     ),
     'brick/math' => 
     array (
@@ -50,6 +59,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '9cf661f4eb38f7c881cac67c75ea9b00bf97b210',
+    ),
+    'fruitcake/laravel-cors' => 
+    array (
+      'pretty_version' => 'v2.0.3',
+      'version' => '2.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '01de0fe5f71c70d1930ee9a80385f9cc28e0f63a',
     ),
     'illuminate/auth' => 
     array (

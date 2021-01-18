@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['namespace' => 'Api'], function () {
+    Route::post('users/login', 'UserController@login');
+});
+
 // USERS 
     // MIDDLEWARE
     Route::group(['middleware' => ['jwt.verify']], function() {
@@ -21,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 
     // POST
     Route::post('users/register', 'Api\UserController@register');
-    Route::post('users/login', 'Api\UserController@login')->middleware("cors");
 
     // GET
     Route::get('users/companies/{email}', 'Api\UserController@getCompaniesFromUser');
