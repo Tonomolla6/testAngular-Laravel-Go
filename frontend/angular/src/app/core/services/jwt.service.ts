@@ -8,12 +8,20 @@ export class JwtService {
     return window.localStorage['jwtToken'];
   }
 
+  getAdminToken(): String {
+    return window.localStorage['jwtTokenAdmin'];
+  }
+
   saveToken(token: String) {
     window.localStorage['jwtToken'] = token;
   }
 
-  destroyToken() {
-    window.localStorage.removeItem('jwtToken');
+  saveAdminToken(token: String) {
+    window.localStorage['jwtTokenAdmin'] = token;
   }
 
+  destroyToken() {
+    window.localStorage.removeItem('jwtToken');
+    window.localStorage.removeItem('jwtTokenAdmin');
+  }
 }

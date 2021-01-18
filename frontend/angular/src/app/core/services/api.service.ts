@@ -45,7 +45,8 @@ export class ApiService {
       //Login laravel
       loginLaravel(path: String, body: Object = {}): Observable<any> {
         console.log("PATH ",`${environment.api_laravel}${path}`)
-        return this.http.post(`${environment.api_laravel}${path}`, { body })
+        console.log(JSON.stringify(body))
+        return this.http.post(`${environment.api_laravel}${path}`, body)
           .pipe(catchError(this.formatErrors));
       }
 

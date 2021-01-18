@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // laravel
-  api_laravel: 'http://localhost:8000/api',
+  api_laravel: '/api',
   // go
   api_go_users: 'http://users.docker.localhost/api',
   api_go_discotecas: 'http://discotecas.docker.localhost/api',

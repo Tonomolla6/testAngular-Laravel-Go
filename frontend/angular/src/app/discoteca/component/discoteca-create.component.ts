@@ -41,7 +41,7 @@ export class DiscotecaCreateComponent implements OnInit {
         this.toastr.success("Discoteca creada!");
         // this.router.navigateByUrl('/profile/discotecas');
       },
-      err => this.toastr.error(err.errors.login)
+      err => this.toastr.error(err.errors)
     );
   }
 }
