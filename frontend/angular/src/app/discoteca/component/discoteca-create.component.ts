@@ -37,10 +37,11 @@ export class DiscotecaCreateComponent implements OnInit {
     this.discotecasService.createDiscoteca(this.discoForm.value)
     .subscribe(
       data => {
+        console.log(data)
         this.toastr.success("La operacion se ha relizado con exito");
         this.router.navigateByUrl('/profile/discotecas');
       },
-      err => this.toastr.error(err.errors.login)
+      err => this.toastr.error(err.errors)
     );
   }
 }

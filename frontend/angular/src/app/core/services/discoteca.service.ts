@@ -32,7 +32,7 @@ export class DiscotecasService {
 
       createDiscoteca(data = []) {
         return this.apiService.discotecasPost('/discotecas', data)
-          .pipe(map(data => data.discoteca));
+          .pipe(map(data => data));
       }
 
 

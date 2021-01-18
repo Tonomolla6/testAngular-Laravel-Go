@@ -1,4 +1,8 @@
-# testAngular-Laravel-Go
+# THE GREAT MELON
+
+This 
+
+
  hola
 
 ## Instalar php
@@ -47,7 +51,7 @@ Cosas que hemos hecho
 - Home, Shop Go: list/details
     - Home en angular y go
     -> FALTA EL SHOP
-
+      
 - PanelAdmin Laravel: CRUD.
     - Crear companies asociadas al usuario
 

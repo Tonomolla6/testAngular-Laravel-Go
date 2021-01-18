@@ -57,9 +57,8 @@ export class ApiService {
       discotecasPost(path: string, data: Object): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
-        let options = {headers: headers, params: data};
-        console.log(options)
-        return this.http.post(`${environment.api_go_discotecas}${path}`, options)
+
+        return this.http.post(`${environment.api_go_discotecas}${path}`, data, {headers})
         .pipe(catchError(this.formatErrors));
       }
 
