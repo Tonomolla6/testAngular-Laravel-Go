@@ -50,7 +50,16 @@ export class ApiService {
 
       // Discotecas
       discotecasGet(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-        return this.http.get(`${environment.api_go_discotecas}${path}`, { params })
+        console.log("DISCOTECAS GEEEEEEEEEEEEEEEEEEEEEEEEET")
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        let options = {headers: headers};
+
+        // console.log("options");
+        // console.log(this.jwtService.getToken())
+
+
+        return this.http.get(`${environment.api_go_discotecas}${path}`,options )
           .pipe(catchError(this.formatErrors));
       }
 
@@ -60,6 +69,21 @@ export class ApiService {
         let options = {headers: headers, params: data};
         console.log(options)
         return this.http.post(`${environment.api_go_discotecas}${path}`, options)
+        .pipe(catchError(this.formatErrors));
+      }
+
+
+      discotecasFavorite(path: string): Observable<any> {
+        console.log("API SERVICE");
+        console.log(path)
+        console.log("Token user: ",this.jwtService.getToken())
+        let prueba = "prueba";
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        let options = {headers: headers};
+        console.log(options)
+
+        return this.http.post(`${environment.api_go_discotecas}${path}`, {prueba}, options)
         .pipe(catchError(this.formatErrors));
       }
 

@@ -18,6 +18,8 @@ type Discotecas struct {
 	Location    string   `json:location`
 	User        uint     `json:user`
 	Views		int      `json:"views"`
+	Likes       uint
+	Liked       bool
 }
 
 

@@ -77,6 +77,8 @@ func DiscotecaById(c *gin.Context) {
 
 	var discoteca Discotecas
 	err := GetDiscotecaById(&discoteca, id)
+
+
 	
 	if err != nil {
 		c.JSON(http.StatusOK, "Discoteca Not Found")
@@ -90,8 +92,32 @@ func DiscotecaById(c *gin.Context) {
 			return
 		}else{
 			discoteca.Views ++;
-			c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
-			return
+
+			//Pillar los favoritos y si tiene o no por el user aqui
+
+			myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
+			count := favoritesCount(discoteca)
+			discoteca.Likes=count;
+			
+			if len(myUserModel.Username) > 1{//Hay usuario logueado
+				//Ver si le ha dado like a la discoteca
+				liked := isFavoriteBy(discoteca,myUserModel)
+				discoteca.Liked=liked;
+
+				
+				fmt.Println("PROBANDO ",discoteca)
+				//Devolvemos la discoteca, el total de likes y si le ha dado like el user
+				c.JSON(http.StatusOK, gin.H{"discoteca":discoteca})
+				return
+			
+			}else{//No hay usuario logueado
+				fmt.Println("NO hay usuario-----")
+				c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+				return
+			}
+
+
+			
 		}
 		
 	}
@@ -180,6 +206,7 @@ func DiscotecaDelete(c *gin.Context){
 
 //////Favorite
 func DiscotecaFavorite(c *gin.Context){
+	fmt.Println("OLEEEE LOS CARACOLEEEEEEEEEEEEEEEEEEEEEEEs")
 	id := c.Params.ByName("id")
 
 	var discoteca Discotecas

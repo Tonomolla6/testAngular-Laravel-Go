@@ -9,7 +9,9 @@
         <button (click)="onFavorite()">Añadir a favoritos <i class="far fa-heart liked" id="favorite"></i></button>
         <button class="favorited">Eliminar de favoritos <i class="fas fa-heart liked" id="favorite"></i></button>
 
-        <p>Visitas: {{ discoteca.views }}</p>
+        <p>Total favorites:{{ discoteca.Likes }} </p>
+        <p>Le has dado like: {{ discoteca.Liked }} </p>
+        <p><i class="far fa-eye"></i> {{ discoteca.views }}</p>
         
         <br>
         <br>

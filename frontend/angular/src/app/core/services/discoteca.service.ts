@@ -26,11 +26,13 @@ export class DiscotecasService {
 
       //Favorite
       favorite(id: number) {  //id: Observable<Discoteca>
-        return this.apiService.discotecasGet('/discotecas/' + id + '/favorite')
+        console.log("dando faovrito a la id: ",id)
+        return this.apiService.discotecasFavorite('/discotecas/' + id + '/favorite')
           .pipe(map(data => data.discoteca));
       }
 
       createDiscoteca(data = []) {
+        console.log("creando discoteca")
         return this.apiService.discotecasPost('/discotecas', data)
           .pipe(map(data => data.discoteca));
       }

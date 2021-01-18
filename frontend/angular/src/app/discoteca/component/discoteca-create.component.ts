@@ -32,7 +32,7 @@ export class DiscotecaCreateComponent implements OnInit {
 
   submitDisco() {
 
-    console.log(this.discoForm);
+    console.log(this.discoForm.value);
     
     this.discotecasService.createDiscoteca(this.discoForm.value)
     .subscribe(
