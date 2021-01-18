@@ -57,6 +57,16 @@ export class UserService {
     this.isAuthenticatedSubject.next(true);
   }
 
+  setAuthAdmin(token: String) {
+    console.log("setAuthAdmin");
+    // Save JWT sent from server in localstorage
+    this.jwtService.saveAdminToken(token);
+    // Set current user data into observable
+    // this.currentUserSubject.next(token);
+    // Set isAuthenticated to true
+    // this.isAuthenticatedSubject.next(true);
+  }
+
   purgeAuth() {
     console.log("cerrando sesion");
     // Remove JWT from localstorage
@@ -69,24 +79,14 @@ export class UserService {
 
   attemptAuth(type:String, credentials:[]): Observable<User> {
     const route = (type === 'login') ? 'login' : '';
-    console.log(credentials);
     return this.apiService.usersPost('/users/' + route, {user: credentials})
       .pipe(map(
       data => {
-
-        console.log("User service----")
-        console.log(data)
-
-        if(data.user.type=="admin"){//Es administrador
-          console.log("ADMIN OLE LOS CARACOLES")
+        if (data.user.type=="admin") {//Es administrador
           this.loginLaravel(credentials).subscribe(data =>{ console.log(data)});
-          console.log("Despues")
-        }else{//Es usuario normal
-          this.setAuth(data.user);
         }
-        
-        
 
+        this.setAuth(data.user);
         return data;
       }
     ));
@@ -98,7 +98,7 @@ export class UserService {
     return this.apiService.loginLaravel('/users/login', {user: credentials})
     .pipe(map(
       data => {
-        this.setAuth(data.user);
+        this.setAuthAdmin(data.token);
         return data;
       }
     ));
