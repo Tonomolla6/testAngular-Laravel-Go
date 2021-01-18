@@ -23,7 +23,7 @@ export class DiscotecaCreateComponent implements OnInit {
         'name': ['', Validators.required],
         'description': ['', Validators.required],
         'location': ['', Validators.required],
-        'cp': new FormControl()
+        'postal': new FormControl()
       }); 
     }
 
@@ -31,15 +31,15 @@ export class DiscotecaCreateComponent implements OnInit {
   }
 
   submitDisco() {
-
-    console.log(this.discoForm);
+    console.log("type of")
+    console.log(typeof(this.discoForm.value));
+    console.log(typeof({}))
     
     this.discotecasService.createDiscoteca(this.discoForm.value)
     .subscribe(
       data => {
-        console.log(data)
-        this.toastr.success("La operacion se ha relizado con exito");
-        this.router.navigateByUrl('/profile/discotecas');
+        this.toastr.success("Discoteca creada!");
+        // this.router.navigateByUrl('/profile/discotecas');
       },
       err => this.toastr.error(err.errors)
     );

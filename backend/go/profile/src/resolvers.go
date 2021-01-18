@@ -22,9 +22,9 @@ func GetAllProfiles(data interface{}) error{
 	return err;
 }
 //GET ONE profile by ID
-func GetProfileById(data, id interface{}) error {
+func GetProfileById(data, id interface{}) error {   //Pillar el profile con la id de usuario que recibimos, no el id del profile
 	db := common.GetDB()
-	err := db.Where("id = ?", id).First(data).Error
+	err := db.Where("user = ?", id).First(data).Error
 	return err
 }
 

@@ -6,9 +6,10 @@ import (
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"encoding/json"
-	"bytes"
-	"io/ioutil"
+	// "encoding/json"
+	// "bytes"
+	// "time"
+	// "io/ioutil"
 )
 //"strings" "fmt"
 
@@ -111,44 +112,58 @@ func UsersRegistration(c *gin.Context) {
 		return
 	}
 
+	//Creando user
 	userModelValidator.userModel.Type = "client";
-	if err := SaveOne(&userModelValidator.userModel); err != nil {
+	 err := SaveOne(&userModelValidator.userModel); 
+	 
+	 if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, common.NewError("database", err))
 		return
+	}else{
+		fmt.Println("user creado")
+		fmt.Println("Creando PROFILE...")
 	}
 
-	//Crear profile
 
-	// fmt.Println("ID DEL USER CREADO")
-	// fmt.Println(userModelValidator.userModel.ID)
+	
+	//Creando profile
 
-	id := userModelValidator.userModel.ID;
-	requestBody, err := json.Marshal(map[string]uint{
-		"user_id": id,
-	})
+//Intento de fetch
+	// bearer := serializer.Response().Bearer; 
 
-	if err!=nil{
-		fmt.Println("ERROR MARSHAL")
-	}
+	// fmt.Println(bearer)
+	// // id := userModelValidator.userModel.ID;
+	// requestBody, err := json.Marshal(map[string]uint{
+	// 	"user_id": 0,
+	// })
 
-	resp, err := http.Post("http://profile.docker.localhost/api/profile","application/json",bytes.NewBuffer(requestBody))
+	// // resp, err := http.Post("http://profile.docker.localhost/api/profile","application/json",bytes.NewBuffer(requestBody))
+	// timeot := time.Duration(5 * time.Second)
+	// client := http.Client{
+	// 	Timeout: timeot,
+	// }
 
-	if err !=nil{
-		fmt.Println("ERROR MARSHAL2")
-	}
+	// fmt.Println("Antes de la request")
+	// request, err := http.NewRequest("POST","http://profile.docker.localhost/api/profile", bytes.NewBuffer(requestBody))
+	// request.Header.Set("Authorization"," Bearer "+bearer)
 
-	defer resp.Body.Close()
+	// if err != nil {
+	// 	fmt.Println("Error en la request profile")
+	// }else{
+	// 	fmt.Println("Ningun errorrrrr")
+	// }
 
-	body, err := ioutil.ReadAll(resp.Body)
+	// resp, err := client.Do(request)
 
-	if err!=nil{
-		fmt.Println("ERROR MARSHAL3")
-	}
+	// fmt.Println("RESP")
+	// fmt.Println(resp)
+	// if err != nil{
+	// 	fmt.Println("Error client ",err)
+	// }
 
-	fmt.Println(string(body))
-	// prueba := json.RawMessage(`{"user_id": `+userModelValidator.userModel.ID+`}`)
+	// defer resp.Body.Close()
 
-
+//Fin intento de fetch
 	//Fin crear profile
 
 

@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable ,  throwError } from 'rxjs';
+import {Discoteca} from '../models/discoteca.model';
 
 import { JwtService } from './jwt.service'; 
 import { catchError } from 'rxjs/operators';
@@ -50,15 +51,67 @@ export class ApiService {
 
       // Discotecas
       discotecasGet(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-        return this.http.get(`${environment.api_go_discotecas}${path}`, { params })
+        console.log("DISCOTECAS GEEEEEEEEEEEEEEEEEEEEEEEEET")
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        let options = {headers: headers};
+
+        // console.log("options");
+        // console.log(this.jwtService.getToken())
+
+
+        return this.http.get(`${environment.api_go_discotecas}${path}`,options )
           .pipe(catchError(this.formatErrors));
       }
 
-      discotecasPost(path: string, data: Object): Observable<any> {
+      discotecasPost(path: string, data: Discoteca): Observable<any> {
+        console.log("dataaaaaa api service");
+        console.log(data)
+        // console.log(this.jwtService.getToken())
+        // console.log(`${environment.api_go_discotecas}${path}`)
+
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        headers = headers.set('Content-Type','application/json' );
+        headers = headers.set('Accept', 'application/json');
+        let options = {headers: headers}; //, params: data
+       
 
-        return this.http.post(`${environment.api_go_discotecas}${path}`, data, {headers})
+        console.log(options)
+        console.log("DATA antes de enviar")
+        console.log(typeof(data))
+        // let discoteca : Discoteca ;
+        // discoteca = new Discoteca;
+        // discoteca.name="prueba";
+        
+        // console.log(discoteca)
+
+        // console.log("discoteca");
+        // console.log({discoteca})
+        console.log(options)
+        // console.log(`${environment.api_go_discotecas}${path}`)
+        return this.http.post<Object>(`${environment.api_go_discotecas}${path}`, data , options)
+        .pipe(catchError(this.formatErrors));
+      }
+
+
+      discotecasFavorite(path: string): Observable<any> {
+        console.log("API SERVICE");
+        console.log(path)
+        console.log("Token user: ",this.jwtService.getToken())
+        let prueba = "prueba";
+
+
+        // 'Content-Type': 'application/json',
+        // 'Accept': 'application/json',
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        
+
+        let options = {headers: headers};
+        console.log(options)
+
+        return this.http.post(`${environment.api_go_discotecas}${path}`, {prueba}, options)
         .pipe(catchError(this.formatErrors));
       }
 

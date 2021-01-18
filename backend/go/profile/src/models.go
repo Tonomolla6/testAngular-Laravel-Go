@@ -2,13 +2,15 @@ package profile
 
 type Profile struct {
 	Id	    	uint	 `gorm:"primary_key"`
+	Username     string  `gorm:"column:username"`
 	Name        string   `gorm:"column:name"`
 	Surname		string   `gorm:"column:surname"`
 	Description string   `gorm:"column:description"`
-	User_id	    uint
+	Bio         string   `gorm:"column:bio"`
+	User	    uint	 `gorm:"column:user"`
 }
 
-type UserModel struct {
+type User struct {
 	ID           uint    `gorm:"primary_key"`
 	Username     string  `gorm:"column:username"`
 	Email        string  `gorm:"column:email;"`

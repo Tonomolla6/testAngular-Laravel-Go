@@ -28,8 +28,10 @@ func main() {
 	MakeRoutes(r)
 	v1 := r.Group("/api")
 	
-	
+	v1.Use(profile.AuthMiddleware(false))
 	profile.ProfilesAnonymousRegister(v1.Group("/profile"))
+
+	v1.Use(profile.AuthMiddleware(true))
 	profile.ProfilesRegister(v1.Group("/profile"))
 
 	fmt.Printf("0.0.0.0:3000")
