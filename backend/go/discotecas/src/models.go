@@ -72,12 +72,16 @@ func favoriteBy(user User, discoteca Discotecas) error {
 //UNLIKE
 func unFavoriteBy(user User, discoteca Discotecas) error {
 	fmt.Println("DENTRO del UNNLIKE")
+	var unfavorite FavoriteModel
 	db := common.GetDB()
-	err := db.Where(FavoriteModel{
-		FavoriteID:   discoteca.Id,
-		FavoriteByID: user.ID,
-	}).Delete(FavoriteModel{}).Error
+	db.Where("FavoriteID = ? AND FavoriteById = ?", discoteca.Id, user.ID).First(&unfavorite)
+
+	// err := db.Where(FavoriteModel{
+	// 	FavoriteID:   discoteca.Id,
+	// 	FavoriteByID: user.ID,
+	// }).Delete(FavoriteModel).Error
 	// fmt.Println(err)
+	err := db.Delete(unfavorite).Error
 	return err
 }
 
@@ -85,10 +89,19 @@ func unFavoriteBy(user User, discoteca Discotecas) error {
 func isFavoriteBy(discoteca Discotecas,user User) bool {
 	db := common.GetDB()
 	var favorite FavoriteModel
-	db.Where(FavoriteModel{
+	err := db.Where(FavoriteModel{
 		FavoriteID:   discoteca.Id,
 		FavoriteByID: user.ID,
-	}).First(&favorite)
+		// deleted_at:  null,
+	}).First(&favorite).Error
+
+	fmt.Println("HOLEEAAAA")
+
+	if err!=nil {
+		fmt.Println("aon vas payaso")
+	} else {
+		fmt.Println(favorite)
+	}
 	return favorite.ID != 0
 }
 
