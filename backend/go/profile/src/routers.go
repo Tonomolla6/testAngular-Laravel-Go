@@ -96,6 +96,7 @@ func ProfileUpdate(c *gin.Context){
 	var profile Profile
 	var newProfile Profile
 	c.BindJSON(&newProfile);  //Aqui en teoria está la profile que le hemos pasado por postman
+	fmt.Println("NEW profile: ",newProfile)
 
 	myUserModel := c.MustGet("my_user_model").(User)
 	// id := c.Params.ByName("id")
