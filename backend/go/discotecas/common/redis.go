@@ -46,3 +46,13 @@ func GetUser(key string, client *redis.Client) string {
 	}
 	return email
 }
+
+func SaveUserLike(user uint, discoteca string, client *redis.Client) error{
+	err := client.Set(ctx,discoteca, user, 0).Err()
+
+	if err != nil {
+		return err
+	}
+	fmt.Println("Like de ", user ," a la discoteca ",discoteca," guardado en redis")
+	return nil
+}

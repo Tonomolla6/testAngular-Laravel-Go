@@ -6,7 +6,7 @@ import (
 	"goApp/common"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	
+	"strconv"
 )
 
 //"fmt"    "encoding/json"  
@@ -226,6 +226,14 @@ func DiscotecaFavorite(c *gin.Context){
 		fmt.Println("ERROR like: ",err2)
 	}
 
+	//Enviar a redis los datos del user y la discoteca que da like
+	
+	client := common.NewClient()
+	err3 := common.SaveUserLike(myUserModel.ID, strconv.FormatUint(uint64(discoteca.Id), 10),client)
+
+	if err3 != nil{
+		fmt.Println("ERRor redis userlike ",err3)
+	}
 
 	c.JSON(http.StatusOK, gin.H{ "User":myUserModel,"Disco":discoteca})
 }
