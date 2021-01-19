@@ -18,6 +18,12 @@ export class DiscotecasService {
         }));
       }
 
+      getDiscotecasByUser(id: Observable<Discoteca>) {
+        return this.apiService.discotecasGet('/discotecas/user').pipe(map(data => {
+          return data;
+        }));
+      }
+
       //Details
       get(id: Observable<Discoteca>) {
         return this.apiService.discotecasGet('/discotecas/' + id)
@@ -28,6 +34,13 @@ export class DiscotecasService {
       favorite(id: number) {  //id: Observable<Discoteca>
         console.log("dando faovrito a la id: ",id)
         return this.apiService.discotecasFavorite('/discotecas/' + id + '/favorite')
+          .pipe(map(data => data.discoteca));
+      }
+
+      //UnFavorite
+      unfavorite(id: number) {  //id: Observable<Discoteca>
+        console.log("quitando faovrito a la id: ",id)
+        return this.apiService.discotecasFavorite('/discotecas/' + id + '/unfavorite')
           .pipe(map(data => data.discoteca));
       }
 

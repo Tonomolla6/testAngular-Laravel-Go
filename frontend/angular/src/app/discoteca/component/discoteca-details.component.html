@@ -6,8 +6,9 @@
         <h2>Popularidad</h2>        
         <hr style="height: 4px;" class="discoteca-bar">
 
-        <button (click)="onFavorite()">Añadir a favoritos <i class="far fa-heart liked" id="favorite"></i></button>
-        <button class="favorited">Eliminar de favoritos <i class="fas fa-heart liked" id="favorite"></i></button>
+
+        <button (click)="onFavorite()"> <i class="far fa-heart liked" id="favorite"></i></button> <!-- Añadir class favorited cuando le de y viceversa-->
+        <!-- <button (click)="onFavorite()" class="favorited">Eliminar de favoritos <i class="fas fa-heart liked" id="favorite"></i></button> -->
 
         <p>Total favorites:{{ discoteca.Likes }} </p>
         <p>Le has dado like: {{ discoteca.Liked }} </p>

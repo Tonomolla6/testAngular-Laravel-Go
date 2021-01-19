@@ -6,7 +6,7 @@ type Profile struct {
 	Name        string   `gorm:"column:name"`
 	Surname		string   `gorm:"column:surname"`
 	Description string   `gorm:"column:description"`
-	Bio         string   `gorm:"column:bio"`
+	Bio         string   `gorm:"column:Bio"`
 	User	    uint	 `gorm:"column:user"`
 }
 

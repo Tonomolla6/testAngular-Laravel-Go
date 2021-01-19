@@ -15,7 +15,7 @@ import (
 func ProfilesRegister(router *gin.RouterGroup) {
 	router.POST("/", ProfileCreate)
 	router.GET("/user", ProfileById)  
-	router.PUT("/:id", ProfileUpdate)
+	router.PUT("/user", ProfileUpdate)
 	router.DELETE("/:id", ProfileDelete)
 	
 }
@@ -92,16 +92,19 @@ func ProfileById(c *gin.Context) {
 //UPDATE profile
 
 func ProfileUpdate(c *gin.Context){
+	fmt.Println("Update profileeeeee")
 	var profile Profile
 	var newProfile Profile
 	c.BindJSON(&newProfile);  //Aqui en teoria está la profile que le hemos pasado por postman
 
-	id := c.Params.ByName("id")
-	err := GetProfileById(&profile, id) //Este es la profile que he pillao con ese id, ¿para que? para comprobar que existe ese id
+	myUserModel := c.MustGet("my_user_model").(User)
+	// id := c.Params.ByName("id")
+	err := GetProfileById(&profile, myUserModel.ID) //Este es la profile que he pillao con ese id, ¿para que? para comprobar que existe ese id
 
-	// profile.Name = newProfile.Name
-	// profile.Company = newProfile.Company
-	// profile.Events = newProfile.Events
+	profile.Name = newProfile.Name
+	profile.Surname = newProfile.Surname
+	profile.Description = newProfile.Description
+	profile.Bio = newProfile.Bio
 
 
 	if err != nil { 
