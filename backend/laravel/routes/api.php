@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace' => 'Api'], function () {
     Route::post('users/login', 'UserController@login');
+    Route::get('reports', 'ReportsController@getReports');
 });
 
 // USERS 
