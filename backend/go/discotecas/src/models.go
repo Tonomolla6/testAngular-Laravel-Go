@@ -95,10 +95,9 @@ func isFavoriteBy(discoteca Discotecas,user User) bool {
 		// deleted_at:  null,
 	}).First(&favorite).Error
 
-	fmt.Println("HOLEEAAAA")
 
 	if err!=nil {
-		fmt.Println("aon vas payaso")
+		fmt.Println("Error isfavorited ",err)
 	} else {
 		fmt.Println(favorite)
 	}

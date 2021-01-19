@@ -7,7 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"
+	"reflect"
 )
+
 
 //"fmt"    "encoding/json"  
 // "strconv" para los coments
@@ -29,7 +31,8 @@ func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
 	router.GET("/", DiscotecaList)
 	router.GET("/:id", DiscotecaById)  
 	router.GET("/:id/liked", FavoritesCount)
-}
+	router.GET("/:id/user", DiscotecasUser)
+}	
 
 // router.GET("/:id/comments", DiscotecaCommentList)
 
@@ -261,4 +264,32 @@ func DiscotecaUnFavorite(c *gin.Context){
 
 
 	c.JSON(http.StatusOK, gin.H{ "User":myUserModel,"Disco":discoteca})
+}
+
+func DiscotecasUser(c *gin.Context){
+	id := c.Params.ByName("id") //Id del usuario que queremos coger sus discotecas
+
+
+
+
+	var discotecas []Discotecas;
+
+	user_id, err := strconv.ParseUint(id, 10, 32)
+
+	if err != nil{
+		fmt.Println("Error parse uint64 ", err)
+	}
+	
+	fmt.Println(reflect.TypeOf(id))
+	fmt.Println(err)
+
+	err2 := GetDiscotecaByUser(user_id, &discotecas) //Discotecas del user
+
+	if err2 != nil{
+		fmt.Println("ERROR get user discotecas ", err2)
+	}else{
+		c.JSON(http.StatusOK, gin.H{ "discotecas":discotecas})
+	}
+
+
 }
