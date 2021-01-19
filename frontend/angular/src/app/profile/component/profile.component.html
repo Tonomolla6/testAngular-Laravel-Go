@@ -7,17 +7,18 @@
             <h1>Your Profile</h1>
             <hr class="profile_create_modal_bar">
             <form [formGroup]="profileForm">
+                
                 <label for="name">Name</label>
-                <input type="text" formControlName="name"/>
+                <input type="text" formControlName="Name"  value={{profileForm.Name}}/>
 
                 <label for="surname">Surname</label>
-                <input type="text" formControlName="surname"/>
+                <input type="text" formControlName="Surname" value={{profileForm.Surname}}/>
 
                 <label for="description">Description</label>
-                <textarea rows="5" cols="10" formControlName="description"></textarea>
+                <textarea rows="5" cols="10" formControlName="Description" value={{profileForm.Description}}></textarea>
 
                 <label for="bio">Bio</label>
-                <textarea rows="5" cols="10" formControlName="bio"></textarea>
+                <textarea rows="5" cols="10" formControlName="Bio" value={{profileForm.Bio}}></textarea>
 
                 <button (click)="submitProfile()" class="button">Update</button>
             </form>

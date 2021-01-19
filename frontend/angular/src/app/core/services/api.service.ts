@@ -4,6 +4,7 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable ,  throwError } from 'rxjs';
 import {Discoteca} from '../models/discoteca.model';
+import {Profile} from '../models/profile.model'
 
 import { JwtService } from './jwt.service'; 
 import { catchError } from 'rxjs/operators';
@@ -106,6 +107,7 @@ export class ApiService {
       getProfile(path: string, params: HttpParams = new HttpParams()): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        console.log("headers del get profile");
         console.log(headers);
         
         return this.http.get(`${environment.api_go_profile}${path}`, { headers })
@@ -119,6 +121,16 @@ export class ApiService {
         console.log(headers);
         
         return this.http.get(`${environment.api_laravel}${path}`, { headers })
+
+      }
+      
+      updateProfile(path: string, data: Object,  params: HttpParams = new HttpParams()): Observable<any>{
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+
+        console.log("DATA antes de enviar: ",data)
+        console.log("HEADERS antes de enviar: ",headers)
+        return this.http.put(`${environment.api_go_profile}${path}`,data, { headers })
           .pipe(catchError(this.formatErrors));
       }
 

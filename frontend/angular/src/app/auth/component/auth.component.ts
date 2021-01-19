@@ -43,7 +43,7 @@ export class AuthComponent implements OnInit {
   submitForm() {
     // Ejecutamos el servicio de usuario para hacer login
     console.log("Submit form auth component");
-    const credentials = this.authForm.value;
+    let credentials = this.authForm.value;
 
     console.log(credentials);
 

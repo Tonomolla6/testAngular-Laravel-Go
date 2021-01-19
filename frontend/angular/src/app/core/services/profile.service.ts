@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpParams,HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { Discoteca, DiscotecaListConfig } from '../models';
+import { Discoteca, DiscotecaListConfig, Profile } from '../models';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -24,8 +24,10 @@ export class ProfileService {
           .pipe(map(data => data));
       }
 
-      reports() {
-        return this.apiService.gerReports('/reports')
+
+      update(data: Object){
+        console.log("data en el profile service: ",data)
+        return this.apiService.updateProfile('/profile/user', data)
           .pipe(map(data => data));
       }
 
