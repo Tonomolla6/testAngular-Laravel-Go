@@ -51,7 +51,7 @@
                         <i class="fas fa-building"></i>
                         <p>Crear Compañia</p>
                     </li>
-                    <li *ngIf="this.currentUser.type == 'admin'">
+                    <li *ngIf="this.currentUser.type == 'admin'" routerLink="/profile/reports" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                         <i class="fas fa-chart-area"></i>
                         <p>Estadisticas</p>
                     </li>

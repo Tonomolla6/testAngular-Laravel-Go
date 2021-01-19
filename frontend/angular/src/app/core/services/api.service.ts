@@ -112,6 +112,16 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
+      // Reports
+      gerReports(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        console.log(headers);
+        
+        return this.http.get(`${environment.api_laravel}${path}`, { headers })
+          .pipe(catchError(this.formatErrors));
+      }
+
       // Other
       put(path: string, body: Object = {}): Observable<any> {
         return this.http.put(

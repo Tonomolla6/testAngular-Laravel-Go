@@ -5,9 +5,10 @@ import { ProfileRoutingModule } from './profile-routing.module';
 
 import { FormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ReportsComponent } from './component/reports.component';
 
 @NgModule({
-  declarations: [ProfileComponent],
+  declarations: [ProfileComponent, ReportsComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,

@@ -24,6 +24,11 @@ export class ProfileService {
           .pipe(map(data => data));
       }
 
+      reports() {
+        return this.apiService.gerReports('/reports')
+          .pipe(map(data => data));
+      }
+
     //   //Favorite
     //   favorite(id: number) {  //id: Observable<Discoteca>
     //     return this.apiService.discotecasGet('/discotecas/' + id + '/favorite')
