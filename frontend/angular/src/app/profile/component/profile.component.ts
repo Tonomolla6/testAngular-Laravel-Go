@@ -33,9 +33,9 @@ export class ProfileComponent implements OnInit {
     });
 
     //Aqui se le pasa el id del usuario al que le vamos a hacer la consulta
-    this.discotecasService.getDiscotecasByUser().subscribe(data => { 
-      this.results = data.discotecas;
-    });
+    // this.discotecasService.getDiscotecasByUser().subscribe(data => { 
+    //   this.results = data.discotecas;
+    // });
   }
 
   submitProfile() {

@@ -7,12 +7,13 @@
         <hr style="height: 4px;" class="discoteca-bar">
 
 
-        <button (click)="onFavorite()"> <i class="far fa-heart liked" id="favorite"></i></button> <!-- Añadir class favorited cuando le de y viceversa-->
-        <!-- <button (click)="onFavorite()" class="favorited">Eliminar de favoritos <i class="fas fa-heart liked" id="favorite"></i></button> -->
-
-        <p>Total favorites:{{ discoteca.Likes }} </p>
-        <p>Le has dado like: {{ discoteca.Liked }} </p>
-        <p><i class="far fa-eye"></i> {{ discoteca.views }}</p>
+        <div class="popularidad">
+          <button class="favoritos" (click)="onFavorite()"> 
+            <i [className]="discoteca.Liked ? 'fas fa-heart' : 'far fa-heart'" id="favorite"></i> 
+            <p>{{ discoteca.Likes }} </p>
+          </button> <!-- Añadir class favorited cuando le de y viceversa-->
+          <p><i class="far fa-eye"></i> {{ discoteca.views }}</p>
+        </div>
         
         <br>
         <br>

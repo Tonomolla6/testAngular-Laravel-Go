@@ -20,62 +20,46 @@ export class DiscotecaDetailsComponent implements OnInit {
   discoteca!: Discoteca;
 
   constructor(
-    private route:ActivatedRoute,
-    private discotecasService:DiscotecasService,
-    private router:Router,
+    private route: ActivatedRoute,
+    private discotecasService: DiscotecasService,
+    private router: Router,
     private toastr: ToastrService
 
 
-  ) {}
-  
-  ngOnInit(): void { 
-    
-      //Details
-      this.route.data.subscribe((data) => {
-          this.discoteca = data.discoteca;
-          // this.populateComments();
+  ) { }
 
-        }
-      );
+  ngOnInit(): void {
 
-      // Get favorites
-      this.route.data.subscribe((data) => {
-        this.discoteca = data.discoteca;
-        console.log("HOLAAAa");
-        console.log(data)
-        // this.populateComments();
-
-      }
-    );
+    //Details
+    this.route.data.subscribe((data) => {
+      this.discoteca = data.discoteca;
+    });
   }
 
   onFavorite() {
-    // this.article.favorited = favorited;
-    // this.toastr.success("Hello, I'm the toastr message.")
-
-
-    if(this.discoteca.Liked){//Quitar el favorito
+    if (this.discoteca.Liked) {//Quitar el favorito
       console.log("tiene faovrito, hay que quitarselo");
       this.discotecasService.unfavorite(this.discoteca.Id)
-      .subscribe(
-        data => {
-          this.toastr.success("UnLike!");
-          // this.router.navigateByUrl('/profile/discotecas');
-        },
-        err =>this.toastr.error("Debes iniciar sesion") //this.toastr.error(err.errors.login) 
-      );
-    }else{//Dar favorito
+        .subscribe(
+          data => {
+            this.toastr.success("UnLike!");
+            this.discoteca.Liked = false;
+            this.discoteca.Likes--;
+          },
+          err => this.toastr.error("Debes iniciar sesion") //this.toastr.error(err.errors.login) 
+        );
+    } else { //Dar favorito
       console.log("No tiene favorito, hay que darselo")
       this.discotecasService.favorite(this.discoteca.Id)
-      .subscribe(
-        data => {
-          this.toastr.success("Like!");
-          // this.router.navigateByUrl('/profile/discotecas');
-        },
-        err =>this.toastr.error("Debes iniciar sesion") //this.toastr.error(err.errors.login) 
-      );
+        .subscribe(
+          data => {
+            this.toastr.success("Like!");
+            this.discoteca.Liked = true;
+            this.discoteca.Likes++;
+          },
+          err => this.toastr.error("Debes iniciar sesion") //this.toastr.error(err.errors.login) 
+        );
     }
-
 
   }
   // onUnFavorite() {

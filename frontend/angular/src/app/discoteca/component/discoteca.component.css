@@ -65,11 +65,18 @@ body {
 
 .page button {
     background-color: white;
-    border: 2px solid var(--color-primary);
     padding: 5px 10px;
-    margin-top: 15px;
+    margin-top: 11px;
     cursor: pointer;
     font-size: 16px;
+    display: flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.page button p {
+    margin: 0px 0px 0px 7px !important;
 }
 
 .page button:hover,
@@ -80,4 +87,18 @@ body {
 
 .page ul {
     margin-left: 20px;
+}
+
+.fa-heart {
+    color: red;
+}
+
+.popularidad {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.popularidad i {
+    font-size: 22px;
 }
