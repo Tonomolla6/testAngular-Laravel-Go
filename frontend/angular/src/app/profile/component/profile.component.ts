@@ -15,7 +15,7 @@ import {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  @Input()  
+  @Input()
   discoteca?: Discoteca;  //? es para decirle que es opcional  
   discotecas!: Discoteca[];
   profileForm: FormGroup;
@@ -23,8 +23,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    private discotecasService:DiscotecasService,
-    private router:Router,
+    private discotecasService: DiscotecasService,
+    private router: Router,
     private fb: FormBuilder,
 
   ) {
@@ -33,28 +33,28 @@ export class ProfileComponent implements OnInit {
       'surname': [''],
       'description': [''],
       'bio': ['']  //new FormControl()
-    }); 
+    });
 
-    this.profile ={
-      Name:"",
-      Surname:"",
-      Description:"",
-      Bio:""
+    this.profile = {
+      Name: "",
+      Surname: "",
+      Description: "",
+      Bio: ""
     }
 
-   }
+  }
 
 
-  
+
 
   ngOnInit(): void {
-  
-    this.profileService.get().subscribe(data => { 
-      this.profile=data.profile
+
+    this.profileService.get().subscribe(data => {
+      this.profile = data.profile
     });
 
     //Aqui pasarle el id del current_user
-    this.discotecasService.getDiscotecasByUser(1).subscribe(data =>{  //Coger la id del current user y pasarla a getDiscotecasByUser(id)
+    this.discotecasService.getDiscotecasByUser(1).subscribe(data => {  //Coger la id del current user y pasarla a getDiscotecasByUser(id)
       this.discotecas = data.discotecas;
     })
 
@@ -67,25 +67,25 @@ export class ProfileComponent implements OnInit {
   submitProfile() {
 
     //Los errores son mentiras, si que existen esas propiedades
-    if(this.profileForm.value.name == ""){this.profileForm.value.name=this.profile.Name;}
-    if(this.profileForm.value.surname == ""){this.profileForm.value.surname=this.profile.Surname;}
-    if(this.profileForm.value.bio == ""){this.profileForm.value.bio=this.profile.Bio;}
-    if(this.profileForm.value.description == ""){this.profileForm.value.description=this.profile.Description;}
+    if (this.profileForm.value.name == "") { this.profileForm.value.name = this.profile.Name; }
+    if (this.profileForm.value.surname == "") { this.profileForm.value.surname = this.profile.Surname; }
+    if (this.profileForm.value.bio == "") { this.profileForm.value.bio = this.profile.Bio; }
+    if (this.profileForm.value.description == "") { this.profileForm.value.description = this.profile.Description; }
 
     this.profileService.update(this.profileForm.value).subscribe(data => {
       // this.toastr.success("Profile Updated!");
       // alert("OLE LOS CANELONES")
     },
-    err => {
-      if(err.profile){ //Todo ok porque el backend ha devuelto el perfil updated
-        alert("PErfil updated")
-      }else{
-        alert("error en el update")
-        console.log("Error de update: ", err)
+      err => {
+        if (err.profile) { //Todo ok porque el backend ha devuelto el perfil updated
+          alert("PErfil updated")
+        } else {
+          alert("error en el update")
+          console.log("Error de update: ", err)
+        }
       }
-    }    
     );
 
-    
+
   }
 }

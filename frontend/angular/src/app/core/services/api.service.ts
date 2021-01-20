@@ -51,7 +51,7 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
-      // Discotecas o Discotecas by user
+      // Discotecas
       discotecasGet(path: string, params: HttpParams = new HttpParams()): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
@@ -114,6 +114,23 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
+      setProfile(path: string): Observable<any> {
+        let profile = {
+          name:"",
+          surname:"",
+          description: "",
+          bio: ""
+        }
+
+        console.log(profile);
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        console.log(`${environment.api_go_profile}${path}`);
+        
+        return this.http.post(`${environment.api_go_profile}${path}`, {profile}, {headers: headers})
+        .pipe(catchError(this.formatErrors));
+      }
+
       // Reports
       gerReports(path: string, params: HttpParams = new HttpParams()): Observable<any> {
         let headers = new HttpHeaders();
@@ -130,7 +147,6 @@ export class ApiService {
 
         console.log("DATA antes de enviar: ",data)
         console.log("HEADERS antes de enviar: ",headers)
-        console.log("PATH antes de enviar: ",path)
         return this.http.put(`${environment.api_go_profile}${path}`,data, { headers })
           .pipe(catchError(this.formatErrors));
       }
