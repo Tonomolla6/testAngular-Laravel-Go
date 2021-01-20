@@ -35,19 +35,20 @@ func ProfileRegister(router *gin.RouterGroup) {
 
 func GetLoguedUser(c *gin.Context) {
 	fmt.Println("--------------------------------------------------------------------------------------")
-	client := common.NewClient()
-	email :=  common.GetUser("email", client)
+	// client := common.NewClient()
+	// email :=  common.GetUser("email", client)
 
 
 	// prueba, err := request.ParseFromRequest(c.Request) 
 	// fmt.Println(prueba)
-	userModel, err := FindOneUser(&User{Email: email})
-	if err != nil {
-		c.JSON(http.StatusNotFound, common.NewError("profile", errors.New("Invalid email")))
-		return
-	}
+	// userModel, err := FindOneUser(&User{Email: email})
+	myUserModel := c.MustGet("my_user_model").(User)
+	// if err != nil {
+	// 	c.JSON(http.StatusNotFound, common.NewError("profile", errors.New("Invalid email")))
+	// 	return
+	// }
 	// return userModel
-	profileSerializer := ProfileSerializer{c,userModel}
+	profileSerializer := ProfileSerializer{c,myUserModel}
 	// c.JSON(http.StatusOK, gin.H{"profile": profileSerializer.Response()})
 
 	// fmt.Println("GET LOGUED USER",profileSerializer.Response())

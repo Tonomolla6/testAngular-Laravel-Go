@@ -74,7 +74,7 @@ func unFavoriteBy(user User, discoteca Discotecas) error {
 	fmt.Println("DENTRO del UNNLIKE")
 	var unfavorite FavoriteModel
 	db := common.GetDB()
-	db.Where("FavoriteID = ? AND FavoriteById = ?", discoteca.Id, user.ID).First(&unfavorite)
+	db.Where("favorite_id = ? AND favorite_by_id = ?", discoteca.Id, user.ID).First(&unfavorite)
 
 	// err := db.Where(FavoriteModel{
 	// 	FavoriteID:   discoteca.Id,

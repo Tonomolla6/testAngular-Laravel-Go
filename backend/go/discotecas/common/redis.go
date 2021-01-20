@@ -48,6 +48,14 @@ func GetUser(key string, client *redis.Client) string {
 }
 
 func SaveUserLike(user uint, discoteca string, client *redis.Client) error{
+
+	// var newUsers []int;
+
+	totalUsers, err2 := client.Get(ctx, discoteca).Result()
+
+	fmt.Println("TOTAL USERS REDIS: ",totalUsers)
+	fmt.Println("Err: ", err2)
+
 	err := client.Set(ctx,discoteca, user, 0).Err()
 
 	if err != nil {
