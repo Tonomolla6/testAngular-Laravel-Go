@@ -31,14 +31,14 @@
                         <i class="fas fa-user"></i>
                         <p>Profile</p>
                     </li>
-                    <li>
+                    <!-- <li>
                         <i class="fas fa-shopping-cart"></i>
                         <p>Compras</p>
                     </li>
                     <li>
                         <i class="fas fa-file-alt"></i>
                         <p>Ventas</p>
-                    </li>
+                    </li> -->
                     <li routerLink="/discoteca/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                         <i class="fas fa-glass-cheers"></i>
                         <p>Crear Discoteca</p>
@@ -47,7 +47,7 @@
                         <i class="fas fa-calendar-week"></i>
                         <p>Crear Evento</p>
                     </li>
-                    <li *ngIf="this.currentUser.type == 'admin'">
+                    <li routerLink="/company/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="this.currentUser.type == 'admin'">
                         <i class="fas fa-building"></i>
                         <p>Crear Compañia</p>
                     </li>

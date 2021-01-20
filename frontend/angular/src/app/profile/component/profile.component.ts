@@ -67,10 +67,10 @@ export class ProfileComponent implements OnInit {
   submitProfile() {
 
     //Los errores son mentiras, si que existen esas propiedades
-    if (this.profileForm.value.name == "") { this.profileForm.value.name = this.profile.Name; }
-    if (this.profileForm.value.surname == "") { this.profileForm.value.surname = this.profile.Surname; }
-    if (this.profileForm.value.bio == "") { this.profileForm.value.bio = this.profile.Bio; }
-    if (this.profileForm.value.description == "") { this.profileForm.value.description = this.profile.Description; }
+    // if (this.profileForm.value.name == "") { this.profileForm.value.name = this.profile.Name; }
+    // if (this.profileForm.value.surname == "") { this.profileForm.value.surname = this.profile.Surname; }
+    // if (this.profileForm.value.bio == "") { this.profileForm.value.bio = this.profile.Bio; }
+    // if (this.profileForm.value.description == "") { this.profileForm.value.description = this.profile.Description; }
 
     this.profileService.update(this.profileForm.value).subscribe(data => {
       // this.toastr.success("Profile Updated!");
