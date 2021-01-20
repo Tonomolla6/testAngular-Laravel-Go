@@ -5,8 +5,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {
     ApiService,
     DiscotecasService,
-    ProfileService
-
+    ProfileService,
+    CompanyService
   } from './services';
 
   @NgModule({
@@ -17,6 +17,7 @@ import {
     //   { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
       ApiService,
       DiscotecasService,
+      CompanyService,
       ProfileService
     ],
     declarations: []

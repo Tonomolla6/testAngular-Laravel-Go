@@ -43,11 +43,20 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
-      //Login laravel
+      // Laravel
       loginLaravel(path: String, body: Object = {}): Observable<any> {
         console.log("PATH ",`${environment.api_laravel}${path}`)
         console.log(JSON.stringify(body))
         return this.http.post(`${environment.api_laravel}${path}`, body)
+          .pipe(catchError(this.formatErrors));
+      }
+
+      postLaravel(path: String, body: Object = {}): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getAdminToken());
+        let options = {headers: headers};
+
+        return this.http.post(`${environment.api_laravel}${path}`, body , options)
           .pipe(catchError(this.formatErrors));
       }
 
@@ -99,6 +108,8 @@ export class ApiService {
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
         let options = {headers: headers};
 
+        console.log(options);
+
         return this.http.post(`${environment.api_go_discotecas}${path}`, {prueba}, options)
         .pipe(catchError(this.formatErrors));
       }
@@ -123,17 +134,19 @@ export class ApiService {
         }
 
         console.log(profile);
+        let token = this.jwtService.getToken();
+        console.log(token);
         let headers = new HttpHeaders();
-        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        headers = headers.set('Authorization', 'Bearer ' + token);
+        let options = {headers: headers};
+
+        console.log(options);
+
         console.log(`${environment.api_go_profile}${path}`);
-        console.log("TOKEN::::", this.jwtService.getToken())
+        console.log(options);
         
-
-        let prueba = this.http.post(`${environment.api_go_profile}${path}`, profile, {headers})
+        return this.http.post(`${environment.api_go_profile}${path}`, {profile}, options)
         .pipe(catchError(this.formatErrors));
-
-        console.log("------------")
-        console.log(prueba)
         // return this.http.post(`${environment.api_go_profile}${path}`, profile, {headers})
         // .pipe(catchError(this.formatErrors));
       }

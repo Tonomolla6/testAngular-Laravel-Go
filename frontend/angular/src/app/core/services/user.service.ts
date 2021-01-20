@@ -82,20 +82,17 @@ export class UserService {
     return this.apiService.usersPost('/users/' + route, {user: credentials})
       .pipe(map(
       data => {
-        if (type !== 'login')
-          this.apiService.setProfile('/profile').pipe(map(
-            data => {
-              console.log(data);
-              return data;
-            }
-          ));
           
-
         if (data.user.type == "admin") { // Es administrador
           this.loginLaravel(credentials).subscribe(data =>{ console.log(data)});
         }
 
         this.setAuth(data.user);
+
+        console.log(data);
+        if (type !== 'login')
+          this.apiService.setProfile('/profile');
+
         return data;
       }
     ));
@@ -127,5 +124,4 @@ export class UserService {
       return data.user;
     }));
   }
-
 }

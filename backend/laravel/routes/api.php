@@ -14,36 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['namespace' => 'Api'], function () {
-    Route::post('users/login', 'UserController@login');
-    Route::get('reports', 'ReportsController@getReports');
-});
-
-// USERS 
-    // MIDDLEWARE
     Route::group(['middleware' => ['jwt.verify']], function() {
-        Route::get('user', 'Api\UserController@getAuthenticatedUser');
+        Route::get('user', 'UserController@getAuthenticatedUser');
+        Route::post('company', 'CompanyController@createCompany');
     });
 
-    // POST
-    Route::post('users/register', 'Api\UserController@register');
+    Route::get('reports', 'ReportsController@getReports');
+    Route::get('users/companies/{email}', 'UserController@getCompaniesFromUser');
+    Route::get('companies', 'CompanyController@getAllCompanies');
+    Route::get('company/{id}', 'CompanyController@getCompany');
+    Route::get('company/user/{id}', 'CompanyController@getUserFromCompany');
+    Route::post('users/register', 'UserController@register');
+    Route::post('users/login', 'UserController@login');
+    Route::put('company/{id}', 'CompanyController@updateCompany');
+    Route::delete('company/{id}','CompanyController@deleteCompany');
+});
 
-    // GET
-    Route::get('users/companies/{email}', 'Api\UserController@getCompaniesFromUser');
-
-// COMPANIES
-    // POST
-    Route::post('company', 'Api\CompanyController@createCompany');
-
-    // GET
-    Route::get('companies', 'Api\CompanyController@getAllCompanies');
-    Route::get('company/{id}', 'Api\CompanyController@getCompany');
-    Route::get('company/user/{id}', 'Api\CompanyController@getUserFromCompany');
-
-    // PUT
-    Route::put('company/{id}', 'Api\CompanyController@updateCompany');
-
-    // DELETE
-    Route::delete('company/{id}','Api\CompanyController@deleteCompany');
 
 // // DISCOTECAS
 //     // POST

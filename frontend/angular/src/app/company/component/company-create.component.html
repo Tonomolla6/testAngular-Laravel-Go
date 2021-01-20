@@ -1,0 +1,22 @@
+<div class="company_create">
+    <div class="company_create_modal">
+        <h1>Create your company</h1>
+        <hr class="company_create_modal_bar">
+        <form [formGroup]="companyForm">
+            <label for="name">Name</label>
+            <input type="text" formControlName="name"/>
+
+            <label for="nif">Nif</label>
+            <input type="text" formControlName="nif"/>
+
+            <label for="email">Email</label>
+            <input type="email" formControlName="email"/>
+
+            <label for="tel">Phone</label>
+            <input type="number" formControlName="tel"/>
+
+            <button (click)="submitCompany()" class="button">Create</button>
+            
+        </form>
+    </div>
+</div>

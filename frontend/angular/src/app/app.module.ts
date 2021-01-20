@@ -16,6 +16,9 @@ import { HomeModule } from './home/home.module';
 // Discoteca
 import { DiscotecaModule } from './discoteca/discoteca.module';
 
+// Comapany
+import { CompanyModule } from './company/company.module';
+
 // Profile
 import { ProfileModule } from './profile/profile.module';
 
@@ -42,6 +45,7 @@ import { FooterComponent } from './component/layout/footer/footer.component';
     CoreModule,
     HttpClientModule,
     CommonModule,
+    CompanyModule,
     ToastrModule.forRoot()
     // BrowserAnimationsModule,
     // ToastrModule.forRoot(),
