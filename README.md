@@ -77,7 +77,7 @@ Cosas que hemos hecho
 - Profile:
     - List your profile
     - Update your profile
-    -> List your discos
+    - List your discos
     - Mejora de seguridad, doble comprobacion del id del usuario al hacer get de sus discotecas, tiene que recibir bearer y el id del user
 
 - Readme.
