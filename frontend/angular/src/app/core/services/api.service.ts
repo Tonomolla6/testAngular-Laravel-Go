@@ -127,10 +127,10 @@ export class ApiService {
 
       setProfile(path: string): Observable<any> {
         let profile = {
-          name:"",
-          surname:"",
-          description: "",
-          bio: ""
+          name:"name",
+          surname:"surname",
+          description: "description",
+          bio: "bio"
         }
 
         console.log(profile);
@@ -147,6 +147,8 @@ export class ApiService {
         
         return this.http.post(`${environment.api_go_profile}${path}`, {profile}, options)
         .pipe(catchError(this.formatErrors));
+        // return this.http.post(`${environment.api_go_profile}${path}`, profile, {headers})
+        // .pipe(catchError(this.formatErrors));
       }
 
       // Reports
