@@ -116,19 +116,26 @@ export class ApiService {
 
       setProfile(path: string): Observable<any> {
         let profile = {
-          name:"",
-          surname:"",
-          description: "",
-          bio: ""
+          name:"name",
+          surname:"surname",
+          description: "description",
+          bio: "bio"
         }
 
         console.log(profile);
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
         console.log(`${environment.api_go_profile}${path}`);
+        console.log("TOKEN::::", this.jwtService.getToken())
         
-        return this.http.post(`${environment.api_go_profile}${path}`, {profile}, {headers: headers})
+
+        let prueba = this.http.post(`${environment.api_go_profile}${path}`, profile, {headers})
         .pipe(catchError(this.formatErrors));
+
+        console.log("------------")
+        console.log(prueba)
+        // return this.http.post(`${environment.api_go_profile}${path}`, profile, {headers})
+        // .pipe(catchError(this.formatErrors));
       }
 
       // Reports

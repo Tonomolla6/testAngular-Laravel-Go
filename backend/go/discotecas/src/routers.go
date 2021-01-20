@@ -17,8 +17,6 @@ import (
 //	"net/http"
 //	"io/ioutil"
 
-
-
 func DiscotecasRegister(router *gin.RouterGroup) {
 	router.POST("/", DiscotecaCreate)
 	router.PUT("/:id", DiscotecaUpdate)
@@ -38,14 +36,11 @@ func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
 // router.GET("/:id/comments", DiscotecaCommentList)
 
 func DiscotecaCreate(c *gin.Context){
-	fmt.Println("Create discotecaaaa")
 	var discoteca Discotecas
 	c.BindJSON(&discoteca);
 
-	// fmt.Println("Discoteca a crear: ", discoteca.Name)
 	myUserModel := c.MustGet("my_user_model").(User)
 	discoteca.User = myUserModel.ID; 
-	// fmt.Println(myUserModel.ID)
 	
 	err:=CreateDiscoteca(&discoteca)
 
@@ -69,9 +64,7 @@ func DiscotecaList(c *gin.Context) {
 		c.JSON(http.StatusOK, "Not found")
 		c.AbortWithStatus(http.StatusNotFound)
 	}else{
-		// c.JSON(http.StatusOK, discoteca)
-		// serializer := DiscotecasSerializer
-		// c.JSON(http.StatusOK, gin.H{"discotecas":discotecaModel})
+
 		c.JSON(http.StatusOK, gin.H{"discotecas": discoteca})
 	}
 }
@@ -83,8 +76,6 @@ func DiscotecaById(c *gin.Context) {
 	var discoteca Discotecas
 	err := GetDiscotecaById(&discoteca, id)
 
-
-	
 	if err != nil {
 		c.JSON(http.StatusOK, "Discoteca Not Found")
 		c.AbortWithStatus(http.StatusNotFound)
@@ -99,7 +90,6 @@ func DiscotecaById(c *gin.Context) {
 			discoteca.Views ++;
 
 			//Pillar los favoritos y si tiene o no por el user aqui
-
 			myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
 			count := favoritesCount(discoteca)
 			discoteca.Likes=count;
@@ -109,8 +99,6 @@ func DiscotecaById(c *gin.Context) {
 				liked := isFavoriteBy(discoteca,myUserModel)
 				discoteca.Liked=liked;
 
-				
-				fmt.Println("PROBANDO ",discoteca)
 				//Devolvemos la discoteca, el total de likes y si le ha dado like el user
 				c.JSON(http.StatusOK, gin.H{"discoteca":discoteca})
 				return
@@ -120,8 +108,6 @@ func DiscotecaById(c *gin.Context) {
 				c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
 				return
 			}
-
-
 			
 		}
 		
@@ -171,8 +157,6 @@ func DiscotecaUpdate(c *gin.Context){
 	err := GetDiscotecaById(&discoteca, id) 
 
 	discoteca.Name = newDiscoteca.Name
-	// discoteca.Company = newDiscoteca.Company
-	// discoteca.Events = newDiscoteca.Events
 
 
 	if err != nil { 
@@ -211,10 +195,9 @@ func DiscotecaDelete(c *gin.Context){
 
 //////Favorite
 func DiscotecaFavorite(c *gin.Context){
-	fmt.Println("OLEEEE LOS CARACOLEEEEEEEEEEEEEEEEEEEEEEEs")
 	id := c.Params.ByName("id")
-
 	var discoteca Discotecas
+
 	err := GetDiscotecaById(&discoteca, id)//Discoteca a la que le damos like
 
 	if err != nil {
@@ -244,10 +227,9 @@ func DiscotecaFavorite(c *gin.Context){
 
 //UNFAVORITE
 func DiscotecaUnFavorite(c *gin.Context){
-	fmt.Println("Dentro del UNFAVORITE-------------")
 	id := c.Params.ByName("id")
-
 	var discoteca Discotecas
+
 	err := GetDiscotecaById(&discoteca, id)//Discoteca a la que le damos like
 
 	if err != nil {
@@ -257,12 +239,10 @@ func DiscotecaUnFavorite(c *gin.Context){
 
 	myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
 
-
 	err2 := unFavoriteBy(myUserModel,discoteca)
 	if err2 != nil{
 		fmt.Println("ERROR like: ",err2)
 	}
-
 
 	c.JSON(http.StatusOK, gin.H{ "User":myUserModel,"Disco":discoteca})
 }
@@ -279,12 +259,9 @@ func DiscotecasUser(c *gin.Context){
 	}
 
 	myUserModel := c.MustGet("my_user_model").(User)
-
 	my_User_id := uint64(myUserModel.ID)
-	fmt.Println(myUserModel.ID)
 
 	if user_id == my_User_id {
-
 
 		fmt.Println("Los ids concuerdan")
 		err2 := GetDiscotecaByUser(user_id, &discotecas) //Discotecas del user
@@ -302,8 +279,4 @@ func DiscotecasUser(c *gin.Context){
 		c.JSON(http.StatusNotFound,  "Error id user")
 
 	}
-
-	
-
-
 }

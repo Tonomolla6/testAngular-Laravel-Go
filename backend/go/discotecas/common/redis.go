@@ -5,7 +5,7 @@ import (
 	"github.com/go-redis/redis/v8"
 	"context"
 	"strconv"
-	"reflect"
+	// "reflect"
 	
 )
 //"fmt"
@@ -51,36 +51,24 @@ func GetUser(key string, client *redis.Client) string {
 
 func SaveUserLike(user uint, discoteca string, client *redis.Client) error{
 
-	var newUsers []uint;
+	var newUsers string;
 
 	//Pillamos el total de likes que tiene esa discoteca
 	totalUsers, err2 := client.Get(ctx, discoteca).Result()
 
-	fmt.Println(reflect.TypeOf(totalUsers))
+	if err2 != nil{
+		fmt.Println("ERR2: ", err2)
+	}
 
-	fmt.Println("TOTAL USERS REDIS LIKE- STRING---------", totalUsers)
+	newUsers = totalUsers +","+ strconv.Itoa(int(user)) //Le paso un uint, pero quiere un int
 
-	//Convertimos a formato uint64 el total de likes de la discoteca
-	total, errConv := strconv.ParseUint(totalUsers, 10, 32)
-
-	fmt.Println("TOTAL UINT: ", total)
-
-	if errConv != nil{
-		fmt.Println("Error parse uint redis")
-	} 
-
-	//Añadimos al array el total de likes en uint64 de esa discoteca
-	newUsers = append(newUsers,uint(total))
-
-	fmt.Println("TOTAL USERS REDIS: ",totalUsers)
-	fmt.Println("Err: ", err2)
-
-	//Machacamos los likes que tenia antes por el nuevo array con lo que habia antes mas el nuevo like
 	err3 := client.Set(ctx,discoteca, newUsers, 0).Err()
 
-	if err3 != nil {
+	if err3 != nil{
+		fmt.Println("ERRRORRRR: ",err3)
 		return err3
 	}
-	fmt.Println("Like de ", user ," a la discoteca ",discoteca," guardado en redis")
+
 	return nil
+
 }
