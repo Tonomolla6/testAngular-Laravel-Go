@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Company;
 use App\User;
+use JWTAuth;
+
 
 class CompanyController extends Controller
 {
@@ -26,15 +28,15 @@ class CompanyController extends Controller
     }
 
     public function createCompany(Request $request) {
-      $user = User::find($request->get('user_id'));
-      error_log(json_encode($user));
-
+      $user = self::getAuthenticatedUser();
+    
       $user->companies()->create([
-        "name" => $request->get('name')
+        "name" => $request->get('name'),
+        "tel" => $request->get('tel'),
+        "email" => $request->get('email'),
+        "nif" => $request->get('nif')
       ]);
-      error_log($user);
-
-
+      
       return response()->json([
         "message" => "Company record created"
       ], 201);
@@ -82,5 +84,28 @@ class CompanyController extends Controller
           "message" => "Company not found"
         ], 404);
       }
+    }
+
+    public static function getAuthenticatedUser()
+    {
+        try {
+            if (!$user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['user_not_found'], 404);
+            }
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+            return response()->json(['token_expired'], $e->getStatusCode());
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+            return response()->json(['token_invalid'], $e->getStatusCode());
+
+        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+            return response()->json(['token_absent'], $e->getStatusCode());
+        }
+
+        return $user;
     }
 }
