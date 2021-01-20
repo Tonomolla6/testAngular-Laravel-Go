@@ -96,10 +96,13 @@ func DiscotecaById(c *gin.Context) {
 
 			var eventsDisco []Events;
 			// //Pasamos id a uint 64
-			u, err := strconv.ParseUint(id, 10, 64)  //lo tengo en uint64, hay que pasarlo a uint
+			u, err := strconv.ParseUint(id, 10, 64)
 			fmt.Println("eror de tontitos: ",err)
+
 			eventsDisco = GetEventsDisco(uint(u))
 			fmt.Println("EVENTS DE LA DISCO-------- ", eventsDisco)
+
+			discoteca.Events = eventsDisco;
 			
 			if len(myUserModel.Username) > 1{//Hay usuario logueado
 				//Ver si le ha dado like a la discoteca
@@ -107,12 +110,12 @@ func DiscotecaById(c *gin.Context) {
 				discoteca.Liked=liked;
 
 				//Devolvemos la discoteca, el total de likes, si le ha dado like el user y los eventos de esa discoteca
-				c.JSON(http.StatusOK, gin.H{"discoteca":discoteca, "events":eventsDisco})
+				c.JSON(http.StatusOK, gin.H{"discoteca":discoteca})
 				return
 			
 			}else{//No hay usuario logueado
 				fmt.Println("NO hay usuario-----")
-				c.JSON(http.StatusOK, gin.H{"discoteca": discoteca, "events":eventsDisco})
+				c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
 				return
 			}
 			

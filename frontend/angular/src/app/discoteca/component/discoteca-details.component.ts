@@ -18,6 +18,7 @@ import {
 export class DiscotecaDetailsComponent implements OnInit {
   @Input()
   discoteca!: Discoteca;
+  events!: [];
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +34,9 @@ export class DiscotecaDetailsComponent implements OnInit {
     //Details
     this.route.data.subscribe((data) => {
       this.discoteca = data.discoteca;
+      this.events = data.discoteca.Events
+      
+      console.log("DISCOTECA: ", data.discoteca.Events)
     });
   }
 

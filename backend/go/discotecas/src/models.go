@@ -20,6 +20,7 @@ type Discotecas struct {
 	Views		int      `json:"views"`
 	Likes       uint
 	Liked       bool
+	Events		[]Events
 }
 
 
