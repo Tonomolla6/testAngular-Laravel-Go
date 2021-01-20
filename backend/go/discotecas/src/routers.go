@@ -93,19 +93,26 @@ func DiscotecaById(c *gin.Context) {
 			myUserModel := c.MustGet("my_user_model").(User) //Usuario que da like
 			count := favoritesCount(discoteca)
 			discoteca.Likes=count;
+
+			var eventsDisco []Events;
+			// //Pasamos id a uint 64
+			u, err := strconv.ParseUint(id, 10, 64)  //lo tengo en uint64, hay que pasarlo a uint
+			fmt.Println("eror de tontitos: ",err)
+			eventsDisco = GetEventsDisco(uint(u))
+			fmt.Println("EVENTS DE LA DISCO-------- ", eventsDisco)
 			
 			if len(myUserModel.Username) > 1{//Hay usuario logueado
 				//Ver si le ha dado like a la discoteca
 				liked := isFavoriteBy(discoteca,myUserModel)
 				discoteca.Liked=liked;
 
-				//Devolvemos la discoteca, el total de likes y si le ha dado like el user
-				c.JSON(http.StatusOK, gin.H{"discoteca":discoteca})
+				//Devolvemos la discoteca, el total de likes, si le ha dado like el user y los eventos de esa discoteca
+				c.JSON(http.StatusOK, gin.H{"discoteca":discoteca, "events":eventsDisco})
 				return
 			
 			}else{//No hay usuario logueado
 				fmt.Println("NO hay usuario-----")
-				c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
+				c.JSON(http.StatusOK, gin.H{"discoteca": discoteca, "events":eventsDisco})
 				return
 			}
 			

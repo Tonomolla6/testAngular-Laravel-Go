@@ -29,11 +29,12 @@ func GetDiscotecaById(data, id interface{}) error {
 //Get discotecas byUser
 func GetDiscotecaByUser(user uint64, data interface{}) error{
 	db := common.GetDB();
-
 	err := db.Where("User = ?", user).Find(data).Error
 
 	return err
 }
+
+
 
 
 //Get Discotecas By likes

@@ -41,6 +41,28 @@ type User struct {
 	Type		 string	 `gorm:"column:type;" default:'client'`
 }
 
+type Events struct {
+	Id            uint
+	Name          string   `json:"name"`
+	Description   string   `json:description`
+	Start_date    string   `json:start_date`
+	Start_time    string   `json:start_time`
+	Entradas      uint     `json:entradas`
+	Entradas_sold uint 	   `json:entradas_sold`
+	Price 		  uint     `json:price`
+	Consumicion   bool     `json:consumicion`
+	Discoteca     uint     `json:discoteca`
+}
+
+
+// type DiscoEventModel struct {
+// 	gorm.Model
+// 	Discoteca     Discotecas
+// 	DiscotecaID   uint
+// 	Event         Events
+// 	EventID       uint
+// }
+
 func AutoMigrate() {
 	db := common.GetDB()
 	db.AutoMigrate(&FavoriteModel{})
@@ -75,14 +97,19 @@ func unFavoriteBy(user User, discoteca Discotecas) error {
 	var unfavorite FavoriteModel
 	db := common.GetDB()
 	db.Where("favorite_id = ? AND favorite_by_id = ?", discoteca.Id, user.ID).First(&unfavorite)
-
-	// err := db.Where(FavoriteModel{
-	// 	FavoriteID:   discoteca.Id,
-	// 	FavoriteByID: user.ID,
-	// }).Delete(FavoriteModel).Error
-	// fmt.Println(err)
 	err := db.Delete(unfavorite).Error
 	return err
+}
+
+//Get los eventos de una discoteca
+func GetEventsDisco(id uint) []Events{
+	var events []Events
+	var eventModel Events
+	db := common.GetDB()
+	db.Model(eventModel).Where("discoteca = ?", id).Find(&events)
+
+	return events
+	
 }
 
 //Is favorited
@@ -99,7 +126,7 @@ func isFavoriteBy(discoteca Discotecas,user User) bool {
 	if err!=nil {
 		fmt.Println("Error isfavorited ",err)
 	} else {
-		fmt.Println(favorite)
+		fmt.Println("IS FAVORITE--",favorite)
 	}
 	return favorite.ID != 0
 }

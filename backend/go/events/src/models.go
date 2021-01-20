@@ -1,8 +1,8 @@
 package events
 import (
-	"fmt"
-	"goApp/common"
-	"github.com/jinzhu/gorm"
+	// "fmt"
+	// "goApp/common"
+	// "github.com/jinzhu/gorm"
 	
 )
 
@@ -21,6 +21,7 @@ type Events struct {
 	Entradas_sold uint 	   `json:entradas_sold`
 	Price 		  uint     `json:price`
 	Consumicion   bool     `json:consumicion`
+	Discoteca     uint     `json:discoteca`
 }
 
 type Discotecas struct {
@@ -33,13 +34,13 @@ type Discotecas struct {
 	Views		int      `json:"views"`
 }
 
-type DiscoEventModel struct {
-	gorm.Model
-	Discoteca     Discotecas
-	DiscotecaID   uint
-	Event         Events
-	EventID       uint
-}
+// type DiscoEventModel struct {
+// 	gorm.Model
+// 	Discoteca     Discotecas
+// 	DiscotecaID   uint
+// 	Event         Events
+// 	EventID       uint
+// }
 
 
 type User struct {
@@ -52,27 +53,19 @@ type User struct {
 	Type		 string	 `gorm:"column:type;" default:'client'`
 }
 
-func AutoMigrate() {
-	db := common.GetDB()
-	db.AutoMigrate(&DiscoEventModel{})
-}
-
-func CreateEventDisco(event Events, discotecaId uint) error {
-	// fmt.Println("FAvorite de: ",user," A la discoteca: ", discoteca)
-	fmt.Println("Relacionamos el evento: ",event," a la discoteca: ",discotecaId)
-	db := common.GetDB()
-	var discoEvent DiscoEventModel
-	err := db.FirstOrCreate(&discoEvent, &DiscoEventModel{
-		DiscotecaID:   discotecaId,
-		EventID:  	   event.Id,
-	}).Error
-	return err
-}
-
-//De momento no hace falta esta funcion porque pillo el usuario de myUser
-// func FindOneUser(condition interface{}) (User, error) {
+// func AutoMigrate() {
 // 	db := common.GetDB()
-// 	var model User
-// 	err := db.Where(condition).First(&model).Error
-// 	return model, err
+// 	db.AutoMigrate(&DiscoEventModel{})
+// }
+
+// func CreateEventDisco(event Events, discotecaId uint) error {
+// 	// fmt.Println("FAvorite de: ",user," A la discoteca: ", discoteca)
+// 	fmt.Println("Relacionamos el evento: ",event," a la discoteca: ",discotecaId)
+// 	db := common.GetDB()
+// 	var discoEvent DiscoEventModel
+// 	err := db.FirstOrCreate(&discoEvent, &DiscoEventModel{
+// 		DiscotecaID:   discotecaId,
+// 		EventID:  	   event.Id,
+// 	}).Error
+// 	return err
 // }

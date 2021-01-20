@@ -16,7 +16,7 @@ import (
 func Migrate(db *gorm.DB) {
 
 	db.AutoMigrate(&events.Events{})
-	events.AutoMigrate()
+	// events.AutoMigrate()
 
 }
 
