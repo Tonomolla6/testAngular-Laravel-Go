@@ -130,6 +130,7 @@ export class ApiService {
 
         console.log("DATA antes de enviar: ",data)
         console.log("HEADERS antes de enviar: ",headers)
+        console.log("PATH antes de enviar: ",path)
         return this.http.put(`${environment.api_go_profile}${path}`,data, { headers })
           .pipe(catchError(this.formatErrors));
       }

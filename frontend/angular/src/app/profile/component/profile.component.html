@@ -7,25 +7,24 @@
             <h1>Your Profile</h1>
             <hr class="profile_create_modal_bar">
             <form [formGroup]="profileForm">
-                
                 <label for="name">Name</label>
-                <input type="text" formControlName="Name"  value={{profileForm.Name}}/>
-
+                <input type="text" formControlName="name" value={{profile.Name}}/><!--value={{profileForm.Name}}-->
+ 
                 <label for="surname">Surname</label>
-                <input type="text" formControlName="Surname" value={{profileForm.Surname}}/>
+                <input type="text" formControlName="surname" value={{profile.Surname}}/> <!--value={{profileForm.Surname}}-->
 
                 <label for="description">Description</label>
-                <textarea rows="5" cols="10" formControlName="Description" value={{profileForm.Description}}></textarea>
+                <textarea rows="5" cols="10" formControlName="description" value={{profile.Description}}></textarea> <!--value={{profileForm.Description}}-->
 
                 <label for="bio">Bio</label>
-                <textarea rows="5" cols="10" formControlName="Bio" value={{profileForm.Bio}}></textarea>
+                <textarea rows="5" cols="10" formControlName="bio" value={{profile.Bio}}></textarea> <!--value={{profileForm.Bio}}-->
 
                 <button (click)="submitProfile()" class="button">Update</button>
             </form>
         </div>
 
         <div class="component">
-            <h1>Tus discotecas</h1>
+            <h1>Tus discotecas</h1> 
         </div>
     </div>
 </div>

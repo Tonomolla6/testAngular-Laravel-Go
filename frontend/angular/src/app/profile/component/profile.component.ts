@@ -18,35 +18,39 @@ export class ProfileComponent implements OnInit {
   @Input()  
   discoteca?: Discoteca;  //? es para decirle que es opcional  
   results!: Discoteca[];
-  // profileForm: FormGroup;
+  profileForm: FormGroup;
+  profile!: Object;
 
   constructor(
     private profileService: ProfileService,
     private discotecasService:DiscotecasService,
     private router:Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
 
   ) {
     this.profileForm = this.fb.group({
-      'name': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'description': ['', Validators.required],
-      'bio': ['', Validators.required]  //new FormControl()
+      'name': [''], //Validators.required
+      'surname': [''],
+      'description': [''],
+      'bio': ['']  //new FormControl()
     }); 
 
+    this.profile ={
+      Name:"",
+      Surname:"",
+      Description:"",
+      Bio:""
+    }
+
    }
-   
-   profileForm;
+
 
   
 
   ngOnInit(): void {
-    // this.profileForm.controls.proof.patchValue(this.defaultValue);
+  
     this.profileService.get().subscribe(data => { 
-
-      this.profileForm = data.profile;
-      console.log("pepe")
-      console.log(data.profile)
+      this.profile=data.profile
     });
 
     //Aqui se le pasa el id del usuario al que le vamos a hacer la consulta
@@ -56,19 +60,25 @@ export class ProfileComponent implements OnInit {
   }
 
   submitProfile() {
-    console.log("Profile updated------2")
-    // console.log(this.profileForm)
-    console.log(this.profileForm)
-    // let profileUpdated= {"name":this.profileForm.value}
-    // console.log(profileUpdated)
 
-    this.profileService.update(this.profileForm).subscribe(data => {
+    //Los errores son mentiras, si que existen esas propiedades
+    if(this.profileForm.value.name == ""){this.profileForm.value.name=this.profile.Name;}
+    if(this.profileForm.value.surname == ""){this.profileForm.value.surname=this.profile.Surname;}
+    if(this.profileForm.value.bio == ""){this.profileForm.value.bio=this.profile.Bio;}
+    if(this.profileForm.value.description == ""){this.profileForm.value.description=this.profile.Description;}
+
+    this.profileService.update(this.profileForm.value).subscribe(data => {
       // this.toastr.success("Profile Updated!");
-      alert("OLE LOS CANELONES")
+      // alert("OLE LOS CANELONES")
     },
     err => {
-      alert("UIS...")  
-      console.log("ERORR",err)}  
+      if(err.profile){ //Todo ok porque el backend ha devuelto el perfil updated
+        alert("PErfil updated")
+      }else{
+        alert("error en el update")
+        console.log("Error de update: ", err)
+      }
+    }    
     );
 
     

@@ -15,9 +15,9 @@ export class ReportsComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.profileService.reports().subscribe(data => { 
-      this.reports = data;
-      console.log(data)
-    });
+    // this.profileService.reports().subscribe(data => { 
+    //   this.reports = data;
+    //   console.log(data)
+    // });
   }
 }
