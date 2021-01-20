@@ -91,7 +91,7 @@ Improvents:
     5. Mejoras de seguridad admin, no se puede hacer sesion en laravel si no se ha iniciado sesion posteriormente en go
     6. Middlewares de seguridad en laravel para la validacion de JWT
     7. Seeders de usuarios en Laravel.
-    8. Toastr Angular.
+    8. Toastr Angular. 
     9.
     10.
     11.
