@@ -51,7 +51,7 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
-      // Discotecas
+      // Discotecas o Discotecas by user
       discotecasGet(path: string, params: HttpParams = new HttpParams()): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());

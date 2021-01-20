@@ -17,7 +17,7 @@ import {
 export class ProfileComponent implements OnInit {
   @Input()  
   discoteca?: Discoteca;  //? es para decirle que es opcional  
-  results!: Discoteca[];
+  discotecas!: Discoteca[];
   profileForm: FormGroup;
   profile!: Object;
 
@@ -52,6 +52,11 @@ export class ProfileComponent implements OnInit {
     this.profileService.get().subscribe(data => { 
       this.profile=data.profile
     });
+
+    //Aqui pasarle el id del current_user
+    this.discotecasService.getDiscotecasByUser(1).subscribe(data =>{  //Coger la id del current user y pasarla a getDiscotecasByUser(id)
+      this.discotecas = data.discotecas;
+    })
 
     //Aqui se le pasa el id del usuario al que le vamos a hacer la consulta
     // this.discotecasService.getDiscotecasByUser().subscribe(data => { 

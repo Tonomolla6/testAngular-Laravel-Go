@@ -73,6 +73,12 @@ Cosas que hemos hecho
     - Go: discotecas mas visitadas, 
     -> FALTA DISCOTECAS MAS POPULARES, EVENTOS CON MAS VENTAS
     -> FALTA DASHBOARD CON ESTADISTICAS DE REDIS.
+    
+- Profile:
+    - List your profile
+    - Update your profile
+    -> List your discos
+    - Mejora de seguridad, doble comprobacion del id del usuario al hacer get de sus discotecas, tiene que recibir bearer y el id del user
 
 - Readme.
     -> FALTA EMPEZAR A HACERLO

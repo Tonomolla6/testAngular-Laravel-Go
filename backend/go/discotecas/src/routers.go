@@ -25,13 +25,14 @@ func DiscotecasRegister(router *gin.RouterGroup) {
 	router.DELETE("/:id", DiscotecaDelete)
 	router.POST("/:id/favorite", DiscotecaFavorite)
 	router.POST("/:id/unfavorite", DiscotecaUnFavorite)
+	router.GET("/:id/user", DiscotecasUser)
 }
 
 func DiscotecasAnonymousRegister(router *gin.RouterGroup) {
 	router.GET("/", DiscotecaList)
 	router.GET("/:id", DiscotecaById)  
 	router.GET("/:id/liked", FavoritesCount)
-	router.GET("/:id/user", DiscotecasUser)
+
 }	
 
 // router.GET("/:id/comments", DiscotecaCommentList)
@@ -266,12 +267,9 @@ func DiscotecaUnFavorite(c *gin.Context){
 	c.JSON(http.StatusOK, gin.H{ "User":myUserModel,"Disco":discoteca})
 }
 
+//Get de las discotecas creadas por un usuario
 func DiscotecasUser(c *gin.Context){
 	id := c.Params.ByName("id") //Id del usuario que queremos coger sus discotecas
-
-
-
-
 	var discotecas []Discotecas;
 
 	user_id, err := strconv.ParseUint(id, 10, 32)
@@ -279,17 +277,33 @@ func DiscotecasUser(c *gin.Context){
 	if err != nil{
 		fmt.Println("Error parse uint64 ", err)
 	}
-	
-	fmt.Println(reflect.TypeOf(id))
-	fmt.Println(err)
 
-	err2 := GetDiscotecaByUser(user_id, &discotecas) //Discotecas del user
+	myUserModel := c.MustGet("my_user_model").(User)
 
-	if err2 != nil{
-		fmt.Println("ERROR get user discotecas ", err2)
+	my_User_id := uint64(myUserModel.ID)
+	fmt.Println(myUserModel.ID)
+
+	if user_id == my_User_id {
+
+
+		fmt.Println("Los ids concuerdan")
+		err2 := GetDiscotecaByUser(user_id, &discotecas) //Discotecas del user
+
+		if err2 != nil{
+			fmt.Println("ERROR get user discotecas ", err2)
+		}else{
+			c.JSON(http.StatusOK, gin.H{ "discotecas":discotecas})
+		}
+
 	}else{
-		c.JSON(http.StatusOK, gin.H{ "discotecas":discotecas})
+		fmt.Println("Los ids no son iguales, OK")
+		fmt.Println("ID que le paso en la url: ",user_id)
+		fmt.Println("ID del myusermodel: ",my_User_id)
+		c.JSON(http.StatusNotFound,  "Error id user")
+
 	}
+
+	
 
 
 }

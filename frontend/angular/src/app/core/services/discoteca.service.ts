@@ -18,8 +18,8 @@ export class DiscotecasService {
         }));
       }
 
-      getDiscotecasByUser(id: Observable<Discoteca>) {
-        return this.apiService.discotecasGet('/discotecas/user').pipe(map(data => {
+      getDiscotecasByUser(id: number) {
+        return this.apiService.discotecasGet('/discotecas/'+id+'/user').pipe(map(data => {
           return data;
         }));
       }
