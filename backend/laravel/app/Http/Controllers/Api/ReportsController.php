@@ -13,33 +13,28 @@ class ReportsController extends Controller
     public function getReports() {
         $user = self::getAuthenticatedUser();
         $user = $user->original["user"]->id;
+        error_log(json_encode($user));
         
         $discotecas = DB::select("SELECT id,name FROM discotecas WHERE user = $user");
 
-        $total = "";
-        Redis::set('name', 'Taylo2r');
+        error_log(json_encode($discotecas));
 
-        // foreach ($discotecas as $key => $discoteca) {
-        //     $total += Redis::get($discoteca->id);
-        // }
-        // [
-        //     {
-        //         "id": 1,
-        //         "name": ""
-        //         "users": [
-        //             {
-        //             "username":"",
-        //             "email":"",
-        //             }
-        //         ]
-        //     }
-        // ]
+        foreach ($discotecas as $key => $discoteca) {
+            $redis = Redis::get($discoteca->id);
+            error_log(json_encode($redis));
 
-        // Redis::set('name', 'Taylo2r');
+            $total = "(".$redis.")";
+            error_log(json_encode($total));
 
-        // 
+            if ($redis){
+                $users = DB::select("SELECT username,email FROM users WHERE id in $total");
+                $discotecas[$key]->users = $users;
+            } else {
+                $discotecas[$key]->users = null;
+            }
+        }
 
-        return response()->json($total, 200);
+        return response()->json($discotecas, 200);
     }
 
     public static function getAuthenticatedUser()

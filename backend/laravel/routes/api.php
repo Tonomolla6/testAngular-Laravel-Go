@@ -17,9 +17,9 @@ Route::group(['namespace' => 'Api'], function () {
     Route::group(['middleware' => ['jwt.verify']], function() {
         Route::get('user', 'UserController@getAuthenticatedUser');
         Route::post('company', 'CompanyController@createCompany');
+        Route::get('reports', 'ReportsController@getReports');
     });
 
-    Route::get('reports', 'ReportsController@getReports');
     Route::get('users/companies/{email}', 'UserController@getCompaniesFromUser');
     Route::get('companies', 'CompanyController@getAllCompanies');
     Route::get('company/{id}', 'CompanyController@getCompany');

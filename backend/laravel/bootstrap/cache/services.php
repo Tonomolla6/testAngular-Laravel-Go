@@ -12,30 +12,31 @@
     8 => 'Illuminate\\Filesystem\\FilesystemServiceProvider',
     9 => 'Illuminate\\Foundation\\Providers\\FoundationServiceProvider',
     10 => 'Illuminate\\Hashing\\HashServiceProvider',
-    11 => 'Illuminate\\Mail\\MailServiceProvider',
-    12 => 'Illuminate\\Notifications\\NotificationServiceProvider',
-    13 => 'Illuminate\\Pagination\\PaginationServiceProvider',
-    14 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
-    15 => 'Illuminate\\Queue\\QueueServiceProvider',
-    16 => 'Illuminate\\Redis\\RedisServiceProvider',
-    17 => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
-    18 => 'Illuminate\\Session\\SessionServiceProvider',
-    19 => 'Illuminate\\Translation\\TranslationServiceProvider',
-    20 => 'Illuminate\\Validation\\ValidationServiceProvider',
-    21 => 'Illuminate\\View\\ViewServiceProvider',
-    22 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
-    23 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    24 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
-    25 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
-    26 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    27 => 'Carbon\\Laravel\\ServiceProvider',
-    28 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    29 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
-    30 => 'App\\Providers\\AppServiceProvider',
-    31 => 'App\\Providers\\AuthServiceProvider',
-    32 => 'App\\Providers\\EventServiceProvider',
-    33 => 'App\\Providers\\RouteServiceProvider',
-    34 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
+    11 => 'Illuminate\\Redis\\RedisServiceProvider',
+    12 => 'Illuminate\\Mail\\MailServiceProvider',
+    13 => 'Illuminate\\Notifications\\NotificationServiceProvider',
+    14 => 'Illuminate\\Pagination\\PaginationServiceProvider',
+    15 => 'Illuminate\\Pipeline\\PipelineServiceProvider',
+    16 => 'Illuminate\\Queue\\QueueServiceProvider',
+    17 => 'Illuminate\\Redis\\RedisServiceProvider',
+    18 => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
+    19 => 'Illuminate\\Session\\SessionServiceProvider',
+    20 => 'Illuminate\\Translation\\TranslationServiceProvider',
+    21 => 'Illuminate\\Validation\\ValidationServiceProvider',
+    22 => 'Illuminate\\View\\ViewServiceProvider',
+    23 => 'BeyondCode\\DumpServer\\DumpServerServiceProvider',
+    24 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    25 => 'Illuminate\\Notifications\\NexmoChannelServiceProvider',
+    26 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
+    27 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    28 => 'Carbon\\Laravel\\ServiceProvider',
+    29 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    30 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
+    31 => 'App\\Providers\\AppServiceProvider',
+    32 => 'App\\Providers\\AuthServiceProvider',
+    33 => 'App\\Providers\\EventServiceProvider',
+    34 => 'App\\Providers\\RouteServiceProvider',
+    35 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
   ),
   'eager' => 
   array (
@@ -146,6 +147,8 @@
     'composer' => 'Illuminate\\Foundation\\Providers\\ConsoleSupportServiceProvider',
     'hash' => 'Illuminate\\Hashing\\HashServiceProvider',
     'hash.driver' => 'Illuminate\\Hashing\\HashServiceProvider',
+    'redis' => 'Illuminate\\Redis\\RedisServiceProvider',
+    'redis.connection' => 'Illuminate\\Redis\\RedisServiceProvider',
     'mailer' => 'Illuminate\\Mail\\MailServiceProvider',
     'swift.mailer' => 'Illuminate\\Mail\\MailServiceProvider',
     'swift.transport' => 'Illuminate\\Mail\\MailServiceProvider',
@@ -156,8 +159,6 @@
     'queue.listener' => 'Illuminate\\Queue\\QueueServiceProvider',
     'queue.failer' => 'Illuminate\\Queue\\QueueServiceProvider',
     'queue.connection' => 'Illuminate\\Queue\\QueueServiceProvider',
-    'redis' => 'Illuminate\\Redis\\RedisServiceProvider',
-    'redis.connection' => 'Illuminate\\Redis\\RedisServiceProvider',
     'auth.password' => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
     'auth.password.broker' => 'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider',
     'translator' => 'Illuminate\\Translation\\TranslationServiceProvider',
@@ -184,6 +185,9 @@
     'Illuminate\\Hashing\\HashServiceProvider' => 
     array (
     ),
+    'Illuminate\\Redis\\RedisServiceProvider' => 
+    array (
+    ),
     'Illuminate\\Mail\\MailServiceProvider' => 
     array (
     ),
@@ -191,9 +195,6 @@
     array (
     ),
     'Illuminate\\Queue\\QueueServiceProvider' => 
-    array (
-    ),
-    'Illuminate\\Redis\\RedisServiceProvider' => 
     array (
     ),
     'Illuminate\\Auth\\Passwords\\PasswordResetServiceProvider' => 
