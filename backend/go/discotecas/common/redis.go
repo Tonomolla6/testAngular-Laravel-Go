@@ -72,3 +72,18 @@ func SaveUserLike(user uint, discoteca string, client *redis.Client) error{
 	return nil
 
 }
+
+func DeleteDiscoRedis(id string, client *redis.Client) error{
+
+	err := client.Del(ctx, id).Err()
+
+	if err != nil{
+		fmt.Println("Error deletind disco from redis")
+		return err
+	}
+
+	fmt.Println("Delete from REDIS OK")
+
+	return nil
+
+}
