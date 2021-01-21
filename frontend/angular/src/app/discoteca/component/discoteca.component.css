@@ -113,10 +113,12 @@ body {
     display: flex;
     justify-content: center;
     padding-top: 150px;
+    height: calc(100vh - 360px);
 }
 
 .discoteca_container {
     background-color: white;
     width: 80%;
     margin-bottom: 50px;
+    height: 475px;
 }
