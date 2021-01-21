@@ -40,16 +40,16 @@ export class DiscotecaDetailsComponent implements OnInit {
 
 
       this.userService.currentUser.subscribe(
-        (userData)=> {
+        (userData) => {
           this.currentUser = userData;
         }
       )
 
-      data.discoteca.User == this.currentUser.id?this.author=true:this.author=false;
+      data.discoteca.User == this.currentUser.id ? this.author = true : this.author = false;
 
     });
 
-    
+
   }
 
   //LIKE
@@ -79,13 +79,14 @@ export class DiscotecaDetailsComponent implements OnInit {
   }
 
   //DELETE
-  deleteDisco(){
+  deleteDisco() {
     // console.log("Delete disco")
     // console.log(this.discoteca)
-    this.discotecasService.deleteDisco(this.discoteca.Id).subscribe(data =>{
+    this.discotecasService.deleteDisco(this.discoteca.Id).subscribe(data => {
       this.toastr.success("Disco deleted!")
+      this.router.navigateByUrl('/discotecas');
     },
-    err => this.toastr.error("Error en el delete")
+      err => this.toastr.error("Error en el delete")
     )
   }
 
