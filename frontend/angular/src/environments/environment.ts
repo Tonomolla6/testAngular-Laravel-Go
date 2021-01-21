@@ -7,10 +7,10 @@ export const environment = {
   // laravel
   api_laravel: '/api',
   // go
-  api_go_users: 'http://users.docker.localhost/api',
+  api_go_users:      'http://users.docker.localhost/api',
   api_go_discotecas: 'http://discotecas.docker.localhost/api',
-  api_go_events: 'http://events.docker.localhost/api',
-  api_go_profile: 'http://profile.docker.localhost/api',
+  api_go_events:     'http://events.docker.localhost/api',
+  api_go_profile:    'http://profile.docker.localhost/api',
 };
 
 /*
