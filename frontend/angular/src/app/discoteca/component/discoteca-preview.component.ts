@@ -9,7 +9,8 @@ import { Discoteca } from '../../core';
 
 @Component({
   selector: 'app-discoteca-preview',
-  templateUrl: './discoteca-preview.component.html'
+  templateUrl: './discoteca-preview.component.html',
+  styleUrls: ['./discoteca-preview.component.css']
 })
 export class DiscotecaPreviewComponent implements OnInit{
   @Input() discoteca!: Discoteca;

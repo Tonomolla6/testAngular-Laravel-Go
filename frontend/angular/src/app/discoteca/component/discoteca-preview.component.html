@@ -1,10 +1,6 @@
-<div [routerLink]="['/discoteca', discoteca.Id ]" >
-<div class="discoteca-preview">
-  <a>
-    <h1>{{ discoteca.name }}</h1>
-    <p>{{ discoteca.events }}</p>
-    <p>{{ discoteca.company }}</p>
-    <!-- <p>{{ discoteca.Id }}</p> -->
-  </a>
-</div>
+<div class="discoteca-preview" [routerLink]="['/discoteca', discoteca.Id ]">
+      <img class="image" src="https://picsum.photos/id/{{discoteca.Id}}/1920/500" alt="">
+      <div class="information">
+        <h1>{{ discoteca.name }}</h1>
+      </div>
 </div>

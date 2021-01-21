@@ -13,10 +13,9 @@
             <p>{{ discoteca.Likes }} </p>
           </button>
           <p><i class="far fa-eye"></i> {{ discoteca.views }}</p>
-        </div>
-
-        <div *ngIf="this.author" class="author_section" >
-          <p><i (click)="deleteDisco()" class="fas fa-trash delete"></i></p>
+          <div *ngIf="this.author" class="author_section" >
+            <p><i (click)="deleteDisco()" class="fas fa-trash delete"></i></p>
+          </div>
         </div>
         
         <br>

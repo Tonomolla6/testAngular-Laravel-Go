@@ -1,4 +1,6 @@
-<app-discoteca-preview
-  *ngFor="let discoteca of results"
-  [discoteca]="discoteca">
-</app-discoteca-preview>
+<div class="discotecas">
+  <app-discoteca-preview class="discoteca_container"
+    *ngFor="let discoteca of results"
+    [discoteca]="discoteca">
+  </app-discoteca-preview>
+</div>

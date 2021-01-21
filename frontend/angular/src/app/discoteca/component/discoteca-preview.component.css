@@ -1,0 +1,15 @@
+.discoteca-preview {
+    cursor: pointer;
+}
+
+.discoteca-preview:hover > img {
+    filter: grayscale(100%);
+}
+
+.information{
+    padding: 20px;
+}
+
+.image {
+    width: 100%;
+}
