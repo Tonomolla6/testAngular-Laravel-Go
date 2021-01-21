@@ -39,32 +39,16 @@ func EventCreate(c *gin.Context){
 	var event Events //Event que hemos creado
 	c.BindJSON(&event);
 
-	// disco := c.Params.ByName("disco")	 //Id de la discoteca que queremos 
-	// fmt.Println("Id discoteca: ",disco)
-
-
 	//Pillar el id de la discoteca
-	// i, err := strconv.ParseUint(disco, 10, 64)
-	// disco_id := uint(i)
-	fmt.Println("hola")
 
 	err1 := CreateEvent(&event)
 
 	if err1 != nil{
 		c.AbortWithStatus(http.StatusNotFound)
 	}else{
-		// err2 := CreateEventDisco(event, disco_id)
-		// if err2 !=nil{
-		// 	c.AbortWithStatus(http.StatusNotFound)
-		// }else{
-			c.JSON(http.StatusOK, gin.H{"event":event})
-			return
-		// }
+		c.JSON(http.StatusOK, gin.H{"event":event})
+		return
 	}
-	
-
-	
-
 	
 }
 
@@ -80,9 +64,6 @@ func EventList(c *gin.Context) {
 		c.JSON(http.StatusOK, "Not found")
 		c.AbortWithStatus(http.StatusNotFound)
 	}else{
-		// c.JSON(http.StatusOK, event)
-		// serializer := EventsSerializer
-		// c.JSON(http.StatusOK, gin.H{"events":eventModel})
 		c.JSON(http.StatusOK, gin.H{"events": event})
 	}
 }
@@ -150,5 +131,4 @@ func EventDelete(c *gin.Context){
 	} 
 
 	c.JSON(http.StatusOK, gin.H{"event": "Delete Event"})
-
 }

@@ -6,8 +6,8 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {A11yModule} from '@angular/cdk/a11y';
 // import { ToastrService } from 'ngx-toastr';
 import { Injector } from '@angular/core';
-console.log("IMmport home")
-// console.log(ToastrService)
+
+
 
 Injector
 @Component({
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   // }
 
   ngOnInit(): void {
-    console.log("Home on init")
+
     // this.showSuccess();
   }
 

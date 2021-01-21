@@ -29,7 +29,6 @@ func main() {
 	r := gin.Default()
 	// MakeRoutes(r)
 
-	fmt.Println("--------------------ola")
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"*"},

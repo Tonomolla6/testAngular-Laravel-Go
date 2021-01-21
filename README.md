@@ -94,7 +94,7 @@ cd frontend/angular
 npm start
 ```
 
-_Una vez realizados los pasos anteriores no dirigimos a_
+_Una vez realizados los pasos anteriores nos dirigimos a_
 
 ```
 localhost:4200

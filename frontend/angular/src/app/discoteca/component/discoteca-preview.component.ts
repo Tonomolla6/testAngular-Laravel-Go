@@ -20,18 +20,8 @@ export class DiscotecaPreviewComponent implements OnInit{
   //   this.toastr.success('Hello world!', 'Toastr fun!');
   // }
   ngOnInit(){
-    console.log("Discoteca page on init")
     // this.showSuccess()
 
   }
   
-  // onToggleFavorite(favorited: boolean) {
-  //   this.discoteca['favorited'] = favorited;
-
-  //   if (favorited) {
-  //     this.discoteca['favoritesCount']++;
-  //   } else {
-  //     this.discoteca['favoritesCount']--;
-  //   }
-  // }
 }

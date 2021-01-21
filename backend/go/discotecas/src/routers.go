@@ -97,11 +97,8 @@ func DiscotecaById(c *gin.Context) {
 			var eventsDisco []Events;
 			// //Pasamos id a uint 64
 			u, err := strconv.ParseUint(id, 10, 64)
-			fmt.Println("eror de tontitos: ",err)
 
 			eventsDisco = GetEventsDisco(uint(u))
-			fmt.Println("EVENTS DE LA DISCO-------- ", eventsDisco)
-
 			discoteca.Events = eventsDisco;
 			
 			if len(myUserModel.Username) > 1{//Hay usuario logueado
@@ -114,7 +111,6 @@ func DiscotecaById(c *gin.Context) {
 				return
 			
 			}else{//No hay usuario logueado
-				fmt.Println("NO hay usuario-----")
 				c.JSON(http.StatusOK, gin.H{"discoteca": discoteca})
 				return
 			}
@@ -273,7 +269,6 @@ func DiscotecasUser(c *gin.Context){
 
 	if user_id == my_User_id {
 
-		fmt.Println("Los ids concuerdan")
 		err2 := GetDiscotecaByUser(user_id, &discotecas) //Discotecas del user
 
 		if err2 != nil{

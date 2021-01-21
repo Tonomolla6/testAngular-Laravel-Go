@@ -55,8 +55,6 @@ func favoritesCount(discoteca Discotecas) uint {
 
 //UPDATE discoteca
 func UpdateDiscoteca(data interface{}) error{
-	fmt.Println("RESOLVER UPDATE");
-	fmt.Println(data)
 	db := common.GetDB()
 	err := db.Save(data).Error
 	return err

@@ -30,11 +30,7 @@ export class CompanyCreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  submitCompany() {
-    console.log("type of")
-    console.log(typeof(this.companyForm.value));
-    console.log(typeof({}))
-    
+  submitCompany() {    
     this.companyService.createCompany(this.companyForm.value)
     .subscribe(
       data => {
