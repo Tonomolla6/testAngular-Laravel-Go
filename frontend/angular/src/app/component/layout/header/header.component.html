@@ -12,7 +12,7 @@
             <li routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Homepage</li>
             <li routerLink="/discotecas" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Disco</li>
             <li>Events</li>
-            <li>Contact</li>
+            <li routerLink="/contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" >Contact</li>
         </ul>
 
         <ul *ngIf="!this.currentUser.username" class="menu_login">

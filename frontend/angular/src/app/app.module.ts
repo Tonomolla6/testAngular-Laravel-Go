@@ -25,6 +25,9 @@ import { ProfileModule } from './profile/profile.module';
 // Login y register
 import { AuthModule } from './auth/auth.module';
 
+// Contact
+import { ContactModule } from './contact/contact.module';
+
 // Componentes globales
 import { HeaderComponent } from './component/layout/header/header.component';
 import { FooterComponent } from './component/layout/footer/footer.component';
@@ -45,6 +48,7 @@ import { FooterComponent } from './component/layout/footer/footer.component';
     CoreModule,
     HttpClientModule,
     CommonModule,
+    ContactModule,
     CompanyModule,
     ToastrModule.forRoot()
     // BrowserAnimationsModule,
