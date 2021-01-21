@@ -17,8 +17,6 @@ export class CompanyService {
         return this.apiService.postLaravel('/company', data)
             .pipe(map(
                 data => {
-                    console.log("pepe");
-                    console.log(data);
                     return data;
                 }
             ));

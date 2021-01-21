@@ -82,7 +82,6 @@ func FindOneUser(condition interface{}) (User, error) {
 
 //LIKE
 func favoriteBy(user User, discoteca Discotecas) error {
-	fmt.Println("FAvorite de: ",user," A la discoteca: ", discoteca)
 	db := common.GetDB()
 	var favorite FavoriteModel
 	err := db.FirstOrCreate(&favorite, &FavoriteModel{
@@ -94,7 +93,6 @@ func favoriteBy(user User, discoteca Discotecas) error {
 
 //UNLIKE
 func unFavoriteBy(user User, discoteca Discotecas) error {
-	fmt.Println("DENTRO del UNNLIKE")
 	var unfavorite FavoriteModel
 	db := common.GetDB()
 	db.Where("favorite_id = ? AND favorite_by_id = ?", discoteca.Id, user.ID).First(&unfavorite)
@@ -122,7 +120,6 @@ func isFavoriteBy(discoteca Discotecas,user User) bool {
 		FavoriteByID: user.ID,
 		// deleted_at:  null,
 	}).First(&favorite).Error
-
 
 	if err!=nil {
 		fmt.Println("Error isfavorited ",err)

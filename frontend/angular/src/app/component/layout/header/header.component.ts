@@ -25,13 +25,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.show = false;
-    console.log("ng home init");
-    // this.test = "test";
 
     this.userService.currentUser.subscribe(
       (userData)=> {
         this.currentUser = userData;
-        console.log(this.currentUser);
       }
     )
   }

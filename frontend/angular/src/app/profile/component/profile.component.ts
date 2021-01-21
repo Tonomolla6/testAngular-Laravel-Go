@@ -59,8 +59,6 @@ export class ProfileComponent implements OnInit {
       this.profileForm.value.surname = data.profile.Surname
       this.profileForm.value.bio = data.profile.Bio
       this.profileForm.value.description = data.profile.Description
-
-      console.log("profile form vaLUEEEEEEE ", this.profileForm.value)
     });
 
     this.userService.currentUser.subscribe(
@@ -70,17 +68,9 @@ export class ProfileComponent implements OnInit {
         })
       }
     )
-
-    //Aqui se le pasa el id del usuario al que le vamos a hacer la consulta
-    // this.discotecasService.getDiscotecasByUser().subscribe(data => { 
-    //   this.results = data.discotecas;
-    // });
   }
 
   submitProfile() {
-
-    console.log("VALUE ANTES DE ENVIAR A TODOS:: ", this.profileForm.value)
-
     this.profileService.update(this.profileForm.value).subscribe(data => {
       // this.toastr.success("Profile Updated!");
       // alert("OLE LOS CANELONES")

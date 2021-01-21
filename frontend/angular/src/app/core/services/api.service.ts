@@ -23,7 +23,6 @@ export class ApiService {
       // ENDPOINTS 
       // Users
       usersPost(path: string, body: Object = {}): Observable<any> {
-        console.log(JSON.stringify(body));
         return this.http.post(
           `${environment.api_go_users}${path}`,body
         ).pipe(catchError(this.formatErrors));
@@ -38,15 +37,12 @@ export class ApiService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
 
-        console.log("hola");
         return this.http.get(`${environment.api_go_users}${path}`,{headers})
           .pipe(catchError(this.formatErrors));
       }
 
       // Laravel
       loginLaravel(path: String, body: Object = {}): Observable<any> {
-        console.log("PATH ",`${environment.api_laravel}${path}`)
-        console.log(JSON.stringify(body))
         return this.http.post(`${environment.api_laravel}${path}`, body)
           .pipe(catchError(this.formatErrors));
       }
@@ -71,31 +67,14 @@ export class ApiService {
       }
 
       discotecasPost(path: string, data: Discoteca): Observable<any> {
-        console.log("dataaaaaa api service");
-        console.log(data)
-        // console.log(this.jwtService.getToken())
-        // console.log(`${environment.api_go_discotecas}${path}`)
+
 
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
         headers = headers.set('Content-Type','application/json' );
         headers = headers.set('Accept', 'application/json');
         let options = {headers: headers}; //, params: data
-       
 
-        console.log(options)
-        console.log("DATA antes de enviar")
-        console.log(typeof(data))
-        // let discoteca : Discoteca ;
-        // discoteca = new Discoteca;
-        // discoteca.name="prueba";
-        
-        // console.log(discoteca)
-
-        // console.log("discoteca");
-        // console.log({discoteca})
-        console.log(options)
-        // console.log(`${environment.api_go_discotecas}${path}`)
         return this.http.post<Object>(`${environment.api_go_discotecas}${path}`, data , options)
         .pipe(catchError(this.formatErrors));
       }
@@ -108,8 +87,6 @@ export class ApiService {
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
         let options = {headers: headers};
 
-        console.log(options);
-
         return this.http.post(`${environment.api_go_discotecas}${path}`, {prueba}, options)
         .pipe(catchError(this.formatErrors));
       }
@@ -118,8 +95,6 @@ export class ApiService {
       getProfile(path: string, params: HttpParams = new HttpParams()): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
-        console.log("headers del get profile");
-        console.log(headers);
         
         return this.http.get(`${environment.api_go_profile}${path}`, { headers })
           .pipe(catchError(this.formatErrors));
@@ -133,29 +108,20 @@ export class ApiService {
           bio: "bio"
         }
 
-        console.log(profile);
         let token = this.jwtService.getToken();
-        console.log(token);
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + token);
         let options = {headers: headers};
 
-        console.log(options);
-
-        console.log(`${environment.api_go_profile}${path}`);
-        console.log(options);
         
         return this.http.post(`${environment.api_go_profile}${path}`, {profile}, options)
         .pipe(catchError(this.formatErrors));
-        // return this.http.post(`${environment.api_go_profile}${path}`, profile, {headers})
-        // .pipe(catchError(this.formatErrors));
       }
 
       // Reports
       gerReports(path: string, params: HttpParams = new HttpParams()): Observable<any> {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
-        console.log(headers);
         
         return this.http.get(`${environment.api_laravel}${path}`, { headers })
 
@@ -165,8 +131,6 @@ export class ApiService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
 
-        console.log("DATA antes de enviar: ",data)
-        console.log("HEADERS antes de enviar: ",headers)
         return this.http.put(`${environment.api_go_profile}${path}`,data, { headers })
           .pipe(catchError(this.formatErrors));
       }

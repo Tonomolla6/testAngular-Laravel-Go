@@ -32,21 +32,17 @@ export class DiscotecasService {
 
       //Favorite
       favorite(id: number) {  //id: Observable<Discoteca>
-        console.log("dando faovrito a la id: ",id)
         return this.apiService.discotecasFavorite('/discotecas/' + id + '/favorite')
           .pipe(map(data => data.discoteca));
       }
 
       //UnFavorite
       unfavorite(id: number) {  //id: Observable<Discoteca>
-        console.log("quitando faovrito a la id: ",id)
         return this.apiService.discotecasFavorite('/discotecas/' + id + '/unfavorite')
           .pipe(map(data => data.discoteca));
       }
 
       createDiscoteca(data: Discoteca) {
-        console.log("creando discoteca, discoteca service")
-        console.log(data)
         return this.apiService.discotecasPost('/discotecas', data)
           .pipe(map(data => data));
       }

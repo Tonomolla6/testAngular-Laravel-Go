@@ -33,8 +33,6 @@ export class DiscotecaDetailsComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.discoteca = data.discoteca;
       this.events = data.discoteca.Events
-      
-      console.log("DISCOTECA: ", data.discoteca.Events)
     });
   }
 

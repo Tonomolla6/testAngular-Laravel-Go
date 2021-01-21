@@ -28,10 +28,8 @@ export class UserService {
   // This runs once on application startup.
   populate() {
     // If JWT detected, attempt to get & store user's info
-    console.log("populate");
 
     let token = this.jwtService.getToken();
-    console.log("admin@gmail.com");
     if (token) {
       this.apiService.usersCheckToken('/user/logued')
       .subscribe(
@@ -48,7 +46,6 @@ export class UserService {
   }
 
   setAuth(user: User) {
-    console.log("setAuth");
     // Save JWT sent from server in localstorage
     this.jwtService.saveToken(user.Bearer);
     // Set current user data into observable
@@ -58,7 +55,6 @@ export class UserService {
   }
 
   setAuthAdmin(token: String) {
-    console.log("setAuthAdmin");
     // Save JWT sent from server in localstorage
     this.jwtService.saveAdminToken(token);
     // Set current user data into observable
@@ -68,7 +64,6 @@ export class UserService {
   }
 
   purgeAuth() {
-    console.log("cerrando sesion");
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object
@@ -86,10 +81,8 @@ export class UserService {
         if (data.user.type == "admin") { // Es administrador
           this.loginLaravel(credentials).subscribe(data =>{ console.log(data)});
         }
-
         this.setAuth(data.user);
 
-        console.log(data);
         if (type !== 'login')
           this.apiService.setProfile('/profile');
 
@@ -100,7 +93,6 @@ export class UserService {
 
   //Login en laravel admin
   loginLaravel(credentials:[]): Observable<User> {
-    // console.log("Login de laravel");
     return this.apiService.loginLaravel('/users/login', {user: credentials})
     .pipe(map(
       data => {

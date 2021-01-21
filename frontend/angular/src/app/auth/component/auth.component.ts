@@ -30,7 +30,6 @@ export class AuthComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log("NG on init auth component")
     this.route.url.subscribe(data => {
       // Coger la url para ver si muestras un formulario o otro.
       this.authType = data[data.length - 1].path;
@@ -42,11 +41,7 @@ export class AuthComponent implements OnInit {
 
   submitForm() {
     // Ejecutamos el servicio de usuario para hacer login
-    console.log("Submit form auth component");
     let credentials = this.authForm.value;
-
-    console.log(credentials);
-
     // localStorage.setItem('email',credentials.email)
     this.userService.attemptAuth(this.authType, credentials)
     .subscribe(

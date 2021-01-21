@@ -31,10 +31,6 @@ export class DiscotecaCreateComponent implements OnInit {
   }
 
   submitDisco() {
-    console.log("type of")
-    console.log(typeof(this.discoForm.value));
-    console.log(typeof({}))
-    
     this.discotecasService.createDiscoteca(this.discoForm.value)
     .subscribe(
       data => {
