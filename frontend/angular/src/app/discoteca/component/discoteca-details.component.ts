@@ -20,6 +20,7 @@ export class DiscotecaDetailsComponent implements OnInit {
   discoteca!: Discoteca;
   currentUser!: User;
   events!: [];
+  author!: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,15 +37,22 @@ export class DiscotecaDetailsComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.discoteca = data.discoteca;
       this.events = data.discoteca.Events
+
+
+      this.userService.currentUser.subscribe(
+        (userData)=> {
+          this.currentUser = userData;
+        }
+      )
+
+      data.discoteca.User == this.currentUser.id?this.author=true:this.author=false;
+
     });
 
-    this.userService.currentUser.subscribe(
-      (userData)=> {
-        this.currentUser = userData;
-      }
-    )
+    
   }
 
+  //LIKE
   onFavorite() {
     if (this.discoteca.Liked) {//Quitar el favorito
       this.discotecasService.unfavorite(this.discoteca.Id)
@@ -69,4 +77,17 @@ export class DiscotecaDetailsComponent implements OnInit {
     }
 
   }
+
+  //DELETE
+  deleteDisco(){
+    // console.log("Delete disco")
+    // console.log(this.discoteca)
+    this.discotecasService.deleteDisco(this.discoteca.Id).subscribe(data =>{
+      this.toastr.success("Disco deleted!")
+    },
+    err => this.toastr.error("Error en el delete")
+    )
+  }
+
+
 }

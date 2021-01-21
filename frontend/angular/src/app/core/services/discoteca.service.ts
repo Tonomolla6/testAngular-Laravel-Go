@@ -24,6 +24,12 @@ export class DiscotecasService {
         }));
       }
 
+      deleteDisco(id: Observable<Discoteca>){
+        return this.apiService.deleteDisco('/discotecas/'+id).pipe(map(data => {
+          return data;
+        }))
+      }
+
       //Details
       get(id: Observable<Discoteca>) {
         return this.apiService.discotecasGet('/discotecas/' + id)
