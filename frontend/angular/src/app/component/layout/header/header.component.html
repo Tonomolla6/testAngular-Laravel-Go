@@ -41,23 +41,23 @@
                     </li> -->
                     <li routerLink="/discoteca/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                         <i class="fas fa-glass-cheers"></i>
-                        <p>Crear Discoteca</p>
+                        <p>Create Disco</p>
                     </li>
                     <li>
                         <i class="fas fa-calendar-week"></i>
-                        <p>Crear Evento</p>
+                        <p>Create Event</p>
                     </li>
                     <li routerLink="/company/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngIf="this.currentUser.type == 'admin'">
                         <i class="fas fa-building"></i>
-                        <p>Crear Compañia</p>
+                        <p>Create Company</p>
                     </li>
-                    <li *ngIf="this.currentUser.type == 'admin'" routerLink="/profile/reports" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+                    <li *ngIf="this.currentUser.type == 'admin'" class="admin" routerLink="/profile/reports" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                         <i class="fas fa-chart-area"></i>
-                        <p>Estadisticas</p>
+                        <p>statistics</p>
                     </li>
                     <li (click)="this.logOut()">
                         <i class="fas fa-sign-out-alt"></i>
-                        <p>Cerrar sessión</p>
+                        <p>log out</p>
                     </li>
                 </ul>
             </div>
