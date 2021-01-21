@@ -3,7 +3,7 @@
     <div class="page">
         <h1>Users who have put your clubs as one</h1>
         <hr>
-        <div *ngFor="let discoteca of reports" class="discoteca">
+        <div *ngIf="discoteca.users" *ngFor="let discoteca of reports" class="discoteca">
             <h2 routerLink="/discoteca/{{discoteca.id}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">{{discoteca.name}}</h2>
             <div class="usuarios">
                 <div *ngFor="let user of discoteca.users" class="usuario">
