@@ -25,16 +25,30 @@
         </div>
 
         <div class="component">
-            <h1>Tus discotecas</h1>  
-            <div *ngFor="let discoteca of discotecas">
-                <p>{{discoteca.name}}</p>
+            <h2>Tus discotecas</h2>  
+            <hr>
+            <div class="elements">
+                <div *ngFor="let discoteca of discotecas" class="element">
+                    <img src="https://picsum.photos/id/{{discoteca.id}}/200" alt="">
+                    <p>{{discoteca}}</p>
+                </div>
             </div>
         </div>
 
-        <div class="component">
-            <h1>Tus compañias</h1>  
-            <div *ngFor="let company of companies">
-                <p>{{company.name}}</p>
+        <div *ngIg="currentUser.type == 'admin'" class="component">
+            <h2>Tus compañias</h2>  
+            <hr>
+            <div class="elements">
+                <div *ngFor="let company of companies" class="element">
+                    <img src="https://picsum.photos/id/2/200" alt="">
+                    <p>{{company.name}}</p>
+                </div>
+                <div routerLink="/company/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="element plus">
+                    <div class="add">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <p>Add company</p>
+                </div>
             </div>
         </div>
     </div>

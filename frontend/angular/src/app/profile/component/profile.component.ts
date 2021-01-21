@@ -58,6 +58,8 @@ export class ProfileComponent implements OnInit {
 
     this.userService.currentUser.subscribe(
       (userData)=> {
+        this.currentUser = userData;
+        console.log(userData)
         this.discotecasService.getDiscotecasByUser(parseInt(userData.id)).subscribe(data => {  //Coger la id del current user y pasarla a getDiscotecasByUser(id)
           this.discotecas = data.discotecas;
         })

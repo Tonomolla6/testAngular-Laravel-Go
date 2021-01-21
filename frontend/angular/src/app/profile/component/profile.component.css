@@ -87,4 +87,61 @@
     margin-bottom: 50px;
     width: 70%;
     padding: 50px;
+    font-family: var(--font-primary);
+}
+
+.page .component h2{
+    font-size: 65px;    
+}
+
+.page .component hr {
+    height: 6px;
+    border: none;
+    background-color: var(--color-primary);
+    width: 30%;
+    margin-bottom: 30px;
+}
+
+.page .component .elements {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.page .component .elements p{
+    font-size: 30px;
+    text-align: center;
+}
+
+.page .component .elements p{
+    font-size: 30px;
+    text-align: center;
+}
+
+.page .component .elements .element {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px;
+}
+
+.page .component .elements .element.plus {
+    cursor: pointer;
+}
+
+.page .component .elements .element.plus:hover {
+    color: var(--color-primary);
+}
+
+.page .component .elements .element.plus:hover > .add {
+    border-color: var(--color-primary);
+}
+
+.page .component .elements .element.plus .add {
+    border: 10px solid black;
+    padding: 30px;
+}
+
+.page .component .elements .element.plus .add i {
+    font-size: 130px;
 }
