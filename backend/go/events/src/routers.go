@@ -1,7 +1,7 @@
 package events
 
 import (
-	"fmt"
+	// "fmt"
 	"errors"
 	"goApp/common"
 	"github.com/gin-gonic/gin"

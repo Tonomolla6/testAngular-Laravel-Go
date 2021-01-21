@@ -97,6 +97,7 @@ func DiscotecaById(c *gin.Context) {
 			var eventsDisco []Events;
 			// //Pasamos id a uint 64
 			u, err := strconv.ParseUint(id, 10, 64)
+			fmt.Println(err)
 
 			eventsDisco = GetEventsDisco(uint(u))
 			discoteca.Events = eventsDisco;
