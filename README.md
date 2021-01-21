@@ -1,9 +1,5 @@
 # THE GREAT MELON
-
-This 
-
-
- hola
+![alt text](./img/logo.png)
 
 ## Instalar php
 sudo apt-get install apache2 php7.3 libapache2-mod-php7.3

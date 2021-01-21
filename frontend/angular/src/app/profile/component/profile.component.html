@@ -9,16 +9,16 @@
             <!-- <p>ole los canelones {{profile.Name}}</p> -->
             <form [formGroup]="profileForm">
                 <label for="name">Name</label>
-                <input type="text" formControlName="name" placeholder={{profile.Name}} value={{profile.Name}}/><!--placeholder={{profile.Name}}-->
+                <input type="text" formControlName="name" placeholder={{profile.Name}}/><!--placeholder={{profile.Name}}-->
  
                 <label for="surname">Surname</label>
-                <input type="text" formControlName="surname" placeholder={{profile.Surname}} value={{profile.Surname}}/> <!--value={{profileForm.Surname}}-->
+                <input type="text" formControlName="surname" placeholder={{profile.Surname}} /> <!--value={{profileForm.Surname}}-->
 
                 <label for="description">Description</label>
-                <textarea rows="5" cols="10" formControlName="description" placeholder={{profile.Description}} value={{profile.Description}}></textarea> <!--value={{profileForm.Description}}-->
+                <textarea rows="5" cols="10" formControlName="description" placeholder={{profile.Description}} ></textarea> <!--value={{profileForm.Description}}-->
 
                 <label for="bio">Bio</label>
-                <textarea rows="5" cols="10" formControlName="bio" placeholder={{profile.Bio}} value={{profile.Bio}}></textarea> <!--value={{profileForm.Bio}}-->
+                <textarea rows="5" cols="10" formControlName="bio" placeholder={{profile.Bio}}></textarea> <!--value={{profileForm.Bio}}-->
 
                 <button (click)="submitProfile()" class="button">Update</button>
             </form>
