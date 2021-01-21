@@ -126,6 +126,17 @@ export class ApiService {
         return this.http.get(`${environment.api_laravel}${path}`, { headers })
 
       }
+
+      //Get all companies
+      getAllCompanies(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+
+        // path = "http://localhost:8000/api/companies"
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+
+        return this.http.get(`${environment.api_laravel}${path}`, { headers })
+
+      }
       
       updateProfile(path: string, data: Object,  params: HttpParams = new HttpParams()): Observable<any>{
         let headers = new HttpHeaders();
