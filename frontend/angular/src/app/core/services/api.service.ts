@@ -66,6 +66,16 @@ export class ApiService {
           .pipe(catchError(this.formatErrors));
       }
 
+      deleteDisco(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        let options = {headers: headers};
+
+        return this.http.delete(`${environment.api_go_discotecas}${path}`,options )
+          .pipe(catchError(this.formatErrors));
+
+      }
+
       discotecasPost(path: string, data: Discoteca): Observable<any> {
 
 

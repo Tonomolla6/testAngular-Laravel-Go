@@ -14,13 +14,17 @@
           </button>
           <p><i class="far fa-eye"></i> {{ discoteca.views }}</p>
         </div>
+
+        <div *ngIf="this.author" class="author_section" >
+          <p><i (click)="deleteDisco()" class="fas fa-trash delete"></i></p>
+        </div>
         
         <br>
         <br>
             <h2>Eventos</h2>
             <hr style="height: 4px;" class="discoteca-bar">
             <div *ngFor="let event of events">
-                <p>{{event}}</p>
+                <p>{{event.name}}</p>
             </div>
 
             <h2>Compañia</h2>
