@@ -138,3 +138,8 @@ body {
     margin: 10px 10px 40px 40px;
     background-color: var(--color-primary);
 }
+
+.event{
+    margin: 10px;
+    font-family: var(--font-primary);
+}

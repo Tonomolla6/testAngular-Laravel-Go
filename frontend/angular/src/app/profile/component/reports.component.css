@@ -63,3 +63,10 @@
     font-weight: bold;
     font-size: 20px;
 }
+
+.reports .info{
+    margin: 20px;
+    font-family: var(--font-primary);
+    color: var(--color-primary);
+    font-size: 40px;
+}
