@@ -63,26 +63,14 @@ class UserController extends Controller
         return response()->json(compact('user'), 201);
     }
 
-    public function getCompaniesFromUser($email) {
-        $auth = self::getAuthenticatedUser();
+    public function getCompaniesFromUser() {
+        $user = self::getAuthenticatedUser();
+        $user = $user->original["user"];
+        $companies = $user->load('companies')->first();
+        $companies= $companies->companies;
 
-        if ($auth->original["user"]->email != $email) {
-            return response()->json([
-                "message" => "User does not have permissions"
-              ], 404);
-        }
-
-        if (User::where('email', $email)->exists()) {
-          $user = User::where('email', $email)->get();
-          $companies = $user->load('companies')->first();
-
-          return response()->json($companies->companies, 200);
-        } else {
-          return response()->json([
-            "message" => "Company not found"
-          ], 404);
-        }
-      }
+        return response()->json($companies, 200);
+    }
 
 
     public static function getAuthenticatedUser()
