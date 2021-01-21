@@ -1,0 +1,65 @@
+.reports {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 60px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: calc(100vh - 330px);
+    background-image: url("https://zone1-ibizaspotlightsl.netdna-ssl.com/sites/default/files/styles/auto_1500_width/public/article-images/135189/slideshow-1569845072.jpg");
+}
+
+.reports .page {
+    width: 70%;
+    background-color: white;
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.reports .page h1 {
+    font-size: 50px;
+}
+
+.reports .page hr {
+    background-color: var(--color-primary);
+    height: 6px;
+    width: 30%;
+    border: none;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+
+.reports .page h2 {
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.reports .page h2:hover {
+    color: var(--color-primary);
+}
+
+.reports .usuarios {
+    width: 100%;
+    display: flex;
+}
+
+.reports .usuario {
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.reports .usuario img {
+    width: 100px;
+    border-radius: 100%;
+    border: 6px solid black;
+}
+
+.reports .usuario p {
+    font-weight: bold;
+    font-size: 20px;
+}
