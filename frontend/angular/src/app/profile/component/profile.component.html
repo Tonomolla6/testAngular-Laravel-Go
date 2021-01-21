@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div *ngIg="currentUser.type == 'admin'" class="component">
+        <div *ngIf="currentUser.type == 'admin'" class="component">
             <h2>Tus compañias</h2>  
             <hr>
             <div class="elements">

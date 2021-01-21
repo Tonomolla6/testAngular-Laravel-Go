@@ -89,6 +89,4 @@ export class DiscotecaDetailsComponent implements OnInit {
       err => this.toastr.error("Error en el delete")
     )
   }
-
-
 }
