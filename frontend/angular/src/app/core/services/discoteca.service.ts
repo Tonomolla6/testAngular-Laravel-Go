@@ -18,13 +18,15 @@ export class DiscotecasService {
         }));
       }
 
+      //GET discotecas de un user
       getDiscotecasByUser(id: number) {
         return this.apiService.discotecasGet('/discotecas/'+id+'/user').pipe(map(data => {
           return data;
         }));
       }
 
-      deleteDisco(id: Observable<Discoteca>){
+      //Delete discoteca by id
+      deleteDisco(id: number){
         return this.apiService.deleteDisco('/discotecas/'+id).pipe(map(data => {
           return data;
         }))
@@ -48,6 +50,7 @@ export class DiscotecasService {
           .pipe(map(data => data.discoteca));
       }
 
+      //Create discoteca
       createDiscoteca(data: Discoteca) {
         return this.apiService.discotecasPost('/discotecas', data)
           .pipe(map(data => data));
