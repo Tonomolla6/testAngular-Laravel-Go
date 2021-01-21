@@ -152,13 +152,12 @@ export class ApiService {
       }
 
       // Reports
-      gerReports(path: string, params: HttpParams = new HttpParams()): Observable<any> {
+      getReports(path: string, params: HttpParams = new HttpParams()): Observable<any> {
         let headers = new HttpHeaders();
-        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getAdminToken());
         console.log(headers);
         
         return this.http.get(`${environment.api_laravel}${path}`, { headers })
-
       }
       
       updateProfile(path: string, data: Object,  params: HttpParams = new HttpParams()): Observable<any>{
