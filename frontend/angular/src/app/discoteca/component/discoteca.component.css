@@ -102,3 +102,8 @@ body {
 .popularidad i {
     font-size: 22px;
 }
+
+.delete:hover{
+    cursor: pointer;
+    color: red;
+}
