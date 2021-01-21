@@ -125,6 +125,17 @@
     margin: 25px;
 }
 
+.page .component .elements .element.discoteca {
+    cursor: pointer;
+}
+.page .component .elements .element.discoteca:hover {
+    color: var(--color-primary);
+}
+
+.page .component .elements .element p {
+    margin-top: 10px
+}
+
 .page .component .elements .element.plus {
     cursor: pointer;
 }

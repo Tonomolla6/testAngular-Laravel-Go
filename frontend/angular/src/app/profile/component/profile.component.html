@@ -28,9 +28,15 @@
             <h2>Tus discotecas</h2>  
             <hr>
             <div class="elements">
-                <div *ngFor="let discoteca of discotecas" class="element">
-                    <img src="https://picsum.photos/id/{{discoteca.id}}/200" alt="">
+                <div routerLink="/discoteca/{{discoteca.Id}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" *ngFor="let discoteca of discotecas" class="element discoteca">
+                    <img src="https://picsum.photos/id/{{discoteca.Id}}/200" alt="">
                     <p>{{discoteca.name}}</p>
+                </div>
+                <div routerLink="/discoteca/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="element plus">
+                    <div class="add">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <p>Add club</p>
                 </div>
             </div>
         </div>
