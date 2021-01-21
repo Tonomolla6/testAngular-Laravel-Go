@@ -1,10 +1,22 @@
 # THE GREAT MELON
 ![alt text](./img/logo.png)
 
-## How it works? 📖
+## Cómo funciona? 📖
 
-Find out about all the parties around you in this app! 
-You can also create your own parties and post them.
+¡Entérate de todas las fiestas que te rodean en esta aplicación!
+También puede crear sus propias fiestas y publicarlas.
+Proyecto creado con angular, laravel y go con microservicios.
+
+![alt text](./img/img1.png)
+![alt text](./img/img2.png)
+![alt text](./img/img3.png)
+![alt text](./img/img4.png)
+![alt text](./img/img5.png)
+![alt text](./img/img6.png)
+![alt text](./img/img7.png)
+![alt text](./img/img8.png)
+![alt text](./img/img9.png)
+![alt text](./img/img10.png)
 
 ## Comenzando 🚀
 
@@ -124,7 +136,7 @@ sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_
 sudo apt install pgadmin4
 
 
-Cosas que hemos hecho
+## Cosas que hemos hecho
 
 - Home, Shop Go: list/details
     - Home en angular y go
@@ -144,13 +156,13 @@ Cosas que hemos hecho
     - Entradas, Discotecas, Events, Users y Profiles.
 
 - Relationships Go/Laravel.
-    - Laravel: Falta las relationsShips
+    - Laravel: Usuarios a compañias.
     - Go: M - M, Users - Favoritos
 
 - Home/Shop Go: users més populars, articles més comprats, ... PanelAdmin Laravel: dashboard amb estadístiques.
     - Go: discotecas mas visitadas, 
-    -> FALTA DISCOTECAS MAS POPULARES, EVENTOS CON MAS VENTAS
-    -> FALTA DASHBOARD CON ESTADISTICAS DE REDIS.
+    - Go: DISCOTECAS MAS POPULARES, EVENTOS CON MAS VENTAS
+    - Laravel: DASHBOARD CON ESTADISTICAS DE REDIS.
     
 - Profile:
     - List your profile
@@ -159,7 +171,7 @@ Cosas que hemos hecho
     - Mejora de seguridad, doble comprobacion del id del usuario al hacer get de sus discotecas, tiene que recibir bearer y el id del user
 
 - Readme.
-    -> FALTA EMPEZAR A HACERLO
+    - hecho.
 
 Improvents:
     1. Collection en postman con todas las apis disponibles del backend (Exportadas en el repositorio de github)
@@ -170,23 +182,19 @@ Improvents:
     6. Middlewares de seguridad en laravel para la validacion de JWT
     7. Seeders de usuarios en Laravel.
     8. Toastr Angular. 
-    9.
-    10.
-    11.
-    12.
-    13.
-    14.
-    15.
-    16.
-
-Faciles
-- seed_Go/Laravel.
-- validate register BE Go.
-
-Dificiles
-- Angular Redux (ngrx): list/details shop o CRUD PanelAdmin.
-- middleware admin_guard Angular.
-- Nivells de seguretat microservices middleware_auth.
-- Relationships Go/Laravel: traits, emitters, related, association, ...
+    9. Nivells de seguretat microservices middleware_auth.
+    10. Relationships Go/Laravel: traits, emitters, related, association, ...
 slug, author, tags, pager, favorites, follow, comments, buys, ...
-- L'admin puga fer compres.
+    11. seed_Go/Laravel.
+    12. validate register BE Go.
+    13. Middleware propio de CORS para laravel.
+    14. Utilización de proxy en angular.
+    15. Login administrador con doble token para laravel y go.
+    16. Componentes de angular que se ven depende del tipo del usuario logeado.
+    17. Que tanto el administrador como el cliente puedan borrar sus discotecas.
+    18. Utilización de todos los tipos mas populares de llamadas api rest en laravel.
+
+
+PROJECT CREATED BY
+@xema.maestre
+@tonomolla6
