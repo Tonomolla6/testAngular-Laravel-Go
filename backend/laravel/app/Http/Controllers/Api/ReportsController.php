@@ -22,6 +22,9 @@ class ReportsController extends Controller
         foreach ($discotecas as $key => $discoteca) {
             $redis = Redis::get($discoteca->id);
             error_log(json_encode($redis));
+            if (substr($redis, 0, 1) === ',') { 
+                $redis = substr($redis, 1);
+            }
 
             $total = "(".$redis.")";
             error_log(json_encode($total));
