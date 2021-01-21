@@ -23,7 +23,7 @@ export class CompanyService {
     }
 
     getCompanies(): Observable<Company[]> {
-        return this.apiService.getAllCompanies('/companies')
+        return this.apiService.getAllCompanies('/users/companies')
         .pipe(map(data => data));
     }
 }
