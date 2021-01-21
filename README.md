@@ -138,6 +138,8 @@ sudo apt install pgadmin4
 
 ## Cosas que hemos hecho
 
+### Consultar endpoins de postman (EL GRAN MELON.postman_collection.json)
+
 - Home, Shop Go: list/details
     - Home en angular y go
     -> FALTA EL SHOP
@@ -173,7 +175,7 @@ sudo apt install pgadmin4
 - Readme.
     - hecho.
 
-Improvents:
+Improvements:
     1. Collection en postman con todas las apis disponibles del backend (Exportadas en el repositorio de github)
     2. Validacion de go y laravel en el register, contraseña mas de 6 digitos, correo valido...
     3. Utilizacion de validaciones en crud de usuario y request en laravel
@@ -193,6 +195,8 @@ slug, author, tags, pager, favorites, follow, comments, buys, ...
     16. Componentes de angular que se ven depende del tipo del usuario logeado.
     17. Que tanto el administrador como el cliente puedan borrar sus discotecas.
     18. Utilización de todos los tipos mas populares de llamadas api rest en laravel.
+    19. Visitas a discotecas autoincrementales.
+    20. Utilización de redis para datos volatiles como likes de discotecas que laravel recoge y ofrece una api para angular.
 
 
 PROJECT CREATED BY

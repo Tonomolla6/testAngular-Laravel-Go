@@ -1,0 +1,955 @@
+{
+	"info": {
+		"_postman_id": "86799f90-184a-4346-bcc2-46a59c616c6f",
+		"name": "EL GRAN MELON",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "GO",
+					"item": [
+						{
+							"name": "LOGIN",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\":{\n        \"email\":\"admin@gmail.com\",\n        \"password\":\"123456789\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://users.docker.localhost/api/users/login",
+									"protocol": "http",
+									"host": [
+										"users",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "REGISTER",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\":{\n        \"email\":\"xema@gmail.com\",\n        \"password\":\"123456789\",\n        \"username\":\"xema\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://users.docker.localhost/api/users",
+									"protocol": "http",
+									"host": [
+										"users",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getLoguedUser",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTEyNDM2NjEsImlkIjoyfQ.Unym38y3vArNOMOm4oRyTANMx3S5cRjjpx7d9kyGHbc",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://users.docker.localhost/api/user/logued",
+									"protocol": "http",
+									"host": [
+										"users",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"user",
+										"logued"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user by Username",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTEzMTcyNzgsImlkIjoyfQ.vMzMb_VZwiP01ox9EZ0ZzV4_jyaqe5LHDDepYLfDLTg",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://users.docker.localhost/api/profiles/xema",
+									"protocol": "http",
+									"host": [
+										"users",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"profiles",
+										"xema"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LARAVEL",
+					"item": [
+						{
+							"name": "LOGIN",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"user\":{\"email\":\"demo2@gmail.com\",\"password\":\"123456789\"}}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/users/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "REGISTER",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"demo2@gmail.com\",\n    \"password\":\"123456789\",\n    \"password_confirmation\":\"123456789\",\n    \"username\":\"tono\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/users/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"users",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "USER AUTHENTICATED",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC91c2Vyc1wvbG9naW4iLCJpYXQiOjE2MTA4Nzk3MzAsImV4cCI6MTYxMDg4MzMzMCwibmJmIjoxNjEwODc5NzMwLCJqdGkiOiJDRTJ0cGRBb3VRZFY1b1dyIiwic3ViIjoyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.oP2Adp87lOnRwzNZ0u4N9TJJcI0HLiBPrm15GxkjWrs",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET COMPANIES FROM USER",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6ODAwMFwvYXBpXC91c2Vyc1wvbG9naW4iLCJpYXQiOjE2MTA4Nzk3MzAsImV4cCI6MTYxMDg4MzMzMCwibmJmIjoxNjEwODc5NzMwLCJqdGkiOiJDRTJ0cGRBb3VRZFY1b1dyIiwic3ViIjoyLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.oP2Adp87lOnRwzNZ0u4N9TJJcI0HLiBPrm15GxkjWrs",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/api/users/companies/demo2@gmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"users",
+										"companies",
+										"demo2@gmail.com"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "discotecas",
+			"item": [
+				{
+					"name": "GO",
+					"item": [
+						{
+							"name": "CREATE",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTEzMTcxMjMsImlkIjoyfQ.7t04a9f22Ab8jPYDgOXoH0ZTizfkRRU4PSaj6CaAevc"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"Discoteca prueba admin\",\n    \"description\": \"Discoteca del gran melon\",\n    \"postal\": \"89563\",\n    \"location\":\"Ontinyent\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://discotecas.docker.localhost/api/discotecas",
+									"protocol": "http",
+									"host": [
+										"discotecas",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"discotecas"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET COUNT FAVORITES AND IF USER",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTA3OTMwMDYsImlkIjoxfQ.2V0efhq7enI4MMQRlZ2VGsRSKuTrdTPYT_Tf-_ZZJUE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://discotecas.docker.localhost/api/discotecas/1/liked",
+									"protocol": "http",
+									"host": [
+										"discotecas",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"discotecas",
+										"1",
+										"liked"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET ONE",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTEwODUwODQsImlkIjoyfQ.xb28zDQ4ROqqjKFEVmVRvt_PpmZe-aQL6zXaNO8QQIE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://discotecas.docker.localhost/api/discotecas/1",
+									"protocol": "http",
+									"host": [
+										"discotecas",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"discotecas",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CREATE FAVORITE",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://discotecas.docker.localhost/api/discotecas/6/favorite",
+									"protocol": "http",
+									"host": [
+										"discotecas",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"discotecas",
+										"6",
+										"favorite"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DELETE FAVORITE",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTEwODUwODQsImlkIjoyfQ.xb28zDQ4ROqqjKFEVmVRvt_PpmZe-aQL6zXaNO8QQIE",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://discotecas.docker.localhost/api/discotecas/5/unfavorite",
+									"protocol": "http",
+									"host": [
+										"discotecas",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"discotecas",
+										"5",
+										"unfavorite"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IsLikedBy",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTA3OTY2OTgsImlkIjoxfQ.p8UZsQYGDGWft8QsFXkCkAhfLUVZ1e_quQFSu0noa_4",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://discotecas.docker.localhost/api/discotecas/2/liked",
+									"protocol": "http",
+									"host": [
+										"discotecas",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"discotecas",
+										"2",
+										"liked"
+									],
+									"query": [
+										{
+											"key": "Authorization",
+											"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTA3OTY2OTgsImlkIjoxfQ.p8UZsQYGDGWft8QsFXkCkAhfLUVZ1e_quQFSu0noa_4",
+											"disabled": true
+										},
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GET DISCOTECAS BY USER",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTEyMjYwNjYsImlkIjoyfQ.GeF8l-rhtjL4r8M23zbSZ2S0Z25ZDIvdy6hxHHypHSs",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://discotecas.docker.localhost/api/discotecas/2/user",
+									"protocol": "http",
+									"host": [
+										"discotecas",
+										"docker",
+										"localhost"
+									],
+									"path": [
+										"api",
+										"discotecas",
+										"2",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LARAVEL",
+					"item": [
+						{
+							"name": "CREATE",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"OTK\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/api/discoteca",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"discoteca"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTEzMTcwMjEsImlkIjoyfQ.UfGDrytok7KFwLw3C3Mzvb7E-iTwwjOk-FZaXhgNoRM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Xema\",\n    \"surname\":\"Maestre Quiles\",\n    \"description\": \"Ninguna por el momento\",\n    \"bio\": \"ole los canelones\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://profile.docker.localhost/api/profile",
+							"protocol": "http",
+							"host": [
+								"profile",
+								"docker",
+								"localhost"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTExNjAwMjEsImlkIjoyfQ.fo9vTZh1iTzV9ENvOAM5nHA5AgYZc6J2zV1dgFfsc4k",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://profile.docker.localhost/api/profile/user",
+							"protocol": "http",
+							"host": [
+								"profile",
+								"docker",
+								"localhost"
+							],
+							"path": [
+								"api",
+								"profile",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTExMzg1MjYsImlkIjoyfQ.V3vpHFZTbxdIOEVAtRuHslUnnbGqUYNOFds9rWLT5TM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Xema updated\",\n    \"surname\":\"Maestre quiles\",\n    \"description\":\"opcional\",\n    \"bio\":\"aun ninguna\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://profile.docker.localhost/api/profile/user",
+							"protocol": "http",
+							"host": [
+								"profile",
+								"docker",
+								"localhost"
+							],
+							"path": [
+								"api",
+								"profile",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "companies",
+			"item": [
+				{
+					"name": "GET ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/companies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"companies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET COMPANY",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/company/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"company",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": 2,\n    \"user_id\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/company",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"pepe2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/company/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"company",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/company/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"company",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET USER FROM COMPANY",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/company/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"company",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ENTRADAS",
+			"item": [
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://entradas.docker.localhost/api/entradas",
+							"protocol": "http",
+							"host": [
+								"entradas",
+								"docker",
+								"localhost"
+							],
+							"path": [
+								"api",
+								"entradas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createEntrada",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTA3MzczODQsImlkIjoxfQ.zNSf43AigRyoMDYWBuUlph77iESdyY__NXJSqNvnVZw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"event\":1,\n    \"price\":22\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://entradas.docker.localhost/api/entradas",
+							"protocol": "http",
+							"host": [
+								"entradas",
+								"docker",
+								"localhost"
+							],
+							"path": [
+								"api",
+								"entradas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTEzMTcyNzgsImlkIjoyfQ.vMzMb_VZwiP01ox9EZ0ZzV4_jyaqe5LHDDepYLfDLTg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Event Gran melon\",\n    \"description\":\"Sala 3\",\n    \"start_date\":\"31-12-2021\",\n    \"start_time\":\"00:00\",\n    \"entradas\": 300,\n    \"entradas_sold\": 250,\n    \"price\": 7,\n    \"consumicion\": true,\n    \"discoteca\": 4\n\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://events.docker.localhost/api/events",
+							"protocol": "http",
+							"host": [
+								"events",
+								"docker",
+								"localhost"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://events.docker.localhost/api/events",
+							"protocol": "http",
+							"host": [
+								"events",
+								"docker",
+								"localhost"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3Q6NDIwMFwvYXBpXC91c2Vyc1wvbG9naW4iLCJpYXQiOjE2MTEyMzQxODMsImV4cCI6MTYxMTIzNzc4MywibmJmIjoxNjExMjM0MTgzLCJqdGkiOiI0RERXRlNhUTc4Z2tzQ244Iiwic3ViIjoxLCJwcnYiOiI4N2UwYWYxZWY5ZmQxNTgxMmZkZWM5NzE1M2ExNGUwYjA0NzU0NmFhIn0.vGCSuUWRqJkYsPukoGdIt7SKISLXCF67OwY_6nRM8aI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/api/reports",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"reports"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
