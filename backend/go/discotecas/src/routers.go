@@ -193,7 +193,16 @@ func DiscotecaDelete(c *gin.Context){
 	if err != nil{
 		c.JSON(http.StatusNotFound, common.NewError("discotecas", errors.New("Invalid id")))
 		return
-	} 
+	}
+	
+	//Borrar discoreca de redis
+	client := common.NewClient()
+	err2 :=  common.DeleteDiscoRedis(id,client)
+
+	if err2 != nil{
+		fmt.Println("Error deleting redis");
+	}
+
 
 	c.JSON(http.StatusOK, gin.H{"discoteca": "Delete Discoteca"})
 
