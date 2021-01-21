@@ -28,7 +28,7 @@ func ProfilesAnonymousRegister(router *gin.RouterGroup) {
 
 //CREATE
 func ProfileCreate(c *gin.Context){
-	fmt.Println("DENTRO DE CREATE PROFILE")
+	fmt.Println("DENTRO DE CREATE PROFILE") 
 	var profile Profile
 	c.BindJSON(&profile);
 

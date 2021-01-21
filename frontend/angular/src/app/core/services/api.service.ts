@@ -113,8 +113,10 @@ export class ApiService {
         headers = headers.set('Authorization', 'Bearer ' + token);
         let options = {headers: headers};
 
-        
-        return this.http.post(`${environment.api_go_profile}${path}`, {profile}, options)
+        console.log("ANTES DE CREAR el profile del user acabado de registrar")
+        console.log(`${environment.api_go_profile}${path}`)
+        console.log(token)
+        return this.http.post(`${environment.api_go_profile}${path}`, profile, options)
         .pipe(catchError(this.formatErrors));
       }
 

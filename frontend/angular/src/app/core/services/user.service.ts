@@ -84,7 +84,8 @@ export class UserService {
         this.setAuth(data.user);
 
         if (type !== 'login')
-          this.apiService.setProfile('/profile');
+          this.apiService.setProfile('/profile').subscribe(); //data =>{ console.log(data)}
+        
 
         return data;
       }
