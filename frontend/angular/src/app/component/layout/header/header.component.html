@@ -22,7 +22,7 @@
         </ul>
 
         <ul (click)="this.changeShow()" *ngIf="this.currentUser.username" class="menu_loged">
-            <img class="logo_img" src="https://thispersondoesnotexist.com/image" alt="">
+            <img class="logo_img" src="https://picsum.photos/id/{{currentUser.id + 10}}/200/300" alt="">
             <p>{{currentUser.username}}</p>
             <i class="fas fa-angle-down"></i>
             <div *ngIf="this.show" class="dropable">

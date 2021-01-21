@@ -30,7 +30,7 @@ class ReportsController extends Controller
             error_log(json_encode($total));
 
             if ($redis){
-                $users = DB::select("SELECT username,email FROM users WHERE id in $total");
+                $users = DB::select("SELECT username,email,id FROM users WHERE id in $total");
                 $discotecas[$key]->users = $users;
             } else {
                 $discotecas[$key]->users = null;
