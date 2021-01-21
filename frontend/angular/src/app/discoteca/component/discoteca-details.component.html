@@ -11,7 +11,7 @@
           <button class="favoritos" (click)="onFavorite()"> 
             <i [className]="discoteca.Liked ? 'fas fa-heart' : 'far fa-heart'" id="favorite"></i> 
             <p>{{ discoteca.Likes }} </p>
-          </button> <!-- Añadir class favorited cuando le de y viceversa-->
+          </button>
           <p><i class="far fa-eye"></i> {{ discoteca.views }}</p>
         </div>
         
@@ -19,11 +19,9 @@
         <br>
             <h2>Eventos</h2>
             <hr style="height: 4px;" class="discoteca-bar">
-            <p *ngFor="let event of events">
-                <p>{{event}}</p>
-
-            </p>
-            <!-- <p>{{ events. }}</p> -->
+            <div *ngFor="let event of events">
+                <p>{{event.name}}</p>
+            </div>
 
             <h2>Compañia</h2>
             <hr style="height: 4px;" class="discoteca-bar">
@@ -34,9 +32,6 @@
         <hr style="height: 4px;" class="discoteca-bar">
         <p>Sed vitae velit odio. Ut mauris tortor, sagittis quis rutrum accumsan, pulvinar eget dolor. </p>
         <br>
-        
-        
-
         
       </div>
       <div class="details">
@@ -51,7 +46,5 @@
           Sed vitae velit odio. Ut mauris tortor, sagittis quis rutrum accumsan, pulvinar eget dolor. Donec commodo porta dignissim. Vivamus et ornare elit. In vel mollis risus. Nullam bibendum ut augue a dapibus. In hac habitasse platea dictumst.</p>
       </div>
     </div>
-    
-    <!-- <p>{{ discoteca.Id }}</p> -->
 </div>
 
