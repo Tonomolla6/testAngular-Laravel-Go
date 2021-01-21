@@ -132,7 +132,7 @@ export class ApiService {
 
         // path = "http://localhost:8000/api/companies"
         let headers = new HttpHeaders();
-        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getToken());
+        headers = headers.set('Authorization', 'Bearer ' + this.jwtService.getAdminToken());
 
         return this.http.get(`${environment.api_laravel}${path}`, { headers })
 

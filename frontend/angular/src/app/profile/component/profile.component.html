@@ -30,5 +30,12 @@
                 <p>{{discoteca.name}}</p>
             </div>
         </div>
+
+        <div class="component">
+            <h1>Tus compañias</h1>  
+            <div *ngFor="let company of companies">
+                <p>{{company.name}}</p>
+            </div>
+        </div>
     </div>
 </div>

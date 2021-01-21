@@ -21,4 +21,9 @@ export class CompanyService {
                 }
             ));
     }
+
+    getCompanies(): Observable<Company[]> {
+        return this.apiService.getAllCompanies('/companies')
+        .pipe(map(data => data));
+    }
 }

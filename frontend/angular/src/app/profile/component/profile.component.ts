@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Profile, ProfileService, UserService, User } from '../../core';
+import { Profile, ProfileService, UserService, User, CompanyService,Company } from '../../core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -21,10 +21,12 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
   profile!: Profile;
   currentUser!: User;
+  companies!: Company[];
 
   constructor(
     private profileService: ProfileService,
     private discotecasService: DiscotecasService,
+    private companyService: CompanyService,
     private router: Router,
     private fb: FormBuilder,
     private userService: UserService
@@ -66,6 +68,13 @@ export class ProfileComponent implements OnInit {
         this.discotecasService.getDiscotecasByUser(parseInt(userData.id)).subscribe(data => {  //Coger la id del current user y pasarla a getDiscotecasByUser(id)
           this.discotecas = data.discotecas;
         })
+      }
+    )
+
+    this.companyService.getCompanies().subscribe(
+      (companies)=> {
+        this.companies = companies;
+        console.log(this.companies);
       }
     )
   }

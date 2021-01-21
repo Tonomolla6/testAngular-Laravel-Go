@@ -46,5 +46,6 @@ export class DiscotecasService {
         return this.apiService.discotecasPost('/discotecas', data)
           .pipe(map(data => data));
       }
+      
 
 }
