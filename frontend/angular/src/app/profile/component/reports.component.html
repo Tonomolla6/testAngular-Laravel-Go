@@ -4,13 +4,14 @@
         <h1>Users who have put your clubs as one</h1>
         <hr>
         <div *ngFor="let discoteca of reports" class="discoteca">
-            <h2 *ngIf="discoteca.users" routerLink="/discoteca/{{discoteca.id}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">{{discoteca.name}}</h2>
+            <h2 routerLink="/discoteca/{{discoteca.id}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">{{discoteca.name}}</h2>
             <div *ngIf="discoteca.users" class="usuarios">
                 <div *ngFor="let user of discoteca.users" class="usuario">
                     <img src="https://picsum.photos/id/{{user.id + 10}}/200/200" alt="imagenes">
                     <p>{{user.username}}</p>
                 </div>
             </div>
+            <div *ngIf="!discoteca.users" class="info">No likes son this club</div>
         </div>
     </div>
 </div>
