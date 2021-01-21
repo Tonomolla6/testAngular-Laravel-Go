@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   discotecas!: Discoteca[];
   profileForm: FormGroup;
   profile!: Profile;
-  currentUser: User;
+  currentUser!: User;
 
   constructor(
     private profileService: ProfileService,
