@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService, User } from '../../core';
 import { Observable } from 'rxjs';
 import { DiscotecaPreviewComponent } from './discoteca-preview.component';
 import { ToastrService } from 'ngx-toastr';
@@ -17,13 +18,15 @@ import {
 export class DiscotecaDetailsComponent implements OnInit {
   @Input()
   discoteca!: Discoteca;
+  currentUser!: User;
   events!: [];
 
   constructor(
     private route: ActivatedRoute,
     private discotecasService: DiscotecasService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private userService: UserService
 
 
   ) { }
@@ -34,6 +37,12 @@ export class DiscotecaDetailsComponent implements OnInit {
       this.discoteca = data.discoteca;
       this.events = data.discoteca.Events
     });
+
+    this.userService.currentUser.subscribe(
+      (userData)=> {
+        this.currentUser = userData;
+      }
+    )
   }
 
   onFavorite() {

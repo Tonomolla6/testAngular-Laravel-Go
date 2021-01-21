@@ -10,7 +10,7 @@
     <section class="menu">
         <ul class="menu_pages">
             <li routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Homepage</li>
-            <li routerLink="/discotecas" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Disco</li>
+            <li routerLink="/discotecas" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Clubs</li>
             <li>Events</li>
             <li routerLink="/contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" >Contact</li>
         </ul>
@@ -41,7 +41,7 @@
                     </li> -->
                     <li routerLink="/discoteca/create" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                         <i class="fas fa-glass-cheers"></i>
-                        <p>Create Disco</p>
+                        <p>Create Club</p>
                     </li>
                     <li>
                         <i class="fas fa-calendar-week"></i>
@@ -53,11 +53,11 @@
                     </li>
                     <li *ngIf="this.currentUser.type == 'admin'" class="admin" routerLink="/profile/reports" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
                         <i class="fas fa-chart-area"></i>
-                        <p>statistics</p>
+                        <p>Reports</p>
                     </li>
                     <li (click)="this.logOut()">
                         <i class="fas fa-sign-out-alt"></i>
-                        <p>log out</p>
+                        <p>Log Out</p>
                     </li>
                 </ul>
             </div>

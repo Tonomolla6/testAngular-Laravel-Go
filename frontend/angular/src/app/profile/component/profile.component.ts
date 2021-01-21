@@ -2,12 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Profile, ProfileService, UserService, User, CompanyService,Company } from '../../core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
 
 import {
   Discoteca,
   DiscotecasService
 } from '../../core';
-
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +30,8 @@ export class ProfileComponent implements OnInit {
     private companyService: CompanyService,
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
 
   ) {
     this.profileForm = this.fb.group({
@@ -39,17 +41,8 @@ export class ProfileComponent implements OnInit {
       'bio': ['']  //new FormControl()
     });
 
-    // this.profile = {
-    //   Name: "",
-    //   Surname: "",
-    //   Description: "",
-    //   Bio: ""
-    // }
 
   }
-
-
-
 
   ngOnInit(): void {
 
@@ -86,14 +79,12 @@ export class ProfileComponent implements OnInit {
     },
       err => {
         if (err.profile) { //Todo ok porque el backend ha devuelto el perfil updated
-          alert("PErfil updated")
+          this.toastr.success("Perfil updated");
         } else {
-          alert("error en el update")
+          this.toastr.error("Perfil update error");
           console.log("Error de update: ", err)
         }
       }
     );
-
-
   }
 }
