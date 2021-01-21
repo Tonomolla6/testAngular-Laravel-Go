@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
   discoteca?: Discoteca;  //? es para decirle que es opcional  
   discotecas!: Discoteca[];
   profileForm: FormGroup;
-  profile!: Object;
+  profile!: Profile;
 
   constructor(
     private profileService: ProfileService,
@@ -35,12 +35,12 @@ export class ProfileComponent implements OnInit {
       'bio': ['']  //new FormControl()
     });
 
-    this.profile = {
-      Name: "",
-      Surname: "",
-      Description: "",
-      Bio: ""
-    }
+    // this.profile = {
+    //   Name: "",
+    //   Surname: "",
+    //   Description: "",
+    //   Bio: ""
+    // }
 
   }
 
@@ -51,6 +51,14 @@ export class ProfileComponent implements OnInit {
 
     this.profileService.get().subscribe(data => {
       this.profile = data.profile
+
+       //Get default value from user's profile
+      this.profileForm.value.name = data.profile.Name
+      this.profileForm.value.surname = data.profile.Surname
+      this.profileForm.value.bio = data.profile.Bio
+      this.profileForm.value.description = data.profile.Description
+
+      console.log("profile form vaLUEEEEEEE ", this.profileForm.value)
     });
 
     //Aqui pasarle el id del current_user
@@ -66,11 +74,7 @@ export class ProfileComponent implements OnInit {
 
   submitProfile() {
 
-    //Los errores son mentiras, si que existen esas propiedades
-    // if (this.profileForm.value.name == "") { this.profileForm.value.name = this.profile.Name; }
-    // if (this.profileForm.value.surname == "") { this.profileForm.value.surname = this.profile.Surname; }
-    // if (this.profileForm.value.bio == "") { this.profileForm.value.bio = this.profile.Bio; }
-    // if (this.profileForm.value.description == "") { this.profileForm.value.description = this.profile.Description; }
+    console.log("VALUE ANTES DE ENVIAR A TODOS:: ", this.profileForm.value)
 
     this.profileService.update(this.profileForm.value).subscribe(data => {
       // this.toastr.success("Profile Updated!");
