@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Profile, ProfileService } from '../../core';
+import { Profile, ProfileService, UserService, User } from '../../core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -20,12 +20,14 @@ export class ProfileComponent implements OnInit {
   discotecas!: Discoteca[];
   profileForm: FormGroup;
   profile!: Profile;
+  currentUser: User;
 
   constructor(
     private profileService: ProfileService,
     private discotecasService: DiscotecasService,
     private router: Router,
     private fb: FormBuilder,
+    private userService: UserService
 
   ) {
     this.profileForm = this.fb.group({
@@ -50,7 +52,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
 
     this.profileService.get().subscribe(data => {
-      this.profile = data.profile
+      this.profile = data.profile;
 
        //Get default value from user's profile
       this.profileForm.value.name = data.profile.Name
@@ -61,10 +63,13 @@ export class ProfileComponent implements OnInit {
       console.log("profile form vaLUEEEEEEE ", this.profileForm.value)
     });
 
-    //Aqui pasarle el id del current_user
-    this.discotecasService.getDiscotecasByUser(1).subscribe(data => {  //Coger la id del current user y pasarla a getDiscotecasByUser(id)
-      this.discotecas = data.discotecas;
-    })
+    this.userService.currentUser.subscribe(
+      (userData)=> {
+        this.discotecasService.getDiscotecasByUser(parseInt(userData.id)).subscribe(data => {  //Coger la id del current user y pasarla a getDiscotecasByUser(id)
+          this.discotecas = data.discotecas;
+        })
+      }
+    )
 
     //Aqui se le pasa el id del usuario al que le vamos a hacer la consulta
     // this.discotecasService.getDiscotecasByUser().subscribe(data => { 

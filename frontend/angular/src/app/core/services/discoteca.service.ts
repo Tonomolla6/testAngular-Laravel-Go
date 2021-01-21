@@ -51,6 +51,4 @@ export class DiscotecasService {
           .pipe(map(data => data));
       }
 
-
-      
 }
